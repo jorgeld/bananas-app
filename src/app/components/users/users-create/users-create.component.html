@@ -1,0 +1,24 @@
+<h1>Nuevo usuario</h1>
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label for="nombreapellidos">Nombre</label>
+      <input type="text" class="form-control" name="nombreapellidos" id="nombreapellidos" placeholder="Introduzca su nombre y apellidos" [(ngModel)]="nombre">
+    </div>
+    <div class="form-group">
+      <label for="nombreusuario">Nombre Usuario</label>
+      <input type="text" class="form-control" name="nombreusuario" id="nombreusuario" placeholder="Introduzca un nombre de usuario" [(ngModel)]="nombreUsuario">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email</label>
+      <input type="email" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduzca el email" [(ngModel)]="email">
+      <small id="emailHelp" class="form-text text-muted">No se ha debido usar el email anteriormente.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" name="exampleInputPassword1" id="exampleInputPassword1" placeholder="Introduzca un password" [(ngModel)]="pass">
+    </div>
+    <button type="submit" class="btn btn-primary" style="cursor: pointer" (click)="newUser()">Crear nuevo usuario</button>
+  </form>
+</div>
+

@@ -1,0 +1,49 @@
+nav{
+  background-color: #2a2c2d !important;
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-toggler{
+  transition: all 0.2s ease-out;
+  color:white;
+}
+
+.navbar-light .navbar-brand:hover{
+  color:white;
+  text-shadow: 1px 1px grey;
+}
+
+.jumbotron{
+  background-color: #2a2c2d !important;
+  color:white;
+}
+
+.angle{
+  content: '';
+  position: absolute;
+  background: #2a2c2d;
+  -webkit-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+  width: 105%;
+  height: 225px;
+  left: -10px;
+  top: 0px;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  z-index: 3;
+}
+
+.angle2{
+  content: '';
+  position: absolute;
+  background: white;
+  -webkit-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+  width: 105%;
+  height: 225px;
+  left: -10px;
+  top: 0px;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  z-index: 3;
+}
+

@@ -1,0 +1,21 @@
+table caption{
+  color: white;text-shadow: 6px 3px 2px #1d2124;
+}
+
+h1{
+  color: white;font-weight: 300;
+}
+
+.nuevoUserBtn{
+  transition: all 0.2s ease-out;
+  color: #919191;
+  margin: 0px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.nuevoUserBtn:hover{
+  color: #ffffff;
+}
+
+

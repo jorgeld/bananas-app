@@ -1,0 +1,13 @@
+h1{
+  color: white;font-weight: 300;
+}
+
+.container{
+  background-color: #1d2124;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.container label{
+  color: white;
+}

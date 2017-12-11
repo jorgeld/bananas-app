@@ -1,0 +1,11 @@
+#appContainer{
+  position:relative;
+  background-image: url("../assets/bg-red.jpg");
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  background-attachment: fixed;
+  height: auto;
+  min-height: 100vh;
+  padding: 16px;
+}
