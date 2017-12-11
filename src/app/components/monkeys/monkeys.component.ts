@@ -13,9 +13,9 @@ export class MonkeysComponent implements OnInit {
 
   constructor(private _monkeysService: MonkeysService, private _appComponent: AppComponent) { }
 
-  listadomonkeys;
-  mojoralimentadoslist;
-  ultimasincorporaciones;
+  listadomonkeys = [];
+  mojoralimentadoslist = [];
+  ultimasincorporaciones = [];
 
   getMonkeys = function(){
     this._monkeysService.getMonkeysRest()
@@ -46,8 +46,9 @@ export class MonkeysComponent implements OnInit {
   getultimasincorporaciones = function(){
     this.ultimasincorporaciones = this.listadomonkeys;
 
+    // todo: formatear correctamente las fechas
     this.ultimasincorporaciones.sort(function(a, b) {
-      return b.signupDate - a.signupDate;
+      return a.signupDate - b.signupDate;
     });
 
     this.ultimasincorporaciones = this.ultimasincorporaciones.slice(0,3)
