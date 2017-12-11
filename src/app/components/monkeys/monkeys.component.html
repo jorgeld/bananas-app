@@ -31,3 +31,56 @@
   </tr>
   </tbody>
 </table>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div style="width: 100%; height: auto; background-color: #212529">
+      <h5 class="nuevoMonkeyBtn"><span>Últimas incorporaciones</span></h5>
+    </div>
+    <table class="table table-striped table-hover table-bordered table-dark estadisticas">
+      <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Sexo</th>
+        <th scope="col">País</th>
+        <th scope="col">Bananas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let monkey of ultimasincorporaciones; let i=index">
+        <td>{{monkey.name}}</td>
+        <td>{{monkey.sexo}}</td>
+        <td>{{monkey.pais}}</td>
+        <td>{{monkey.signupDate}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <div style="width: 100%; height: auto; background-color: #212529">
+      <h5 class="nuevoMonkeyBtn"><span>Mejor Alimentados</span></h5>
+    </div>
+    <table class="table table-striped table-hover table-bordered table-dark estadisticas">
+      <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Sexo</th>
+        <th scope="col">País</th>
+        <th scope="col">Bananas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let monkey of mojoralimentadoslist; let i=index">
+        <td>{{monkey.name}}</td>
+        <td>{{monkey.sexo}}</td>
+        <td>{{monkey.pais}}</td>
+        <td>{{monkey.bananas}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

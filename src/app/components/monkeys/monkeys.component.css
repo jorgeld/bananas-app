@@ -21,3 +21,7 @@ h1{
 .nuevoUserBtn span.contadorMonos{
   font-weight: lighter !important;
 }
+
+.estadisticas{
+  font-size: 12px;
+}

@@ -14,18 +14,43 @@ export class MonkeysComponent implements OnInit {
   constructor(private _monkeysService: MonkeysService, private _appComponent: AppComponent) { }
 
   listadomonkeys;
+  mojoralimentadoslist;
+  ultimasincorporaciones;
 
   getMonkeys = function(){
     this._monkeysService.getMonkeysRest()
       .subscribe(
         result => {
           this.listadomonkeys = result.monkeys;
+          this.getultimasincorporaciones();
+          this.getMejorAlimentados();
         },
         error => {
           console.log(`Error al llamar servicio getMonkeys()`);
           alert(error);
         }
       )
+  };
+
+  getMejorAlimentados = function(){
+
+    this.mojoralimentadoslist = this.listadomonkeys;
+
+    this.mojoralimentadoslist.sort(function(a, b) {
+      return b.bananas - a.bananas;
+    });
+
+    this.mojoralimentadoslist = this.mojoralimentadoslist.slice(0,3)
+  };
+
+  getultimasincorporaciones = function(){
+    this.ultimasincorporaciones = this.listadomonkeys;
+
+    this.ultimasincorporaciones.sort(function(a, b) {
+      return b.signupDate - a.signupDate;
+    });
+
+    this.ultimasincorporaciones = this.ultimasincorporaciones.slice(0,3)
   };
 
   deleteMonkey = function(idMonkey){
