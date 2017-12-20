@@ -13,12 +13,25 @@ export class JugadoresComponent implements OnInit {
   constructor(private _jugadoresService: JugadoresService, private _appComponent: AppComponent) { }
 
   listadojugadores = [];
+  pivots = [] ;
+  ala_pivots = [];
+  aleros = [];
+  escoltas = [];
+  bases = [];
 
   getJugadores = function(){
+    var self = this;
     this._jugadoresService.getJugadoresRest()
       .subscribe(
         result => {
           this.listadojugadores = result.jugadores;
+
+          this.pivots = this.listadojugadores.filter(function(j){return j.posicion == 'PIVOT'});
+          this.ala_pivots = this.listadojugadores.filter(function(j){return j.posicion == 'ALA-PIVOT'});
+          this.aleros = this.listadojugadores.filter(function(j){return j.posicion == 'ALERO'});
+          this.escoltas = this.listadojugadores.filter(function(j){return j.posicion == 'ESCOLTA'});
+          this.bases = this.listadojugadores.filter(function(j){return j.posicion == 'BASE'});
+
         },
         error => {
           console.log(`Error al llamar servicio getJugadores()`);
@@ -31,7 +44,27 @@ export class JugadoresComponent implements OnInit {
     this._jugadoresService.newJugador()
       .subscribe(
         result =>{
-          console.log(`Creado correctamente : ${result}`);
+          console.log(`Creado correctamente : ${result.jugador.posicion}`);
+          this.getJugadores();
+        },
+        error => {
+          console.log(`Error al crear jugador ----> ${error}`);
+          alert(error);
+        }
+      )
+  };
+
+  newJugadorByPosition = function(data){
+
+    let bodyParse = {
+      'puesto' : data,
+    };
+
+    this._jugadoresService.newJugador(bodyParse)
+      .subscribe(
+        result =>{
+          console.log(`Creado correctamente : ${result.jugador.posicion}`);
+          console.log(result);
           this.getJugadores();
         },
         error => {
