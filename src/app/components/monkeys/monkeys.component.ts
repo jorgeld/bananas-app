@@ -48,7 +48,7 @@ export class MonkeysComponent implements OnInit {
 
     // todo: formatear correctamente las fechas
     this.ultimasincorporaciones.sort(function(a, b) {
-      return a.signupDate - b.signupDate;
+      return b.signupDate - a.signupDate;
     });
 
     this.ultimasincorporaciones = this.ultimasincorporaciones.slice(0,3)

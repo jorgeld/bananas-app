@@ -12,10 +12,14 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { UsersCreateComponent } from './components/users/users-create/users-create.component';
 import { Routes , RouterModule} from "@angular/router";
 import { MonkeysComponent } from './components/monkeys/monkeys.component';
+import { EquiposComponent } from './components/equipos/equipos.component';
+import { JugadoresComponent } from './components/jugadores/jugadores.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
   { path: 'monkeys', component: MonkeysComponent },
+  { path: 'equipos', component: EquiposComponent },
+  { path: 'jugadores', component: JugadoresComponent },
 ];
 
 @NgModule({
@@ -27,6 +31,8 @@ const appRoutes: Routes = [
     UsersCreateComponent,
     UsersComponent,
     MonkeysComponent,
+    EquiposComponent,
+    JugadoresComponent,
   ],
   imports: [
     BrowserModule,
