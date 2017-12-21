@@ -2,11 +2,11 @@
 <div style="width: 100%; height: auto; background-color: #212529">
   <h5 class="nuevojugadorBtn">
     <!--<button class="btn btn-primary" (click)="newJugador()">Nuevo Jugador</button>-->
-    <button class="btn btn-primary" [disabled]="pivots.length >= 20 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
-    <button class="btn btn-primary" [disabled]="ala_pivots.length >= 20 " (click)="newJugadorByPosition('ALA-PIVOT')">Ala-Pivot {{ala_pivots.length}}</button>
-    <button class="btn btn-primary" [disabled]="aleros.length >= 20 " (click)="newJugadorByPosition('ALERO')">Alero {{aleros.length}}</button>
-    <button class="btn btn-primary" [disabled]="escoltas.length >= 20 " (click)="newJugadorByPosition('ESCOLTA')">Escolta {{escoltas.length}}</button>
-    <button class="btn btn-primary" [disabled]="bases.length >= 20 " (click)="newJugadorByPosition('BASE')">Base {{bases.length}}</button>
+    <button class="btn btn-primary" [disabled]="pivots.length >= 60 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
+    <button class="btn btn-primary" [disabled]="ala_pivots.length >= 60 " (click)="newJugadorByPosition('ALA-PIVOT')">Ala-Pivot {{ala_pivots.length}}</button>
+    <button class="btn btn-primary" [disabled]="aleros.length >= 60 " (click)="newJugadorByPosition('ALERO')">Alero {{aleros.length}}</button>
+    <button class="btn btn-primary" [disabled]="escoltas.length >= 60 " (click)="newJugadorByPosition('ESCOLTA')">Escolta {{escoltas.length}}</button>
+    <button class="btn btn-primary" [disabled]="bases.length >= 60 " (click)="newJugadorByPosition('BASE')">Base {{bases.length}}</button>
     <span style="float: right;font-weight: lighter">Numero de jugadores : {{listadojugadores.length}}</span></h5>
 </div>
 
