@@ -31,7 +31,6 @@ export class JugadoresComponent implements OnInit {
           this.aleros = this.listadojugadores.filter(function(j){return j.posicion == 'ALERO'});
           this.escoltas = this.listadojugadores.filter(function(j){return j.posicion == 'ESCOLTA'});
           this.bases = this.listadojugadores.filter(function(j){return j.posicion == 'BASE'});
-
         },
         error => {
           console.log(`Error al llamar servicio getJugadores()`);

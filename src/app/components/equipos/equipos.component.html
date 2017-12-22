@@ -1,3 +1,28 @@
-<p>
-  equipos works!
-</p>
+
+
+<section class="contenedor">
+
+  <h1>Lista equipos monos</h1>
+
+  <table class="listaEquipos table table-striped table-hover table-bordered table-dark ">
+    <thead>
+    <tr>
+      <th scope="col">Editar</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Fecha Alta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jugador of listadoequipos; let i=index">
+      <td style="text-align: center;"><i class="fas fa-edit"></i></td>
+      <td>{{jugador.name}}</td>
+      <td>{{jugador.signupDate}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <section class="detalleEquipo">
+    <h2>Detalles</h2>
+  </section>
+
+</section>
