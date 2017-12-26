@@ -22,7 +22,33 @@
   </table>
 
   <section class="detalleEquipo">
-    <h2>Detalles</h2>
+
+    Primera Ronda
+    <h1>{{equipoSelector.name}}</h1>
+    <h3>{{equipoSelector.jugadores}}</h3>
+    <h3>{{equipoSelector.palmares}}</h3>
+
+    <table class="listaEquipos table table-striped table-hover table-bordered table-dark ">
+      <thead>
+      <tr>
+        <th scope="col">Editar</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Posición</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let jugador of listadojugadores; let i=index">
+        <td style="text-align: center;"><i class="fas fa-edit"></i></td>
+        <td>{{jugador.name}}</td>
+        <td>{{jugador.posicion}}</td>
+        <td><button class="btn btn-primary">Seleccionar</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+
   </section>
 
 </section>

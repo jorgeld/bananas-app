@@ -15,8 +15,18 @@ export class EquiposService {
       .map(res => res.json());
   }
 
+  getEquipo(idEquipo){
+    return this._http.get('http://localhost:3000/api/equipo/'+idEquipo)
+      .map(res => res.json())
+  }
+
   newEquipo(body) {
     return this._http.post('http://localhost:3000/api/equipo',body)
+      .map(res => res.json());
+  }
+
+  updateEquipo(idequipo,body){
+    return this._http.put('http://localhost:3000/api/equipo/update',body)
       .map(res => res.json());
   }
 
