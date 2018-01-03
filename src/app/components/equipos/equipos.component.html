@@ -3,52 +3,45 @@
 <section class="contenedor">
 
   <h1>Lista equipos monos</h1>
+  <section class="botones">
+    <button class="btn" (click)="eliminarEquipos()" style="margin-right: 6px" > Eliminar Equipos</button>
+    <button class="btn" (click)="generateEquipos()"> Generar Equipos</button>
+  </section>
 
-  <table class="listaEquipos table table-striped table-hover table-bordered table-dark ">
-    <thead>
-    <tr>
-      <th scope="col">Editar</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Fecha Alta</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let jugador of listadoequipos; let i=index">
-      <td style="text-align: center;"><i class="fas fa-edit"></i></td>
-      <td>{{jugador.name}}</td>
-      <td>{{jugador.signupDate}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <h3 class="ronda" (show)="equipoSelector">Ronda {{rondaDraft}} - {{equipoSelector.name}}</h3>
+  <h3 class="total" (show)="listadoEquiposSeleccionables">Número de equipos {{listadoEquiposSeleccionables.length}}</h3>
 
-  <section class="detalleEquipo">
-
-    Primera Ronda
-    <h1>{{equipoSelector.name}}</h1>
-    <h3>{{equipoSelector.jugadores}}</h3>
-    <h3>{{equipoSelector.palmares}}</h3>
-
-    <table class="listaEquipos table table-striped table-hover table-bordered table-dark ">
+  <section class="jugadores">
+    <table class="table table-striped table-hover table-bordered table-dark ">
       <thead>
       <tr>
         <th scope="col">Editar</th>
         <th scope="col">Nombre</th>
         <th scope="col">Posición</th>
+        <th scope="col">AT</th>
+        <th scope="col">DF</th>
+        <th scope="col">REB</th>
+        <th scope="col">PAS</th>
+        <th scope="col">AGV</th>
+        <th scope="col">SEX</th>
         <th scope="col">Seleccionar</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let jugador of listadojugadores; let i=index">
+      <tr *ngFor="let jugador of listadojugadoresSeleccionables; let i=index">
         <td style="text-align: center;"><i class="fas fa-edit"></i></td>
         <td>{{jugador.name}}</td>
         <td>{{jugador.posicion}}</td>
-        <td><button class="btn btn-primary">Seleccionar</button></td>
+        <td>{{jugador.atributos.ataque}}</td>
+        <td>{{jugador.atributos.defensa}}</td>
+        <td>{{jugador.atributos.rebotes}}</td>
+        <td>{{jugador.atributos.pase}}</td>
+        <td>{{jugador.atributos.agresividad}}</td>
+        <td>{{jugador.atributos.sexualidad}}</td>
+        <td><button class="btn btn-primary" (click)="seleccionarJugador(jugador)">Seleccionar</button></td>
       </tr>
       </tbody>
     </table>
-
-
-
   </section>
 
 </section>

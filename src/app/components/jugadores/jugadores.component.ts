@@ -43,7 +43,6 @@ export class JugadoresComponent implements OnInit {
     this._jugadoresService.newJugador()
       .subscribe(
         result =>{
-          console.log(`Creado correctamente : ${result.jugador.posicion}`);
           this.getJugadores();
         },
         error => {
@@ -62,8 +61,6 @@ export class JugadoresComponent implements OnInit {
     this._jugadoresService.newJugador(bodyParse)
       .subscribe(
         result =>{
-          console.log(`Creado correctamente : ${result.jugador.posicion}`);
-          console.log(result);
           this.getJugadores();
         },
         error => {

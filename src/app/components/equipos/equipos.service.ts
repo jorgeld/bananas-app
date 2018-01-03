@@ -25,8 +25,13 @@ export class EquiposService {
       .map(res => res.json());
   }
 
-  updateEquipo(idequipo,body){
-    return this._http.put('http://localhost:3000/api/equipo/update',body)
+  updateEquipo(equipoId,body){
+    return this._http.put('http://localhost:3000/api/equipo/update/'+equipoId,body)
+      .map(res => res.json());
+  }
+
+  deleteEquipo(idEquipo) {
+    return this._http.delete('http://localhost:3000/api/equipo/delete/'+idEquipo)
       .map(res => res.json());
   }
 

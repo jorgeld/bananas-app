@@ -23,7 +23,9 @@
     <th scope="col">DF</th>
     <th scope="col">REB</th>
     <th scope="col">PAS</th>
-    <th scope="col">Fecha Alta</th>
+    <th scope="col">AGV</th>
+    <th scope="col">SEX</th>
+    <th scope="col">Equipo</th>
     <th scope="col">Eliminar</th>
   </tr>
   </thead>
@@ -38,7 +40,9 @@
     <td>{{jugador.atributos.defensa}}</td>
     <td>{{jugador.atributos.rebotes}}</td>
     <td>{{jugador.atributos.pase}}</td>
-    <td>{{jugador.signupDate}}</td>
+    <td>{{jugador.atributos.agresividad}}</td>
+    <td>{{jugador.atributos.sexualidad}}</td>
+    <td>{{jugador.team}}</td>
     <td style="text-align: center; cursor: pointer" (click)="deleteJugador(jugador._id,i)"><i class="fas fa-trash"></i></td>
   </tr>
   </tbody>

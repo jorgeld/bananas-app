@@ -16,7 +16,7 @@ export class JugadoresService {
   }
 
   getJugador(idJugador) {
-    return this._http.get('http://localhost:3000/api/jugador'+idJugador)
+    return this._http.get('http://localhost:3000/api/jugador/'+idJugador)
       .map(res => res.json());
   }
 
@@ -31,7 +31,7 @@ export class JugadoresService {
   }
 
   updateJugador(idjugador,body){
-    return this._http.put('http://localhost:3000/api/jugador/update',body)
+    return this._http.put('http://localhost:3000/api/jugador/update/'+idjugador,body)
       .map(res => res.json());
   }
 
