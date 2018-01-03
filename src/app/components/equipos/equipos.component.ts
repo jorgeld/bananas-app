@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { EquiposService } from '../equipos/equipos.service';
 import { JugadoresService } from '../jugadores/jugadores.service';
+import { UtilsService } from '../utils/utils.service';
 import { AppComponent } from '../../app.component'
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-equipos',
   templateUrl: './equipos.component.html',
   styleUrls: ['./equipos.component.css'],
-  providers : [EquiposService,JugadoresService]
+  providers : [EquiposService,JugadoresService,UtilsService]
 })
 export class EquiposComponent implements OnInit {
 
   constructor(
     private _equiposService: EquiposService,
-    private _jugadoresService: JugadoresService ,
+    private _jugadoresService: JugadoresService,
+    private _utilsService: UtilsService,
     private _appComponent: AppComponent)
   { }
 
@@ -22,32 +26,17 @@ export class EquiposComponent implements OnInit {
   listadojugadoresSeleccionables = [];
   listadoEquiposSeleccionables = [];
   comunidades = ['Andalucía', 'Aragón', 'Canarias', 'Cantabria', 'Castilla y León', 'Castilla-La Mancha', 'Cataluña', 'Ceuta', 'Comunidad Valenciana', 'Comunidad de Madrid', 'Extremadura', 'Galicia', 'Islas Baleares', 'La Rioja', 'Melilla', 'Navarra', 'País Vasco', 'Principado de Asturias', 'Región de Murcia' , 'Andorra']
-  comunidadElegida = '';
   equipoSelector;
   rondaDraft:number = 0;
-
-  getEquipos = function(){
-    this._equiposService.getEquiposRest()
-      .subscribe(
-        result => {
-          this.listadoequipos = result.equipos;
-        },
-        error => {
-          console.log(`Error al llamar servicio getEquipos()`);
-        }
-      )
-  };
+  generandoEquipos:false;
+  eliminandoEquipos:false;
 
   loadData = () => {
 
-    // if(!(localStorage.getItem('rondaDraft'))){
-    //   localStorage.setItem('rondaDraft', '1');
-    //   this.rondaDraft = Number((localStorage.getItem('rondaDraft')));
-    // }else{
-    //   localStorage.setItem('rondaDraft', localStorage.getItem('rondaDraft'));
-    //   this.rondaDraft = Number((localStorage.getItem('rondaDraft')));
-    // }
+    //Eliminamos datos pendientes
+    this.borrarDatos();
 
+    // Recogemos la ronda del draf correspondiente
     this.rondaDraft = Number((localStorage.getItem('rondaDraft')));
 
     this._equiposService.getEquiposRest()
@@ -72,12 +61,10 @@ export class EquiposComponent implements OnInit {
                       this.listadojugadoresSeleccionables = this.listadojugadores.filter(
                         jugador => {return !jugador.team || jugador.team == ''})},
                     error => {console.log('Error al generar listado de jugadores')})
-              },
-              error => {
+              },error => {
                 console.log('Error al captura equipo');
-              })
-        },
-        error => {
+              }
+              )},error => {
           console.log(`Error al llamar servicio getEquipos()`);
         }
       )
@@ -118,41 +105,62 @@ export class EquiposComponent implements OnInit {
   };
 
 
+
+
   generateEquipos = function(){
-    var self = this;
-    this.comunidades.forEach(function(comunidad){
-     let body = { 'name' : comunidad};
-      self._equiposService.newEquipo(body)
-       .subscribe(
-         result => {
-           localStorage.setItem('rondaDraft' , '1');
-         },
-         error => {
-           console.log(`Error al llamar servicio newEquipo()`);
-           alert(error);
-         }
-       )
-    })
-    this.getEquipos();
+
+    let observables = [];
+    this.generandoEquipos = true;
+
+    this.comunidades.forEach(comunidad => {
+      let body = { 'name' : comunidad};
+      observables.push(this._equiposService.newEquipo(body))
+    });
+
+    Observable.forkJoin(observables)
+      .subscribe(
+        result => {localStorage.setItem('rondaDraft' , '1');},
+        error => {console.log(`Error al llamar servicio newEquipo()`);},
+        ()=>{
+          this.generandoEquipos = false;
+          // this.borrarDatos();
+          this.loadData();
+        }
+      );
   };
 
   eliminarEquipos = function(){
 
-    this.listadoequipos.forEach((equipo)=> {
-      this._equiposService.deleteEquipo(equipo._id)
-        .subscribe(
-          result => {
-            localStorage.removeItem('rondaDraft');
-          }
-        )
-    })
+    let observables = [];
+    this.eliminandoEquipos = true;
 
+    this.listadoequipos.forEach((equipo)=>{
+      observables.push(this._equiposService.deleteEquipo(equipo._id))
+    });
+
+    Observable.forkJoin(observables)
+      .subscribe(
+        result => {},
+        () => console.log('error'),
+        () => {
+          localStorage.removeItem('rondaDraft');
+          this.eliminandoEquipos = false;
+          // this.borrarDatos();
+          this.loadData();
+        }
+      )
   };
+
+  borrarDatos = function () {
+    this.listadoequipos = [];
+    this.listadojugadores = [];
+    this.listadojugadoresSeleccionables = [];
+    this.listadoEquiposSeleccionables = [];
+    this.equipoSelector = {};
+  }
 
   ngOnInit() {
     this.loadData()
-    //this.getEquipos();
-    //this.generarDraft();
   }
 
 }

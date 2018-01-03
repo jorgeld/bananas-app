@@ -4,15 +4,15 @@
 
   <h1>Lista equipos monos</h1>
   <section class="botones">
-    <button class="btn" (click)="eliminarEquipos()" style="margin-right: 6px" > Eliminar Equipos</button>
-    <button class="btn" (click)="generateEquipos()"> Generar Equipos</button>
+    <button class="btn" (click)="eliminarEquipos()" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
+    <button class="btn" (click)="generateEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
   </section>
 
-  <h3 class="ronda" (show)="equipoSelector">Ronda {{rondaDraft}} - {{equipoSelector.name}}</h3>
-  <h3 class="total" (show)="listadoEquiposSeleccionables">Número de equipos {{listadoEquiposSeleccionables.length}}</h3>
+  <h3 class="ronda" *ngIf="equipoSelector">Ronda {{rondaDraft}} - {{equipoSelector.name}}</h3>
+  <h3 class="total" *ngIf="listadoEquiposSeleccionables">Número de equipos {{listadoEquiposSeleccionables.length}}</h3>
 
   <section class="jugadores">
-    <table class="table table-striped table-hover table-bordered table-dark ">
+    <table class="table table-striped table-hover table-bordered table-dark table-sm">
       <thead>
       <tr>
         <th scope="col">Editar</th>
@@ -38,10 +38,13 @@
         <td>{{jugador.atributos.pase}}</td>
         <td>{{jugador.atributos.agresividad}}</td>
         <td>{{jugador.atributos.sexualidad}}</td>
-        <td><button class="btn btn-primary" (click)="seleccionarJugador(jugador)">Seleccionar</button></td>
+        <td><button class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador)">Seleccionar</button></td>
       </tr>
       </tbody>
     </table>
+
   </section>
+
+
 
 </section>

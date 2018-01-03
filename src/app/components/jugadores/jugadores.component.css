@@ -1,19 +1,44 @@
-table caption{
-  color: white;text-shadow: 6px 3px 2px #1d2124;
+
+.contenedor{
+  padding-top: 65px;
+  display: grid;
+  width: 100%;
+  /*height: 100vh;*/
+  grid-template-rows: auto auto 1fr ;
+  grid-template-columns: auto auto;
+
+  grid-template-areas:
+    "titulo titulo"
+    "botones contador"
+    "jugadores jugadores";
+  align-items: center;
 }
 
-h1{
-  color: white;font-weight: 300;
+.contenedor h1 {
+  grid-area: titulo;
+
+  color: white;
+  font-weight: 300;
+
+  padding-bottom: 16px;
 }
 
-.nuevojugadorBtn{
-  transition: all 0.2s ease-out;
-  color: #919191;
-  margin: 0px;
-  padding: 12px;
-  cursor: pointer;
+.contenedor .botones{
+  padding: 8px 0px 8px 0px;
+  grid-area: botones;
 }
 
-.nuevojugadorBtn:hover{
-  color: #ffffff;
+.contenedor .jugadores{
+  grid-area: jugadores;
+  overflow-y: scroll;
+}
+
+.contenedor .contador{
+  grid-area: contador;
+  justify-self: end;
+  align-self: center;
+
+  color: white;
+  font-size: 20px;
+  font-weight: lighter;
 }
