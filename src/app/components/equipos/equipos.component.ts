@@ -32,6 +32,12 @@ export class EquiposComponent implements OnInit {
   eliminandoEquipos:false;
   vaciarJugadoresEquipo:false;
 
+  max_p = false;
+  max_ap = false;
+  max_a = false;
+  max_e = false;
+  max_b = false;
+
   loadData = () => {
 
     //Eliminamos datos pendientes
@@ -40,16 +46,13 @@ export class EquiposComponent implements OnInit {
     // Recogemos la ronda del draf correspondiente
     this.rondaDraft = Number((localStorage.getItem('rondaDraft')));
 
+    //Recogemos todos los equipos
     this._equiposService.getEquiposRest()
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
 
-          //Vemos los equipos que pueden seleccionar jugadores
-          this.listadoEquiposSeleccionables = this.listadoequipos.filter(
-            equipo => {return !equipo.jugadores || equipo.jugadores.length < this.rondaDraft}
-          );
-
+          //A cada equipo le ponemos un atributo para reconocer si es seleccionable o no
           this.listadoequipos.map(
             res => {
               if(res.jugadores.length < this.rondaDraft){
@@ -58,13 +61,48 @@ export class EquiposComponent implements OnInit {
             }
           );
 
-          console.log(this.listadoequipos);
+          //Guardamos en un array los equipos que pueden seleccionar jugadores
+          this.listadoEquiposSeleccionables = this.listadoequipos.filter(
+            equipo => {return equipo.seleccionable}
+          );
 
           //Recogemos el equipo al cual le toca seleccionar jugador
           this._equiposService.getEquipo(this.listadoEquiposSeleccionables[this.listadoEquiposSeleccionables.length -1]._id)
             .subscribe(
               result => {
                 this.equipoSelector = result.equipo;
+                this.equipoSelector.totales = {pivot:0,alapivot:0, alero:0, escolta:0, base:0};
+                //let jugadoresEquipo = [ {pivot : []},{alapivot : []} , {alero :[]} , {escolta : []} ,{base : []} ];
+                //Organizamos el array de jugadores del equipo seleccionado
+                if(this.equipoSelector.jugadores.length > 0 || this.equipoSelector.jugadores.length ){
+                  this.equipoSelector.jugadores.forEach(
+                    jugador => {
+                      switch (jugador.posicion){
+                        case "PIVOT" :
+                          this.equipoSelector.totales.pivot++;
+                          if(this.equipoSelector.totales.pivot == 2){this.max_p = true};
+                          break;
+                        case "ALA-PIVOT" :
+                          this.equipoSelector.totales.alapivot++;
+                          if(this.equipoSelector.totales.alapivot == 2){this.max_ap = true};
+                          break;
+                        case "ALERO" :
+                          this.equipoSelector.totales.alero++;
+                          if(this.equipoSelector.totales.alero == 2){this.max_a = true};
+                          break;
+                        case "ESCOLTA" :
+                          this.equipoSelector.totales.escolta++;
+                          if(this.equipoSelector.totales.escolta == 2){this.max_e = true};
+                          break;
+                        case "BASE" :
+                          this.equipoSelector.totales.base++;
+                          if(this.equipoSelector.totales.base == 2){this.max_b = true};
+                          break;
+                      }
+                    }
+                  )
+                }
+
                 this._jugadoresService.getJugadoresRest()
                   .subscribe(
                     result => {

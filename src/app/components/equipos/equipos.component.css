@@ -2,12 +2,13 @@
   padding-top: 65px;
   display: grid;
   width: 100%;
-  grid-template-rows: auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto auto 1fr;
   grid-template-columns: auto 1fr;
 
   grid-template-areas:
     "titulo botones"
     "cuadroEquipos cuadroEquipos"
+    "descripcionEquipo descripcionEquipo"
     "ronda total"
     "jugadores jugadores";
   align-items: center;
@@ -77,11 +78,51 @@
 
 .cuadroEquipos > article {
   background-color: #212529;
-  padding: 6px 16px 6px 16px;
+  padding: 12px 16px 12px 16px;
   margin-top: 0px;
   border : solid #333333 thin;
+  font-weight: lighter;
   color: white;
 }
+
+.descripcionEquipo{
+  grid-area: descripcionEquipo;
+  display: grid;
+
+  background-color: #1d2124;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+  "nombreEquipo nombreEquipo"
+  "plantilla datos"
+;
+
+}
+
+.descripcionEquipo .plantilla{
+  grid-area: plantilla;
+  padding: 0px 16px 0px 16px;
+}
+.descripcionEquipo .datos{
+  grid-area: datos;
+}
+
+.descripcionEquipo > h1,h3{
+  grid-area: nombreEquipo;
+  color: white;
+  font-weight: lighter;
+  justify-self: center;
+  padding: 8px;
+}
+
+.descripcionEquipo h5{
+  color: white;
+  padding-left: 16px;
+  font-weight: lighter;
+}
+
+
+
 
 .cuadroEquipos > article > p {
   margin: 0px;

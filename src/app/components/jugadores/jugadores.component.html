@@ -5,11 +5,11 @@
     <button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
   </section>
   <section class="botones">
-    <button class="btn btn-primary" [disabled]="pivots.length >= 60 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
-    <button class="btn btn-primary" [disabled]="ala_pivots.length >= 60 " (click)="newJugadorByPosition('ALA-PIVOT')">Ala-Pivot {{ala_pivots.length}}</button>
-    <button class="btn btn-primary" [disabled]="aleros.length >= 60 " (click)="newJugadorByPosition('ALERO')">Alero {{aleros.length}}</button>
-    <button class="btn btn-primary" [disabled]="escoltas.length >= 60 " (click)="newJugadorByPosition('ESCOLTA')">Escolta {{escoltas.length}}</button>
-    <button class="btn btn-primary" [disabled]="bases.length >= 60 " (click)="newJugadorByPosition('BASE')">Base {{bases.length}}</button>
+    <button class="btn btn-primary" [disabled]="pivots.length >= 40 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
+    <button class="btn btn-primary" [disabled]="ala_pivots.length >= 40 " (click)="newJugadorByPosition('ALA-PIVOT')">Ala-Pivot {{ala_pivots.length}}</button>
+    <button class="btn btn-primary" [disabled]="aleros.length >= 40 " (click)="newJugadorByPosition('ALERO')">Alero {{aleros.length}}</button>
+    <button class="btn btn-primary" [disabled]="escoltas.length >= 40 " (click)="newJugadorByPosition('ESCOLTA')">Escolta {{escoltas.length}}</button>
+    <button class="btn btn-primary" [disabled]="bases.length >= 40 " (click)="newJugadorByPosition('BASE')">Base {{bases.length}}</button>
   </section>
   <span class="contador">Numero de jugadores : {{listadojugadores.length}}</span>
   <table class="jugadores table table-striped table-hover table-bordered table-dark table-sm" *ngIf="listadojugadores.length > 0">
