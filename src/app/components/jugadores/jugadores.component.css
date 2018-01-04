@@ -64,3 +64,11 @@
   font-weight: lighter;
 }
 
+.spinner{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  justify-self: center;
+  align-self: center;
+}
+

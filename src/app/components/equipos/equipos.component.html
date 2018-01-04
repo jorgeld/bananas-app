@@ -8,7 +8,7 @@
     <button class="btn" (click)="generateEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
     <button class="btn" (click)="vaciarEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar jugadores de Equipo</button>
   </section>
-
+  <h3 class="ronda" *ngIf="equipoSelector">Ronda {{rondaDraft}}</h3>
   <section class="cuadroEquipos">
     <article *ngFor="let e of listadoequipos" [ngStyle]="{'background-color':e.seleccionable == true ? '#212529' : '#495057' }">
       <p>{{e.name}}</p>
@@ -19,8 +19,6 @@
 
     <h1 class="c">{{equipoSelector.name}}</h1>
     <section class="plantilla">
-      <h3>Plantilla</h3>
-
       <table class="table table-striped table-hover table-bordered table-dark table-sm" *ngIf="listadojugadoresSeleccionables.length > 0">
         <thead>
         <tr>
@@ -48,22 +46,12 @@
         </tbody>
       </table>
 
-      <!--<span *ngFor="let posicion of equipoSelector.jugadores">-->
-        <!--{{posicion.name}}-->
-      <!--</span>-->
-
-
-    </section>
-    <section class="datos">
-      <h3>Datos</h3>
     </section>
 
   </section>
 
-  <h3 class="ronda" *ngIf="equipoSelector">Ronda {{rondaDraft}} - {{equipoSelector.name}}</h3>
-  <h3 class="total" *ngIf="listadoEquiposSeleccionables">Número de equipos {{listadoEquiposSeleccionables.length}}</h3>
-
   <section class="jugadores">
+    <h3 class="c">Elección de jugador</h3>
     <table class="table table-striped table-hover table-bordered table-dark table-sm" *ngIf="listadojugadoresSeleccionables.length > 0">
       <thead>
       <tr>

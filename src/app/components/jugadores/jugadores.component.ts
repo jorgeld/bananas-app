@@ -23,8 +23,11 @@ export class JugadoresComponent implements OnInit {
   eliminarTodosJugadores:boolean;
   vaciarJugadoresEquipo:boolean;
 
+  ready = false;
+
   getJugadores = function(){
     var self = this;
+    this.ready = false;
     this._jugadoresService.getJugadoresRest()
       .subscribe(
         result => {
@@ -39,11 +42,16 @@ export class JugadoresComponent implements OnInit {
         error => {
           console.log(`Error al llamar servicio getJugadores()`);
           alert(error);
+        },
+        ()=> {
+          this.ready = true;
         }
+
       )
   };
 
   newJugador = function(){
+    this.ready = false;
     this._jugadoresService.newJugador()
       .subscribe(
         result =>{
@@ -52,6 +60,9 @@ export class JugadoresComponent implements OnInit {
         error => {
           console.log(`Error al crear jugador ----> ${error}`);
           alert(error);
+        },
+        ()=>{
+          this.ready=true
         }
       )
   };

@@ -1,5 +1,5 @@
 
-<section class="contenedor">
+<section class="contenedor" *ngIf="ready">
   <h1>Jugadores</h1>
   <section class="botonesBorrado">
     <button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
@@ -50,6 +50,14 @@
   </table>
 </section>
 
-<section class="mensaje" [hidden]="listadojugadores.length > 0">
+<section class="spinner">
+  <i class="fas fa-circle-notch fa-spin fa-9x"></i>
+</section>
+
+
+<section class="mensaje" *ngIf="ready" [hidden]="listadojugadores.length > 0">
   <h3>No hay jugadores creados</h3>
 </section>
+
+
+
