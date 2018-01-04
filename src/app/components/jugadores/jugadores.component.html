@@ -1,6 +1,9 @@
 
 <section class="contenedor">
   <h1>Jugadores</h1>
+  <section class="botonesBorrado">
+    <button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
+  </section>
   <section class="botones">
     <button class="btn btn-primary" [disabled]="pivots.length >= 60 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
     <button class="btn btn-primary" [disabled]="ala_pivots.length >= 60 " (click)="newJugadorByPosition('ALA-PIVOT')">Ala-Pivot {{ala_pivots.length}}</button>
@@ -9,7 +12,7 @@
     <button class="btn btn-primary" [disabled]="bases.length >= 60 " (click)="newJugadorByPosition('BASE')">Base {{bases.length}}</button>
   </section>
   <span class="contador">Numero de jugadores : {{listadojugadores.length}}</span>
-  <table class="jugadores table table-striped table-hover table-bordered table-dark table-sm">
+  <table class="jugadores table table-striped table-hover table-bordered table-dark table-sm" *ngIf="listadojugadores.length > 0">
     <thead>
     <tr>
       <th scope="col">Editar</th>
@@ -45,4 +48,8 @@
     </tr>
     </tbody>
   </table>
+</section>
+
+<section class="mensaje" [hidden]="listadojugadores.length > 0">
+  <h3>No hay jugadores creados</h3>
 </section>

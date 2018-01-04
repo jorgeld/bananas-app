@@ -48,3 +48,23 @@
   grid-area: jugadores;
 }
 
+.mensaje{
+  background-color: #1d2124;
+  padding: 32px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border : solid #333333 thin;
+  border-radius: 3px;
+}
+
+.mensaje > h3{
+  color: white;
+  font-weight: lighter;
+}
+
+.cuadroEquipos{
+
+}
+

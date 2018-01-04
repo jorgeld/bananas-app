@@ -30,6 +30,7 @@ export class EquiposComponent implements OnInit {
   rondaDraft:number = 0;
   generandoEquipos:false;
   eliminandoEquipos:false;
+  vaciarJugadoresEquipo:false;
 
   loadData = () => {
 
@@ -43,11 +44,13 @@ export class EquiposComponent implements OnInit {
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
+          this.listadoequipos.sort();
 
           //Vemos los equipos que pueden seleccionar jugadores
           this.listadoEquiposSeleccionables = this.listadoequipos.filter(
             equipo => {return !equipo.jugadores || equipo.jugadores.length < this.rondaDraft}
           );
+          this.listadoEquiposSeleccionables.sort();
 
           //Recogemos el equipo al cual le toca seleccionar jugador
           this._equiposService.getEquipo(this.listadoEquiposSeleccionables[this.listadoEquiposSeleccionables.length -1]._id)
@@ -64,7 +67,7 @@ export class EquiposComponent implements OnInit {
               },error => {
                 console.log('Error al captura equipo');
               }
-              )},error => {
+            )},error => {
           console.log(`Error al llamar servicio getEquipos()`);
         }
       )
@@ -91,14 +94,14 @@ export class EquiposComponent implements OnInit {
                         .subscribe(
                           result => {
                             if(this.listadoequipos.filter(
-                              equipo => {return equipo.jugadores.length == this.rondaDraft}
+                                equipo => {return equipo.jugadores.length == this.rondaDraft}
                               ).length == this.listadoequipos.length-1){
                               this.rondaDraft++;
                               localStorage.setItem('rondaDraft',this.rondaDraft.toString());
                             }
                             this.loadData();
                           },
-                         error => {console.log(`Error al actualizar jugador`)})},
+                          error => {console.log(`Error al actualizar jugador`)})},
                     error => {console.log(`Error al actualizar equipo`)})},
               error => {console.log(`Error al recoger jugador seleccionado`)})},
         error => {console.log(`Error al recoger equipo seleccionado`)});
@@ -145,7 +148,27 @@ export class EquiposComponent implements OnInit {
         () => {
           localStorage.removeItem('rondaDraft');
           this.eliminandoEquipos = false;
-          // this.borrarDatos();
+          this.loadData();
+        }
+      )
+  };
+
+  vaciarEquipos = function(){
+    let observables = [];
+    let equipos = [];
+    this.vaciarJugadoresEquipo = true;
+
+    this.listadoequipos.forEach((equipo)=>{
+      let body = {jugadores : []};
+      observables.push(this._equiposService.updateEquipo(equipo._id,body))
+    });
+
+    Observable.forkJoin(observables)
+      .subscribe(
+        result => {},
+        () => console.log('error'),
+        () => {
+          this.vaciarJugadoresEquipo = false;
           this.loadData();
         }
       )

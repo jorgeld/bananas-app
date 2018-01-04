@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { JugadoresService } from '../jugadores/jugadores.service';
-import { AppComponent } from '../../app.component'
+import { AppComponent } from '../../app.component';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-jugadores',
@@ -10,7 +11,7 @@ import { AppComponent } from '../../app.component'
 })
 export class JugadoresComponent implements OnInit {
 
-  constructor(private _jugadoresService: JugadoresService, private _appComponent: AppComponent) { }
+  constructor(private _jugadoresService: JugadoresService,private _appComponent: AppComponent) { }
 
   listadojugadores = [];
   pivots = [] ;
@@ -18,6 +19,9 @@ export class JugadoresComponent implements OnInit {
   aleros = [];
   escoltas = [];
   bases = [];
+
+  eliminarTodosJugadores:boolean;
+  vaciarJugadoresEquipo:boolean;
 
   getJugadores = function(){
     var self = this;
@@ -80,6 +84,25 @@ export class JugadoresComponent implements OnInit {
         error => {
           console.log(`Error al eliminar jugador ----> ${error}`);
           alert(error);
+        }
+      )
+  };
+
+  eliminarJugadores = function(){
+    let observables = [];
+    this.eliminarTodosJugadores = true;
+
+    this.listadojugadores.forEach((jugador)=>{
+      observables.push(this._jugadoresService.deleteJugador(jugador._id))
+    });
+
+    Observable.forkJoin(observables)
+      .subscribe(
+        result => {},
+        () => console.log('error'),
+        () => {
+          this.eliminarTodosJugadores = false;
+          this.getJugadores();
         }
       )
   };
