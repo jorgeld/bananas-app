@@ -9,6 +9,12 @@
     <button class="btn" (click)="vaciarEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar jugadores de Equipo</button>
   </section>
 
+  <section class="cuadroEquipos">
+    <article *ngFor="let e of listadoequipos" [ngStyle]="{'background-color':e.seleccionable == true ? '#212529' : '#495057' }">
+      <p>{{e.name}}</p>
+    </article>
+  </section>
+
   <h3 class="ronda" *ngIf="equipoSelector">Ronda {{rondaDraft}} - {{equipoSelector.name}}</h3>
   <h3 class="total" *ngIf="listadoEquiposSeleccionables">Número de equipos {{listadoEquiposSeleccionables.length}}</h3>
 

@@ -44,13 +44,21 @@ export class EquiposComponent implements OnInit {
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
-          this.listadoequipos.sort();
 
           //Vemos los equipos que pueden seleccionar jugadores
           this.listadoEquiposSeleccionables = this.listadoequipos.filter(
             equipo => {return !equipo.jugadores || equipo.jugadores.length < this.rondaDraft}
           );
-          this.listadoEquiposSeleccionables.sort();
+
+          this.listadoequipos.map(
+            res => {
+              if(res.jugadores.length < this.rondaDraft){
+                res.seleccionable = true;
+              }
+            }
+          );
+
+          console.log(this.listadoequipos);
 
           //Recogemos el equipo al cual le toca seleccionar jugador
           this._equiposService.getEquipo(this.listadoEquiposSeleccionables[this.listadoEquiposSeleccionables.length -1]._id)
