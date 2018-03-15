@@ -48,8 +48,8 @@
 
 .jugadores {
   grid-area: jugadores;
-  padding: 16px;
-  background-color: #1d2124;
+  /*padding: 16px;*/
+  /*background-color: #1d2124;*/
   margin-top: 16px;
 }
 
@@ -83,13 +83,13 @@
   width: 100%;
   justify-content: flex-start;
   margin-bottom: 16px;
-  background-color: #1d2124;
+  /*background-color: #1d2124;*/
 
 }
 
 .cuadroEquipos > article {
   background-color: #1d2124;
-  padding: 12px 16px 12px 16px;
+  padding: 0px 5px 2px 5px;
   margin-top: 0px;
   margin: 6px;
   /*border : solid #333333 thin;*/
@@ -137,4 +137,15 @@
   margin: 0px;
 }
 
+select{
+  padding: 6px;
+  border-radius: 7px;
+  width: 20%;
+  background-color: #2c3034;
+  color: white;
+}
+
+tr{
+  font-size: 12px;
+}
 

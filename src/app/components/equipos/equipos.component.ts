@@ -4,7 +4,19 @@ import { JugadoresService } from '../jugadores/jugadores.service';
 import { UtilsService } from '../utils/utils.service';
 import { AppComponent } from '../../app.component'
 import { Observable } from 'rxjs/Rx';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {noUndefined} from "@angular/compiler/src/util";
+import {forEach} from "@angular/router/src/utils/collection";
 
+@Pipe({
+  name: 'filtroPosicion'
+})
+@Injectable()
+export class FiltroPosicion implements PipeTransform {
+  transform(array): any {
+    return array.filter(array => array.posicion  === 'PIVOT');
+  }
+}
 
 @Component({
   selector: 'app-equipos',
@@ -27,10 +39,21 @@ export class EquiposComponent implements OnInit {
   listadoEquiposSeleccionables = [];
   comunidades = ['Andalucía', 'Aragón', 'Canarias', 'Cantabria', 'Castilla y León', 'Castilla-La Mancha', 'Cataluña', 'Ceuta', 'Comunidad Valenciana', 'Comunidad de Madrid', 'Extremadura', 'Galicia', 'Islas Baleares', 'La Rioja', 'Melilla', 'Navarra', 'País Vasco', 'Principado de Asturias', 'Región de Murcia' , 'Andorra']
   equipoSelector;
-  rondaDraft:number = 0;
   generandoEquipos:false;
   eliminandoEquipos:false;
   vaciarJugadoresEquipo:false;
+
+  filtros = {
+    posicion : ''
+  };
+
+  draft = {
+    equipos : [],
+    jugadores : [],
+    rondaDraft : 1,
+    seleccion : this.listadoequipos.length,
+    equipoSelector : {equipo:undefined,totales:undefined}
+  };
 
   max_p = false;
   max_ap = false;
@@ -43,137 +66,136 @@ export class EquiposComponent implements OnInit {
     //Eliminamos datos pendientes
     this.borrarDatos();
 
-    // Recogemos la ronda del draf correspondiente
-    this.rondaDraft = Number((localStorage.getItem('rondaDraft')));
-
-    //Recogemos todos los equipos
+    //Recogemos equipos
     this._equiposService.getEquiposRest()
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
+          this.draft.seleccion = 0;
 
-          //A cada equipo le ponemos un atributo para reconocer si es seleccionable o no
+          // A cada equipo le ponemos un atributo para reconocer si es seleccionable o no
           this.listadoequipos.map(
             res => {
-              if(res.jugadores.length < this.rondaDraft){
+                res.jugadores = [];
                 res.seleccionable = true;
-              }
             }
           );
 
-          //Guardamos en un array los equipos que pueden seleccionar jugadores
-          this.listadoEquiposSeleccionables = this.listadoequipos.filter(
-            equipo => {return equipo.seleccionable}
-          );
+          //Guardamos los equipos
+          this.draft.equipos = this.listadoequipos;
 
-          //Recogemos el equipo al cual le toca seleccionar jugador
-          this._equiposService.getEquipo(this.listadoEquiposSeleccionables[this.listadoEquiposSeleccionables.length -1]._id)
+          // Recogemos los jugadores
+          this._jugadoresService.getJugadoresRest()
             .subscribe(
               result => {
-                this.equipoSelector = result.equipo;
-                this.equipoSelector.totales = {pivot:0,alapivot:0, alero:0, escolta:0, base:0};
-                //let jugadoresEquipo = [ {pivot : []},{alapivot : []} , {alero :[]} , {escolta : []} ,{base : []} ];
-                //Organizamos el array de jugadores del equipo seleccionado
-                if(this.equipoSelector.jugadores.length > 0 || this.equipoSelector.jugadores.length ){
-                  this.equipoSelector.jugadores.forEach(
-                    jugador => {
-                      switch (jugador.posicion){
-                        case "PIVOT" :
-                          this.equipoSelector.totales.pivot++;
-                          if(this.equipoSelector.totales.pivot == 2){this.max_p = true};
-                          break;
-                        case "ALA-PIVOT" :
-                          this.equipoSelector.totales.alapivot++;
-                          if(this.equipoSelector.totales.alapivot == 2){this.max_ap = true};
-                          break;
-                        case "ALERO" :
-                          this.equipoSelector.totales.alero++;
-                          if(this.equipoSelector.totales.alero == 2){this.max_a = true};
-                          break;
-                        case "ESCOLTA" :
-                          this.equipoSelector.totales.escolta++;
-                          if(this.equipoSelector.totales.escolta == 2){this.max_e = true};
-                          break;
-                        case "BASE" :
-                          this.equipoSelector.totales.base++;
-                          if(this.equipoSelector.totales.base == 2){this.max_b = true};
-                          break;
-                      }
-                    }
-                  )
-                }
+                this.draft.jugadores = result.jugadores;
+                this.listadojugadores = result.jugadores;
 
-                this._jugadoresService.getJugadoresRest()
-                  .subscribe(
-                    result => {
-                      this.listadojugadores = result.jugadores;
-                      this.listadojugadoresSeleccionables = this.listadojugadores.filter(
-                        jugador => {return !jugador.team || jugador.team == ''})},
-                    error => {console.log('Error al generar listado de jugadores')})
-              },error => {
-                console.log('Error al captura equipo');
-              }
-            )},error => {
-          console.log(`Error al llamar servicio getEquipos()`);
+                //TODO:Revisar que se actualice el atributo equipo en cada jugador
+                // this.listadojugadoresSeleccionables = this.listadojugadores.filter(
+                //   jugador => {
+                //     return !jugador.team || jugador.team == ''
+                //   })
+              },
+              error => {
+                console.log('Error al generar listado de jugadores')
+              });
+
+          //Seleccionamos equipo selector
+          if (this.draft.rondaDraft === 1) {
+            this.draft.equipoSelector.equipo = this.draft.equipos[this.draft.seleccion];
+          } else {
+            //TODO: GESTIONAR SI NO QUEDAN MÁS RONDAS
+          }
+
         }
-      )
+      );
   };
 
-  seleccionarJugador  = function(jugador){
-    let _equipo = this.equipoSelector;
+  seleccionarJugador  = function(jugador,index){
 
-    this._equiposService.getEquipo(_equipo._id)
-      .subscribe(
-        result => {
-          _equipo = result.equipo;
-          this._jugadoresService.getJugador(jugador._id)
-            .subscribe(
-              result => {
-                let _jugador = result.jugador;
-                let body = {jugadores : _equipo.jugadores};
-                body.jugadores.push(_jugador);
-                this._equiposService.updateEquipo(_equipo._id, body)
-                  .subscribe(
-                    result => {
-                      let body = {team : _equipo.name}
-                      this._jugadoresService.updateJugador(_jugador._id,body)
-                        .subscribe(
-                          result => {
-                            if(this.listadoequipos.filter(
-                                equipo => {return equipo.jugadores.length == this.rondaDraft}
-                              ).length == this.listadoequipos.length-1){
-                              this.rondaDraft++;
-                              localStorage.setItem('rondaDraft',this.rondaDraft.toString());
-                            }
-                            this.loadData();
-                          },
-                          error => {console.log(`Error al actualizar jugador`)})},
-                    error => {console.log(`Error al actualizar equipo`)})},
-              error => {console.log(`Error al recoger jugador seleccionado`)})},
-        error => {console.log(`Error al recoger equipo seleccionado`)});
+    //Añadimos jugador
+    this.draft.equipos[this.draft.seleccion].jugadores.push(jugador);
+
+    //Borramos jugador de listao
+    this.draft.jugadores.splice(index,1);
+
+    if(this.draft.seleccion !== this.listadoequipos.length -1){
+      this.draft.seleccion++;
+    }else{
+      this.draft.seleccion = 0;
+      this.draft.rondaDraft++;
+    }
+
+    //Elegimos nuevo equipo selector
+    this.draft.equipoSelector.equipo = this.draft.equipos[this.draft.seleccion];
+    this.draft.equipoSelector.totales = {
+      pivot : 0,
+      alapivot : 0,
+      alero : 0,
+      escolta : 0,
+      base : 0
+    };
+
+    /**
+     * En el caso de tener 2 jugadores de una misma posición, se deshabilitarán
+     * los jugadores que tengan la misma posición de la que ya se tengan 2.
+     *
+     * **/
+    if(this.draft.equipoSelector.equipo.jugadores.length > 0){
+      this.draft.equipoSelector.equipo.jugadores.forEach((jugador)=>{
+        switch (jugador.posicion){
+          case "PIVOT" :
+            this.draft.equipoSelector.totales.pivot++;
+            if(this.draft.equipoSelector.totales.pivot == 2){this.max_p = true}else{this.max_p = false};
+            break;
+          case "ALA-PIVOT" :
+            this.draft.equipoSelector.totales.alapivot++;
+            if(this.draft.equipoSelector.totales.alapivot == 2){this.max_ap = true}else{this.max_ap = false};
+            break;
+          case "ALERO" :
+            this.draft.equipoSelector.totales.alero++;
+            if(this.draft.equipoSelector.totales.alero == 2){this.max_a = true}else{this.max_a = false};
+            break;
+          case "ESCOLTA" :
+            this.draft.equipoSelector.totales.escolta++;
+            if(this.draft.equipoSelector.totales.escolta == 2){this.max_e = true}else{this.max_e = false};
+            break;
+          case "BASE" :
+            this.draft.equipoSelector.totales.base++;
+            if(this.draft.equipoSelector.totales.base == 2){this.max_b = true}else{this.max_b = false};
+            break;
+        }
+      })
+    }
   };
-
-
 
 
   generateEquipos = function(){
 
-    let observables = [];
-    this.generandoEquipos = true;
 
-    this.comunidades.forEach(comunidad => {
-      let body = { 'name' : comunidad};
-      observables.push(this._equiposService.newEquipo(body))
-    });
-
-    Observable.forkJoin(observables)
+    this._utilsService.getComunidades()
       .subscribe(
-        result => {localStorage.setItem('rondaDraft' , '1');},
-        error => {console.log(`Error al llamar servicio newEquipo()`);},
-        ()=>{
-          this.generandoEquipos = false;
-          // this.borrarDatos();
-          this.loadData();
+        result => {
+            this.comunidades = result.data;
+            let observables = [];
+            this.generandoEquipos = true;
+
+            this.comunidades.forEach((comunidad) => {
+              let body = { 'name' : comunidad.nombre, 'bandera' : comunidad.bandera, 'escudo' : comunidad.escudo};
+              observables.push(this._equiposService.newEquipo(body))
+            });
+
+          Observable.forkJoin(observables)
+            .subscribe(
+              result => {localStorage.setItem('rondaDraft' , '1');},
+              error => {console.log(`Error al llamar servicio newEquipo()`);},
+              ()=>{
+                this.generandoEquipos = false;
+                // this.borrarDatos();
+                this.loadData();
+              }
+            );
         }
       );
   };
@@ -226,7 +248,11 @@ export class EquiposComponent implements OnInit {
     this.listadojugadoresSeleccionables = [];
     this.listadoEquiposSeleccionables = [];
     this.equipoSelector = {};
-  }
+  };
+
+  filterPosition = function(data){
+    alert('hello! ' + data)
+  };
 
   ngOnInit() {
     this.loadData()
