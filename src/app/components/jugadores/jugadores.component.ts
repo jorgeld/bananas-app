@@ -118,6 +118,23 @@ export class JugadoresComponent implements OnInit {
       )
   };
 
+  hornearJugadores = function(){
+    this._jugadoresService.hornearJugadores()
+      .subscribe(
+        result => {
+          this.listadojugadores = result.jugadores;
+
+          this.pivots = this.listadojugadores.filter(function(j){return j.posicion == 'PIVOT'});
+          this.ala_pivots = this.listadojugadores.filter(function(j){return j.posicion == 'ALA-PIVOT'});
+          this.aleros = this.listadojugadores.filter(function(j){return j.posicion == 'ALERO'});
+          this.escoltas = this.listadojugadores.filter(function(j){return j.posicion == 'ESCOLTA'});
+          this.bases = this.listadojugadores.filter(function(j){return j.posicion == 'BASE'});
+
+          this.getJugadores();
+        }
+      )
+  }
+
   ngOnInit() {
     this.getJugadores();
   }

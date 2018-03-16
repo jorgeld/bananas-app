@@ -35,6 +35,11 @@ export class JugadoresService {
       .map(res => res.json());
   }
 
+  hornearJugadores(body) {
+    return this._http.post('http://localhost:3000/api/hornadajugadores', body)
+      .map(res => res.json());
+  }
+
 }
 
 

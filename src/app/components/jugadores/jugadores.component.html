@@ -2,6 +2,7 @@
 <section class="contenedor" *ngIf="ready">
   <h1>Jugadores</h1>
   <section class="botonesBorrado">
+    <button class="btn" (click)="hornearJugadores()" style="margin-right: 6px" >Generar Hornada</button>
     <button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
   </section>
   <section class="botones">

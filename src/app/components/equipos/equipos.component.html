@@ -2,111 +2,116 @@
 
 <section class="contenedor">
 
-  <h1>Lista equipos monos</h1>
-  <section class="botones">
-    <button class="btn" (click)="eliminarEquipos()" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
-    <button class="btn" (click)="generateEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
-    <button class="btn" (click)="vaciarEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar jugadores de Equipo</button>
+  <!--CABECERA-->
+  <section>
+    <h1>Equipos</h1>
+    <section class="botones">
+      <span (click)="eliminarEquipos()" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</span>
+      <span (click)="generateEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</span>
+      <span (click)="vaciarEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</span>
+    </section>
   </section>
-  <h3 class="ronda" *ngIf="equipoSelector">Ronda {{draft.rondaDraft}}</h3>
-  <section class="cuadroEquipos">
+
+  <!--RONDA-->
+  <section>
+    <h3 class="ronda" *ngIf="equipoSelector">Ronda {{draft.rondaDraft}}</h3>
+  </section>
+
+  <!--CHIPS COMUNIDADES-->
+  <section>
     <article *ngFor="let e of draft.equipos" [ngStyle]="{'background-color':e.seleccionable == true ? '#212529' : '#495057' }">
-      <p>{{e.name}}</p>
+      <span>{{e.name}}</span>
     </article>
   </section>
 
-  <section class="descripcionEquipo">
-
-    <section style="display: flex; justify-content: space-around;align-items: center;padding: 8px">
-      <img src="{{draft.equipoSelector.equipo.escudo}}" width="20px" height="35px">
-      <h1 class="c" style="padding-bottom: 0">{{draft.equipoSelector.equipo.name}}</h1>
-      <img src="{{draft.equipoSelector.equipo.bandera}}" width="35px" height="25px">
+  <!--EQUIPO-->
+  <section>
+    <section>
+        <span><img src="{{draft.equipoSelector.equipo.escudo}}" width="20px" height="35px"></span>
+        <span><h1>{{draft.equipoSelector.equipo.name}}</h1></span>
+        <span><img src="{{draft.equipoSelector.equipo.bandera}}" width="35px" height="25px"></span>
     </section>
-
-    <!--<h1 class="c"><img width="35px" src="{{draft.equipoSelector.equipo.bandera}}">{{draft.equipoSelector.equipo.name}}</h1><img width="35px" src="{{draft.equipoSelector.equipo.escudo}}">-->
-    <section class="plantilla">
+    <section>
       <table class="table table-striped table-hover table-bordered table-dark table-sm" *ngIf="draft.equipoSelector.equipo.jugadores.length > 0">
         <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Posición</th>
-          <th scope="col">AT</th>
-          <th scope="col">DF</th>
-          <th scope="col">REB</th>
-          <th scope="col">PAS</th>
-          <th scope="col">AGV</th>
-          <th scope="col">SEX</th>
-        </tr>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Posición</th>
+            <th scope="col">AT</th>
+            <th scope="col">DF</th>
+            <th scope="col">REB</th>
+            <th scope="col">PAS</th>
+            <th scope="col">AGV</th>
+            <th scope="col">SEX</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let jugador of draft.equipoSelector.equipo.jugadores; let i=index">
-          <td>{{jugador.name}}</td>
-          <td>{{jugador.posicion}}</td>
-          <td>{{jugador.atributos.ataque}}</td>
-          <td>{{jugador.atributos.defensa}}</td>
-          <td>{{jugador.atributos.rebotes}}</td>
-          <td>{{jugador.atributos.pase}}</td>
-          <td>{{jugador.atributos.agresividad}}</td>
-          <td>{{jugador.atributos.sexualidad}}</td>
-        </tr>
+          <tr *ngFor="let jugador of draft.equipoSelector.equipo.jugadores; let i=index">
+            <td>{{jugador.name}}</td>
+            <td>{{jugador.posicion}}</td>
+            <td>{{jugador.atributos.ataque}}</td>
+            <td>{{jugador.atributos.defensa}}</td>
+            <td>{{jugador.atributos.rebotes}}</td>
+            <td>{{jugador.atributos.pase}}</td>
+            <td>{{jugador.atributos.agresividad}}</td>
+            <td>{{jugador.atributos.sexualidad}}</td>
+          </tr>
         </tbody>
       </table>
-
     </section>
-
   </section>
 
-  <section class="jugadores" [hidden]="draft.jugadores.length === 0">
-    <span style="display: flex;justify-content:space-between;align-items: center">
-      <h3 class="c">Elección de jugador</h3>
-      <select [(ngModel)]="filtros.posicion" (ngModelChange)="filterPosition(filtros.posicion)">
-        <option value="">Todas las posiciones</option>
-        <option value="PIVOT">Pivot</option>
-        <option value="ALAPIVOT">Ala-Pivot</option>
-        <option value="ALERO">Alero</option>
-        <option value="ESCOLTA">Escolta</option>
-        <option value="BASE">Base</option>
-      </select>
-    </span>
-
+  <!--JUGADORES-->
+  <section>
+    <section>
+      <span><h3>Selección de Monos</h3></span>
+      <span>
+        <select [(ngModel)]="filtros.posicion" (ngModelChange)="filterPosition(filtros.posicion)">-->
+          <option value="">Todas las posiciones</option>
+          <option value="PIVOT">Pivot</option>
+          <option value="ALAPIVOT">Ala-Pivot</option>
+          <option value="ALERO">Alero</option>
+          <option value="ESCOLTA">Escolta</option>
+          <option value="BASE">Base</option>
+          </select>
+      </span>
+    </section>
     <table class="table table-striped table-hover table-bordered table-dark table-sm" *ngIf="draft.jugadores.length > 0">
-      <thead>
-      <tr>
-        <th scope="col">Editar</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Posición</th>
-        <th scope="col">AT</th>
-        <th scope="col">DF</th>
-        <th scope="col">REB</th>
-        <th scope="col">PAS</th>
-        <th scope="col">AGV</th>
-        <th scope="col">SEX</th>
-        <th scope="col">Seleccionar</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let jugador of draft.jugadores; let i=index">
-        <td style="text-align: center;"><i class="fas fa-edit"></i></td>
-        <td>{{jugador.name}}</td>
-        <td>{{jugador.posicion}}</td>
-        <td>{{jugador.atributos.ataque}}</td>
-        <td>{{jugador.atributos.defensa}}</td>
-        <td>{{jugador.atributos.rebotes}}</td>
-        <td>{{jugador.atributos.pase}}</td>
-        <td>{{jugador.atributos.agresividad}}</td>
-        <td>{{jugador.atributos.sexualidad}}</td>
-        <td>
-          <button [disabled]="max_p" *ngIf="jugador.posicion == 'PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
-          <button [disabled]="max_ap" *ngIf="jugador.posicion == 'ALA-PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
-          <button [disabled]="max_a" *ngIf="jugador.posicion == 'ALERO'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
-          <button [disabled]="max_e" *ngIf="jugador.posicion == 'ESCOLTA'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
-          <button [disabled]="max_b" *ngIf="jugador.posicion == 'BASE'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
-        </td>
-      </tr>
-      </tbody>
+    <thead>
+    <tr>
+    <th scope="col">Nombre</th>
+    <th scope="col">Posición</th>
+    <th scope="col">AT</th>
+    <th scope="col">DF</th>
+    <th scope="col">REB</th>
+    <th scope="col">PAS</th>
+    <th scope="col">AGV</th>
+    <th scope="col">SEX</th>
+    <th scope="col">Seleccionar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jugador of draft.jugadores; let i=index" style="cursor: pointer" >
+    <td>{{jugador.name}}</td>
+    <td>{{jugador.posicion}}</td>
+    <td>{{jugador.atributos.ataque}}</td>
+    <td>{{jugador.atributos.defensa}}</td>
+    <td>{{jugador.atributos.rebotes}}</td>
+    <td>{{jugador.atributos.pase}}</td>
+    <td>{{jugador.atributos.agresividad}}</td>
+    <td>{{jugador.atributos.sexualidad}}</td>
+    <td>
+    <button [disabled]="max_p" *ngIf="jugador.posicion == 'PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+    <button [disabled]="max_ap" *ngIf="jugador.posicion == 'ALA-PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+    <button [disabled]="max_a" *ngIf="jugador.posicion == 'ALERO'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+    <button [disabled]="max_e" *ngIf="jugador.posicion == 'ESCOLTA'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+    <button [disabled]="max_b" *ngIf="jugador.posicion == 'BASE'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+    </td>
+    </tr>
+    </tbody>
     </table>
-
   </section>
+
 </section>
 
 <section class="mensaje" [hidden]="draft.jugadores.length > 0">

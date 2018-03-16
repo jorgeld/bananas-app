@@ -129,6 +129,11 @@ export class EquiposComponent implements OnInit {
 
     //Elegimos nuevo equipo selector
     this.draft.equipoSelector.equipo = this.draft.equipos[this.draft.seleccion];
+    this.max_p = false;
+    this.max_ap= false;
+    this.max_a = false;
+    this.max_e = false;
+    this.max_b = false;
     this.draft.equipoSelector.totales = {
       pivot : 0,
       alapivot : 0,
@@ -144,26 +149,27 @@ export class EquiposComponent implements OnInit {
      * **/
     if(this.draft.equipoSelector.equipo.jugadores.length > 0){
       this.draft.equipoSelector.equipo.jugadores.forEach((jugador)=>{
+
         switch (jugador.posicion){
           case "PIVOT" :
             this.draft.equipoSelector.totales.pivot++;
-            if(this.draft.equipoSelector.totales.pivot == 2){this.max_p = true}else{this.max_p = false};
+            if(this.draft.equipoSelector.totales.pivot == 2){this.max_p = true};
             break;
           case "ALA-PIVOT" :
             this.draft.equipoSelector.totales.alapivot++;
-            if(this.draft.equipoSelector.totales.alapivot == 2){this.max_ap = true}else{this.max_ap = false};
+            if(this.draft.equipoSelector.totales.alapivot == 2){this.max_ap = true};
             break;
           case "ALERO" :
             this.draft.equipoSelector.totales.alero++;
-            if(this.draft.equipoSelector.totales.alero == 2){this.max_a = true}else{this.max_a = false};
+            if(this.draft.equipoSelector.totales.alero == 2){this.max_a = true};
             break;
           case "ESCOLTA" :
             this.draft.equipoSelector.totales.escolta++;
-            if(this.draft.equipoSelector.totales.escolta == 2){this.max_e = true}else{this.max_e = false};
+            if(this.draft.equipoSelector.totales.escolta == 2){this.max_e = true};
             break;
           case "BASE" :
             this.draft.equipoSelector.totales.base++;
-            if(this.draft.equipoSelector.totales.base == 2){this.max_b = true}else{this.max_b = false};
+            if(this.draft.equipoSelector.totales.base == 2){this.max_b = true};
             break;
         }
       })
