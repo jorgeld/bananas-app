@@ -65,11 +65,12 @@
   <section>
     <section>
       <span><h3>Selección de Monos</h3></span>
+      <!--<span><input [(ngModel)]="searchText" placeholder="search text goes here"></span>-->
       <span>
-        <select [(ngModel)]="filtros.posicion" (ngModelChange)="filterPosition(filtros.posicion)">-->
+        <select [(ngModel)]="filtros.posicion">
           <option value="">Todas las posiciones</option>
           <option value="PIVOT">Pivot</option>
-          <option value="ALAPIVOT">Ala-Pivot</option>
+          <option value="ALA-PIVOT">Ala-Pivot</option>
           <option value="ALERO">Alero</option>
           <option value="ESCOLTA">Escolta</option>
           <option value="BASE">Base</option>
@@ -91,7 +92,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let jugador of draft.jugadores; let i=index" style="cursor: pointer" >
+    <tr *ngFor="let jugador of draft.jugadores | filtroPosicion : filtros.posicion; let i=index" style="cursor: pointer" >
     <td>{{jugador.name}}</td>
     <td>{{jugador.posicion}}</td>
     <td>{{jugador.atributos.ataque}}</td>

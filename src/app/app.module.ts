@@ -14,6 +14,7 @@ import { Routes , RouterModule} from "@angular/router";
 import { MonkeysComponent } from './components/monkeys/monkeys.component';
 import { EquiposComponent } from './components/equipos/equipos.component';
 import { JugadoresComponent } from './components/jugadores/jugadores.component';
+import { FiltroPosicionPipe } from './pipes/filtro-posicion.pipe';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     MonkeysComponent,
     EquiposComponent,
     JugadoresComponent,
+    FiltroPosicionPipe,
   ],
   imports: [
     BrowserModule,
