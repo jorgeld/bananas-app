@@ -82,12 +82,12 @@
     <tr>
     <th scope="col">Nombre</th>
     <th scope="col">Posición</th>
-    <th scope="col">AT</th>
-    <th scope="col">DF</th>
-    <th scope="col">REB</th>
-    <th scope="col">PAS</th>
-    <th scope="col">AGV</th>
-    <th scope="col">SEX</th>
+    <th scope="col" (click)="ordenarTabla('AT')" style="cursor: pointer">AT</th>
+    <th scope="col" (click)="ordenarTabla('DF')" style="cursor: pointer">DF</th>
+    <th scope="col" (click)="ordenarTabla('REB')" style="cursor: pointer">REB</th>
+    <th scope="col" (click)="ordenarTabla('PAS')" style="cursor: pointer">PAS</th>
+    <th scope="col" (click)="ordenarTabla('AGV')" style="cursor: pointer">AGV</th>
+    <th scope="col" (click)="ordenarTabla('SEX')" style="cursor: pointer">SEX</th>
     <th scope="col">Seleccionar</th>
     </tr>
     </thead>

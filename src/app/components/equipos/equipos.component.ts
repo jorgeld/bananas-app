@@ -206,6 +206,65 @@ export class EquiposComponent implements OnInit {
       );
   };
 
+  ordenarTabla = function(val){
+    switch (val){
+      case 'AT' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.ataque < b.atributos.ataque){
+          return 1;
+        }
+        if(a.atributos.ataque > b.atributos.ataque){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+      case 'DF' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.defensa < b.atributos.defensa){
+          return 1;
+        }
+        if(a.atributos.defensa > b.atributos.defensa){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+      case 'REB' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.rebotes < b.atributos.rebotes){
+          return 1;
+        }
+        if(a.atributos.rebotes > b.atributos.rebotes){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+      case 'PAS' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.pase < b.atributos.pase){
+          return 1;
+        }
+        if(a.atributos.pase > b.atributos.pase){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+      case 'AGV' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.agresividad < b.atributos.agresividad){
+          return 1;
+        }
+        if(a.atributos.agresividad > b.atributos.agresividad){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+      case 'SEX' : this.draft.jugadores.sort(function(a,b){
+        if(a.atributos.sexualidad < b.atributos.sexualidad){
+          return 1;
+        }
+        if(a.atributos.sexualidad > b.atributos.sexualidad){
+          return -1;
+        }
+        return 0;
+      }) ;break;
+    }
+  }
+
   eliminarEquipos = function(){
 
     let observables = [];
