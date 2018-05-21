@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { JugadoresService } from '../jugadores/jugadores.service';
 import { AppComponent } from '../../app.component';
 import { Observable } from 'rxjs/Rx';
+import {errorComparator} from "tslint/lib/test/lintError";
 
 @Component({
   selector: 'app-jugadores',
@@ -19,10 +20,8 @@ export class JugadoresComponent implements OnInit {
   aleros = [];
   escoltas = [];
   bases = [];
-
   eliminarTodosJugadores:boolean;
   vaciarJugadoresEquipo:boolean;
-
   ready = false;
 
   getJugadores = function(){
@@ -118,19 +117,40 @@ export class JugadoresComponent implements OnInit {
       )
   };
 
+  deleteAllJugadores = function(){
+    var self = this;
+    this._jugadoresService.deleteAllJugador()
+      .subscribe(
+        result => {
+
+        },
+        error => {
+          console.log(`Error al llamar servicio getJugadores()`);
+        },
+        ()=> {
+          this.getJugadores();
+        })
+  }
+
   hornearJugadores = function(){
     this._jugadoresService.hornearJugadores()
       .subscribe(
         result => {
-          this.listadojugadores = result.jugadores;
-
-          this.pivots = this.listadojugadores.filter(function(j){return j.posicion == 'PIVOT'});
-          this.ala_pivots = this.listadojugadores.filter(function(j){return j.posicion == 'ALA-PIVOT'});
-          this.aleros = this.listadojugadores.filter(function(j){return j.posicion == 'ALERO'});
-          this.escoltas = this.listadojugadores.filter(function(j){return j.posicion == 'ESCOLTA'});
-          this.bases = this.listadojugadores.filter(function(j){return j.posicion == 'BASE'});
-
-          this.getJugadores();
+          this.getJugadores()
+            .subscribe(result => {
+              this.listadojugadores = result.jugadores;
+              this.pivots = this.listadojugadores.filter(function(j){return j.posicion == 'PIVOT'});
+              this.ala_pivots = this.listadojugadores.filter(function(j){return j.posicion == 'ALA-PIVOT'});
+              this.aleros = this.listadojugadores.filter(function(j){return j.posicion == 'ALERO'});
+              this.escoltas = this.listadojugadores.filter(function(j){return j.posicion == 'ESCOLTA'});
+              this.bases = this.listadojugadores.filter(function(j){return j.posicion == 'BASE'});
+            })
+        },
+        error => {
+          // this.getJugadores();
+          console.log(`Error hornear jugadores ---> ${error}`)
+        },
+        confirm =>{
         }
       )
   }

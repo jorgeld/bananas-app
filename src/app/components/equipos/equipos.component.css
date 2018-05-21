@@ -56,22 +56,29 @@ section.contenedor section:nth-of-type(1) > section.botones{
 
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   align-items: center;
   justify-content: end;
   /*justify-items: end;*/
 }
 
-section.contenedor section:nth-of-type(1) > section.botones span{
+section.contenedor section:nth-of-type(1) > section.botones button{
   padding: 6px 16px 6px 16px;
   background-color: #2a2c2d;
   color: white;
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+  border: none;
 }
 
-section.contenedor section:nth-of-type(1) > section.botones span:hover{
+section.contenedor section:nth-of-type(1) > section.botones button:disabled{
+  background-color: #959696;
+  color: white;
+  cursor: not-allowed;
+}
+
+section.contenedor section:nth-of-type(1) > section.botones button:hover{
   background-color: #959696;
   color: white;
 }

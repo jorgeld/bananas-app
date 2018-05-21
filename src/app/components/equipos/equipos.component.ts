@@ -52,7 +52,9 @@ export class EquiposComponent implements OnInit {
     jugadores : [],
     rondaDraft : 1,
     seleccion : this.listadoequipos.length,
-    equipoSelector : {equipo:undefined,totales:undefined}
+    equipoSelector : {equipo:undefined,totales:undefined,jugadores:[]},
+    completado:false,
+    guardandoDraft: false
   };
 
   max_p = false;
@@ -76,7 +78,9 @@ export class EquiposComponent implements OnInit {
           // A cada equipo le ponemos un atributo para reconocer si es seleccionable o no
           this.listadoequipos.map(
             res => {
+              if(!res.hasOwnProperty('jugadores')){
                 res.jugadores = [];
+              }
                 res.seleccionable = true;
             }
           );
@@ -105,7 +109,7 @@ export class EquiposComponent implements OnInit {
           if (this.draft.rondaDraft === 1) {
             this.draft.equipoSelector.equipo = this.draft.equipos[this.draft.seleccion];
           } else {
-            //TODO: GESTIONAR SI NO QUEDAN MÁS RONDAS
+            this.draft.completado = true;
           }
 
         }
@@ -114,8 +118,12 @@ export class EquiposComponent implements OnInit {
 
   seleccionarJugador  = function(jugador,index){
 
+    var j = jugador;
+    j.team = this.draft.equipoSelector.name;
+    // j.jugadorId = jugador._id;
+
     //Añadimos jugador
-    this.draft.equipos[this.draft.seleccion].jugadores.push(jugador);
+    this.draft.equipos[this.draft.seleccion].jugadores.push(j);
 
     //Borramos jugador de listao
     this.draft.jugadores.splice(index,1);
@@ -153,29 +161,28 @@ export class EquiposComponent implements OnInit {
         switch (jugador.posicion){
           case "PIVOT" :
             this.draft.equipoSelector.totales.pivot++;
-            if(this.draft.equipoSelector.totales.pivot == 2){this.max_p = true};
+            if(this.draft.equipoSelector.totales.pivot == 2){this.max_p = true}
             break;
           case "ALA-PIVOT" :
             this.draft.equipoSelector.totales.alapivot++;
-            if(this.draft.equipoSelector.totales.alapivot == 2){this.max_ap = true};
+            if(this.draft.equipoSelector.totales.alapivot == 2){this.max_ap = true}
             break;
           case "ALERO" :
             this.draft.equipoSelector.totales.alero++;
-            if(this.draft.equipoSelector.totales.alero == 2){this.max_a = true};
+            if(this.draft.equipoSelector.totales.alero == 2){this.max_a = true}
             break;
           case "ESCOLTA" :
             this.draft.equipoSelector.totales.escolta++;
-            if(this.draft.equipoSelector.totales.escolta == 2){this.max_e = true};
+            if(this.draft.equipoSelector.totales.escolta == 2){this.max_e = true}
             break;
           case "BASE" :
             this.draft.equipoSelector.totales.base++;
-            if(this.draft.equipoSelector.totales.base == 2){this.max_b = true};
+            if(this.draft.equipoSelector.totales.base == 2){this.max_b = true}
             break;
         }
       })
     }
   };
-
 
   generateEquipos = function(){
 
@@ -184,24 +191,38 @@ export class EquiposComponent implements OnInit {
       .subscribe(
         result => {
             this.comunidades = result.data;
-            let observables = [];
             this.generandoEquipos = true;
 
-            this.comunidades.forEach((comunidad) => {
-              let body = { 'name' : comunidad.nombre, 'bandera' : comunidad.bandera, 'escudo' : comunidad.escudo};
-              observables.push(this._equiposService.newEquipo(body))
-            });
+            this._equiposService.generateAllTeams()
+              .subscribe(
+                result => {
+                  // localStorage.setItem('rondaDraft' , '1')
+                  this.loadData();
+                },
+                error => {`Error al generar equipos`},
+                complete => {
+                  this.generandoEquipos = false;
+                }
+              );
+          /**
+           * Múltiples llamadas asincronas
+           * */
 
-          Observable.forkJoin(observables)
-            .subscribe(
-              result => {localStorage.setItem('rondaDraft' , '1');},
-              error => {console.log(`Error al llamar servicio newEquipo()`);},
-              ()=>{
-                this.generandoEquipos = false;
-                // this.borrarDatos();
-                this.loadData();
-              }
-            );
+          // let observables = [];
+          // this.comunidades.forEach((comunidad) => {
+          //   let body = { 'name' : comunidad.nombre, 'bandera' : comunidad.bandera, 'escudo' : comunidad.escudo};
+          //   observables.push(this._equiposService.newEquipo(body))
+          // });
+          // Observable.forkJoin(observables)
+          //   .subscribe(
+          //     result => {localStorage.setItem('rondaDraft' , '1');},
+          //     error => {console.log(`Error al llamar servicio newEquipo()`);},
+          //     ()=>{
+          //       this.generandoEquipos = false;
+          //       // this.borrarDatos();
+          //       this.loadData();
+          //     }
+          //   );
         }
       );
   };
@@ -267,23 +288,35 @@ export class EquiposComponent implements OnInit {
 
   eliminarEquipos = function(){
 
-    let observables = [];
+    // let observables = [];
     this.eliminandoEquipos = true;
 
-    this.listadoequipos.forEach((equipo)=>{
-      observables.push(this._equiposService.deleteEquipo(equipo._id))
-    });
-
-    Observable.forkJoin(observables)
+    this._equiposService.deleteAllEquipos()
       .subscribe(
-        result => {},
-        () => console.log('error'),
-        () => {
-          localStorage.removeItem('rondaDraft');
+        result => {
           this.eliminandoEquipos = false;
-          this.loadData();
-        }
+          // this.loadData();
+        },
+        err => {},
+        complete => {}
       )
+
+
+
+    // this.listadoequipos.forEach((equipo)=>{
+    //   observables.push(this._equiposService.deleteEquipo(equipo._id))
+    // });
+
+    // Observable.forkJoin(observables)
+    //   .subscribe(
+    //     result => {},
+    //     () => console.log('error'),
+    //     () => {
+    //       localStorage.removeItem('rondaDraft');
+    //       this.eliminandoEquipos = false;
+    //       this.loadData();
+    //     }
+    //   )
   };
 
   vaciarEquipos = function(){
@@ -305,6 +338,27 @@ export class EquiposComponent implements OnInit {
           this.loadData();
         }
       )
+  };
+
+  guardarDraft = function(){
+
+    this.draft.guardandoDraft=true;
+    let observables = [];
+
+    this.draft.equipos.forEach((equipo) => {
+      observables.push(this._equiposService.updateEquipo(equipo._id,equipo))
+    });
+
+    Observable.forkJoin(observables)
+      .subscribe(
+        result => {},
+        () => console.log('error'),
+        () => {
+          this.draft.guardandoDraft=false;
+          // this.loadData();
+        }
+      )
+
   };
 
   borrarDatos = function () {

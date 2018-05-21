@@ -40,6 +40,11 @@ export class JugadoresService {
       .map(res => res.json());
   }
 
+  deleteAllJugador() {
+    return this._http.get('http://localhost:3000/api/deleteAllJugadores')
+      .map(res => res.json());
+  }
+
 }
 
 

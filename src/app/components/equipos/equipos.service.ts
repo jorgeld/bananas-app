@@ -26,6 +26,7 @@ export class EquiposService {
   }
 
   updateEquipo(equipoId,body){
+    debugger;
     return this._http.put('http://localhost:3000/api/equipo/update/'+equipoId,body)
       .map(res => res.json());
   }
@@ -34,5 +35,21 @@ export class EquiposService {
     return this._http.delete('http://localhost:3000/api/equipo/delete/'+idEquipo)
       .map(res => res.json());
   }
+
+  generarDraft(body) {
+    return this._http.post('http://localhost:3000/api/equipos/guardarDraft',body)
+      .map(res => res.json());
+  }
+
+  deleteAllEquipos() {
+    return this._http.delete('http://localhost:3000/api/deleteAllEquipos')
+      .map(res => res.json());
+  }
+
+  generateAllTeams(){
+    return this._http.get('http://localhost:3000/api/generarEquipos')
+      .map(res => res.json());
+  }
+
 
 }

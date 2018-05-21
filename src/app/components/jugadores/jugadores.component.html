@@ -3,7 +3,8 @@
   <h1>Jugadores</h1>
   <section class="botonesBorrado">
     <button class="btn" (click)="hornearJugadores()" style="margin-right: 6px" >Generar Hornada</button>
-    <button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
+    <!--<button class="btn" (click)="eliminarJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>-->
+    <button class="btn" (click)="deleteAllJugadores()" style="margin-right: 6px" ><span *ngIf="eliminarTodosJugadores"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Jugadores</button>
   </section>
   <section class="botones">
     <button class="btn btn-primary" [disabled]="pivots.length >= 40 " (click)="newJugadorByPosition('PIVOT')">Pivot {{pivots.length}}</button>
