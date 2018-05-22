@@ -42,6 +42,7 @@ export class EquiposComponent implements OnInit {
   generandoEquipos:false;
   eliminandoEquipos:false;
   vaciarJugadoresEquipo:false;
+  generadoDraft = false;
 
   filtros = {
     posicion : ''
@@ -54,7 +55,6 @@ export class EquiposComponent implements OnInit {
     seleccion : this.listadoequipos.length,
     equipoSelector : {equipo:undefined,totales:undefined,jugadores:[]},
     completado:false,
-    guardandoDraft: false
   };
 
   max_p = false;
@@ -73,6 +73,12 @@ export class EquiposComponent implements OnInit {
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
+
+          if(this.listadoequipos[this.listadoequipos.length-1].jugadores.length == 10){
+            this.generadoDraft = true;
+          }
+
+
           this.draft.seleccion = 0;
 
           // A cada equipo le ponemos un atributo para reconocer si es seleccionable o no
@@ -119,7 +125,7 @@ export class EquiposComponent implements OnInit {
   seleccionarJugador  = function(jugador,index){
 
     var j = jugador;
-    j.team = this.draft.equipoSelector.name;
+    j.team = this.draft.equipoSelector.equipo.name;
     // j.jugadorId = jugador._id;
 
     //Añadimos jugador
@@ -284,7 +290,7 @@ export class EquiposComponent implements OnInit {
         return 0;
       }) ;break;
     }
-  }
+  };
 
   eliminarEquipos = function(){
 
@@ -355,7 +361,11 @@ export class EquiposComponent implements OnInit {
         () => console.log('error'),
         () => {
           this.draft.guardandoDraft=false;
-          // this.loadData();
+          this._jugadoresService.deleteAllJugador()
+            .subscribe(result => {
+              this.generadoDraft = true;
+              this.loadData();
+            })
         }
       )
 

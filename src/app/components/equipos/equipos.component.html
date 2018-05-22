@@ -4,12 +4,12 @@
 
   <!--CABECERA-->
   <section>
-    <h1>Equipos</h1>
+    <h1>Draft</h1>
     <section class="botones">
-      <button (click)="eliminarEquipos()" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
-      <button (click)="generateEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
-      <button (click)="vaciarEquipos()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</button>
-      <button (click)="guardarDraft()" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>
+      <button (click)="eliminarEquipos()"[disabled]="true" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
+      <button (click)="generateEquipos()"[disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
+      <button (click)="vaciarEquipos()" [disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</button>
+      <button (click)="guardarDraft()" [disabled]="listadoequipos[listadoequipos.length-1].jugadores.length != 10 || generadoDraft" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>
     </section>
   </section>
 
@@ -103,7 +103,7 @@
           <td>{{jugador.atributos.agresividad}}</td>
           <td>{{jugador.atributos.sexualidad}}</td>
           <td>
-            <button [disabled]="max_p" *ngIf="jugador.posicion == 'PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
+            <button [disabled]="max_p || jugador.team" *ngIf="jugador.posicion == 'PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
             <button [disabled]="max_ap" *ngIf="jugador.posicion == 'ALA-PIVOT'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
             <button [disabled]="max_a" *ngIf="jugador.posicion == 'ALERO'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
             <button [disabled]="max_e" *ngIf="jugador.posicion == 'ESCOLTA'" class="btn btn-primary btn-sm" (click)="seleccionarJugador(jugador,i)">Seleccionar</button>
