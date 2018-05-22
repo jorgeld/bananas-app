@@ -1,5 +1,6 @@
+///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import { Component, OnInit } from '@angular/core';
-import { EquiposService } from '../equipos/equipos.service';
+import { DraftService } from './/draft.service';
 import { JugadoresService } from '../jugadores/jugadores.service';
 import { UtilsService } from '../utils/utils.service';
 import { AppComponent } from '../../app.component'
@@ -20,14 +21,15 @@ export class FiltroPosicion implements PipeTransform {
 
 @Component({
   selector: 'app-equipos',
-  templateUrl: './equipos.component.html',
-  styleUrls: ['./equipos.component.css'],
-  providers : [EquiposService,JugadoresService,UtilsService]
+  styleUrls: ['./draft.component.css'],
+  templateUrl: './draft.component.html',
+  providers : [DraftService,JugadoresService,UtilsService]
 })
-export class EquiposComponent implements OnInit {
+
+export class DraftComponent implements OnInit {
 
   constructor(
-    private _equiposService: EquiposService,
+    private _draftService: DraftService,
     private _jugadoresService: JugadoresService,
     private _utilsService: UtilsService,
     private _appComponent: AppComponent)
@@ -69,7 +71,7 @@ export class EquiposComponent implements OnInit {
     this.borrarDatos();
 
     //Recogemos equipos
-    this._equiposService.getEquiposRest()
+    this._draftService.getEquiposRest()
       .subscribe(
         result => {
           this.listadoequipos = result.equipos;
@@ -199,7 +201,7 @@ export class EquiposComponent implements OnInit {
             this.comunidades = result.data;
             this.generandoEquipos = true;
 
-            this._equiposService.generateAllTeams()
+            this._draftService.generateAllTeams()
               .subscribe(
                 result => {
                   // localStorage.setItem('rondaDraft' , '1')
@@ -217,7 +219,7 @@ export class EquiposComponent implements OnInit {
           // let observables = [];
           // this.comunidades.forEach((comunidad) => {
           //   let body = { 'name' : comunidad.nombre, 'bandera' : comunidad.bandera, 'escudo' : comunidad.escudo};
-          //   observables.push(this._equiposService.newEquipo(body))
+          //   observables.push(this._draftService.newEquipo(body))
           // });
           // Observable.forkJoin(observables)
           //   .subscribe(
@@ -297,7 +299,7 @@ export class EquiposComponent implements OnInit {
     // let observables = [];
     this.eliminandoEquipos = true;
 
-    this._equiposService.deleteAllEquipos()
+    this._draftService.deleteAllEquipos()
       .subscribe(
         result => {
           this.eliminandoEquipos = false;
@@ -310,7 +312,7 @@ export class EquiposComponent implements OnInit {
 
 
     // this.listadoequipos.forEach((equipo)=>{
-    //   observables.push(this._equiposService.deleteEquipo(equipo._id))
+    //   observables.push(this._draftService.deleteEquipo(equipo._id))
     // });
 
     // Observable.forkJoin(observables)
@@ -332,7 +334,7 @@ export class EquiposComponent implements OnInit {
 
     this.listadoequipos.forEach((equipo)=>{
       let body = {jugadores : []};
-      observables.push(this._equiposService.updateEquipo(equipo._id,body))
+      observables.push(this._draftService.updateEquipo(equipo._id,body))
     });
 
     Observable.forkJoin(observables)
@@ -352,7 +354,7 @@ export class EquiposComponent implements OnInit {
     let observables = [];
 
     this.draft.equipos.forEach((equipo) => {
-      observables.push(this._equiposService.updateEquipo(equipo._id,equipo))
+      observables.push(this._draftService.updateEquipo(equipo._id,equipo))
     });
 
     Observable.forkJoin(observables)

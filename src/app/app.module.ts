@@ -12,14 +12,14 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { UsersCreateComponent } from './components/users/users-create/users-create.component';
 import { Routes , RouterModule} from "@angular/router";
 import { MonkeysComponent } from './components/monkeys/monkeys.component';
-import { EquiposComponent } from './components/equipos/equipos.component';
+import { DraftComponent } from './components/draft/draft.component';
 import { JugadoresComponent } from './components/jugadores/jugadores.component';
 import { FiltroPosicionPipe } from './pipes/filtro-posicion.pipe';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
   { path: 'monkeys', component: MonkeysComponent },
-  { path: 'equipos', component: EquiposComponent },
+  { path: 'equipos', component: DraftComponent },
   { path: 'jugadores', component: JugadoresComponent },
 ];
 
@@ -32,7 +32,7 @@ const appRoutes: Routes = [
     UsersCreateComponent,
     UsersComponent,
     MonkeysComponent,
-    EquiposComponent,
+    DraftComponent,
     JugadoresComponent,
     FiltroPosicionPipe,
   ],

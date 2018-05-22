@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class EquiposService {
+export class DraftService {
 
   constructor(private _http: Http) { }
 
