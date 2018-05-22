@@ -15,12 +15,14 @@ import { MonkeysComponent } from './components/monkeys/monkeys.component';
 import { DraftComponent } from './components/draft/draft.component';
 import { JugadoresComponent } from './components/jugadores/jugadores.component';
 import { FiltroPosicionPipe } from './pipes/filtro-posicion.pipe';
+import { EquiposComponent } from './components/equipos/equipos.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
   { path: 'monkeys', component: MonkeysComponent },
-  { path: 'equipos', component: DraftComponent },
+  { path: 'draft', component: DraftComponent },
   { path: 'jugadores', component: JugadoresComponent },
+  { path: 'equipos', component: EquiposComponent },
 ];
 
 @NgModule({
@@ -35,6 +37,7 @@ const appRoutes: Routes = [
     DraftComponent,
     JugadoresComponent,
     FiltroPosicionPipe,
+    EquiposComponent,
   ],
   imports: [
     BrowserModule,

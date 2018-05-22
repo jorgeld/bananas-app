@@ -1,0 +1,121 @@
+
+<section class="contenedor">
+
+  <!--CABECERA-->
+  <section>
+    <h1>Equipos</h1>
+  </section>
+
+  <!--LISTADO EQUIPOS-->
+  <section>
+    <article *ngFor="let equipo of equiposL;" (click)="seleccionarEquipo(equipo._id)" >
+      <span><img src="{{equipo.bandera}}" width="18px" height="12"></span>
+      <span>{{equipo.name}}</span>
+    </article>
+  </section>
+
+  <!--DETALLES EQUIPO-->
+  <section>
+
+    <!--CABECERA -------- ESCUDO / NOMBRE-->
+    <section></section>
+
+    <!--TABLA JUGADORES-->
+    <section></section>
+
+
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="contendorEquipo" *ngIf="equipoSelected">
+
+    <h2 class="nombre">{{equipoSelected.name}}</h2>
+    <span class="escudo"><img src="{{equipoSelected.escudo}}" width="20px" height="35px"></span>
+
+    <table class="tablaJugadores"
+           *ngIf="equipoSelected.jugadores.length > 0">
+      <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Posición</th>
+        <th scope="col">Procedencia</th>
+        <th scope="col">AT</th>
+        <th scope="col">DF</th>
+        <th scope="col">REB</th>
+        <th scope="col">PAS</th>
+        <th scope="col">AGV</th>
+        <th scope="col">SEX</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let jugador of equipoSelected.jugadores; let i=index">
+        <td>{{jugador.name}}</td>
+        <td>{{jugador.edad}}</td>
+        <td>{{jugador.posicion}}</td>
+        <td>{{jugador.lugar}}</td>
+        <td>{{jugador.atributos.ataque}}</td>
+        <td>{{jugador.atributos.defensa}}</td>
+        <td>{{jugador.atributos.rebotes}}</td>
+        <td>{{jugador.atributos.pase}}</td>
+        <td>{{jugador.atributos.agresividad}}</td>
+        <td>{{jugador.atributos.sexualidad}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+
+
+
+
+
+</section>
