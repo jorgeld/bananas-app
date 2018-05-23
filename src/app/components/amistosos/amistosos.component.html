@@ -1,0 +1,68 @@
+<section class="contenedor">
+  <h1>Amistosos</h1>
+  <h3>Seleccione 2 equipos</h3>
+
+
+  <h5>Local</h5>
+  <h5>Visitante</h5>
+
+  <select [(ngModel)]="equipoLocal" (ngModelChange)="haciendoMedias(equipoLocal,'local')">
+    <option *ngFor="let equipo of equipoList" [ngValue]="equipo">{{equipo.name}}</option>
+  </select>
+
+  <select [(ngModel)]="equipoVisitante" (ngModelChange)="haciendoMedias(equipoVisitante)">
+    <option *ngFor="let equipo of equipoList" [ngValue]="equipo">{{equipo.name}}</option>
+  </select>
+
+  <img src="{{equipoLocal.escudo}}" *ngIf="equipoLocal">
+  <img src="{{equipoVisitante.escudo}}" *ngIf="equipoVisitante">
+
+  <table *ngIf="equipoLocal">
+    <thead>
+    <tr>
+      <th>ATQ</th>
+      <th>DEF</th>
+      <th>REB</th>
+      <th>PAS</th>
+      <th>AGV</th>
+      <th>SEX</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{medias.local.ataque}}</td>
+      <td>{{medias.local.rebotes}}</td>
+      <td>{{medias.local.pase}}</td>
+      <td>{{medias.local.defensa}}</td>
+      <td>{{medias.local.agresividad}}</td>
+      <td>{{medias.local.sexualidad}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="equipoVisitante">
+    <thead>
+    <tr>
+      <th>ATQ</th>
+      <th>DEF</th>
+      <th>REB</th>
+      <th>PAS</th>
+      <th>AGV</th>
+      <th>SEX</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{medias.visitante.ataque}}</td>
+      <td>{{medias.visitante.rebotes}}</td>
+      <td>{{medias.visitante.pase}}</td>
+      <td>{{medias.visitante.defensa}}</td>
+      <td>{{medias.visitante.agresividad}}</td>
+      <td>{{medias.visitante.sexualidad}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button style="margin-right: 6px">Jugar</button>
+
+</section>
