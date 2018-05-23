@@ -15,72 +15,12 @@
   </section>
 
   <!--DETALLES EQUIPO-->
-  <section>
-
-    <!--CABECERA -------- ESCUDO / NOMBRE-->
-    <section></section>
-
-    <!--TABLA JUGADORES-->
-    <section></section>
-
-
-  </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <section class="contendorEquipo" *ngIf="equipoSelected">
+  <section *ngIf="equipoSelected">
 
     <h2 class="nombre">{{equipoSelected.name}}</h2>
-    <span class="escudo"><img src="{{equipoSelected.escudo}}" width="20px" height="35px"></span>
+    <img class="escudo" src="{{equipoSelected.escudo}}" width="20px" height="35px">
 
-    <table class="tablaJugadores"
-           *ngIf="equipoSelected.jugadores.length > 0">
+    <table class="tablaJugadores" *ngIf="equipoSelected.jugadores.length > 0">
       <thead>
       <tr>
         <th scope="col">Nombre</th>
@@ -112,6 +52,13 @@
     </table>
 
   </section>
+
+
+
+
+
+
+
 
 
 
