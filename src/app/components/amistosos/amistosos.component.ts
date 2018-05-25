@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EquiposService} from "../equipos/equipos.service";
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-amistosos',
@@ -14,6 +15,9 @@ export class AmistososComponent implements OnInit {
   equipoList = [];
   equipoLocal;
   equipoVisitante;
+
+  chartLocal = [];
+  chartchartVisitante = [];
 
   medias = {
     local : {
@@ -79,10 +83,45 @@ export class AmistososComponent implements OnInit {
         this.medias.visitante.agresividad = sumatorio.agresividad / 10;
         this.medias.visitante.sexualidad = sumatorio.sexualidad / 10;
       }
+
+      this.chartLocal = new Chart('canvas', {
+        type: 'bar',
+        data: {
+          labels: ['ATQ','DEF','REB','PAS','AGR', 'SEX'],
+          datasets: [
+            {
+              data: [this.medias.local.ataque,this.medias.local.defensa,this.medias.local.rebotes,this.medias.local.pase,this.medias.local.agresividad,this.medias.local.sexualidad],
+              borderColor: "#3cba9f",
+              fill: false
+            },
+            {
+              data: [this.medias.visitante.ataque,this.medias.visitante.defensa,this.medias.visitante.rebotes,this.medias.visitante.pase,this.medias.visitante.agresividad,this.medias.visitante.sexualidad],
+              borderColor: "#3cba9f",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              display: false
+            }],
+            yAxes: [{
+              display: false
+            }],
+          }
+        }
+      });
+
+
+
   };
 
   ngOnInit() {
-    this.getEquiposList()
+    this.getEquiposList();
   }
 
 }
