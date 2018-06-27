@@ -18,8 +18,8 @@ export class AmistososComponent implements OnInit {
   equipoVisitante;
 
   RATIOS = {
-    RATIO_ATQ : 220,
-    RATIO_DEF : 50,
+    RATIO_ATQ : 240,
+    RATIO_DEF : 70,
     RATIO_REB : 25,
     RATIO_PAS : 25,
     RATIO_AGR : 25,
@@ -153,7 +153,7 @@ export class AmistososComponent implements OnInit {
         this.marcador.visitante.final += this.marcador.visitante.cuartoCuarto;
         break;
     }
-    
+
   };
 
   generarMarcadores = (equipo) => {
