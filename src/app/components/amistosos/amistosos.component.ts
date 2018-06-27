@@ -18,7 +18,7 @@ export class AmistososComponent implements OnInit {
   equipoVisitante;
 
   RATIOS = {
-    RATIO_ATQ : 200,
+    RATIO_ATQ : 220,
     RATIO_DEF : 50,
     RATIO_REB : 25,
     RATIO_PAS : 25,
@@ -33,6 +33,25 @@ export class AmistososComponent implements OnInit {
     PAS : 5,
     AGR : 5,
     SEX : 5,
+  };
+
+  puntos = {
+    local : {
+      atq : 0,
+      def : 0,
+      reb : 0,
+      pas : 0,
+      agr : 0,
+      sex : 0,
+    },
+    visitante : {
+      atq : 0,
+      def : 0,
+      reb : 0,
+      pas : 0,
+      agr : 0,
+      sex : 0,
+    }
   };
 
   chartLocal = [];
@@ -79,38 +98,53 @@ export class AmistososComponent implements OnInit {
         sex : 0,
       }
     };
-
     let teams = ['local','visitante'];
 
     //Generamos las puntuaciones para cada atributo y equipo
     teams.forEach((t)=>{
-      for(let prop in puntos[t]){
-        puntos[t][prop] = this.generarPuntuaciones(t.charAt(0).toUpperCase()+ t.slice(1), prop.toUpperCase());
+      for(let prop in this.puntos[t]){
+        this.puntos[t][prop] = this.generarPuntuaciones(t.charAt(0).toUpperCase() + t.slice(1), prop.toUpperCase());
       }
     });
 
-    console.log('puntos local --->' , Math.floor((Math.random() * (puntos.local.atq - (puntos.local.atq-this.DIFERENCIALES.ATQ))+puntos.local.atq-this.DIFERENCIALES.ATQ))  -  Math.floor((Math.random() * (puntos.visitante.def - (puntos.visitante.def-this.DIFERENCIALES.DEF))+puntos.visitante.def-this.DIFERENCIALES.DEF)) );
-    console.log('puntos visit --->' , Math.floor((Math.random() * (puntos.visitante.atq - (puntos.visitante.atq-this.DIFERENCIALES.ATQ))+puntos.visitante.atq-this.DIFERENCIALES.ATQ))  -  Math.floor((Math.random() * (puntos.local.def - (puntos.local.def-this.DIFERENCIALES.DEF))+puntos.local.def-this.DIFERENCIALES.DEF)) );
+
+    console.log('puntos local --->' , this.generarMarcadores('local'));
+    console.log('puntos visitante --->' ,this.generarMarcadores('visitante'));
 
   };
 
+  generarMarcadores = (equipo) => {
+    let teamOposite;
+    (equipo === 'local')? teamOposite = 'local': teamOposite = 'visitante';
 
+    return  this.generarRandom(this.puntos[equipo].atq , this.puntos[equipo].atq - this.DIFERENCIALES.ATQ)
+        + this.generarRandom(this.puntos[equipo].pas , this.puntos[equipo].pas - this.DIFERENCIALES.PAS)
+        + this.generarRandom(this.puntos[equipo].reb , this.puntos[equipo].reb - this.DIFERENCIALES.REB)
+        - this.generarRandom(this.puntos[equipo].sex , this.puntos[equipo].sex - this.DIFERENCIALES.SEX)
+        - this.generarRandom(this.puntos[teamOposite].def , this.puntos[teamOposite].def - this.DIFERENCIALES.DEF)
+        - this.generarRandom(this.puntos[teamOposite].agr , this.puntos[teamOposite].agr - this.DIFERENCIALES.AGR);
+  };
+
+  generarRandom = (max , min) => {
+
+    let res = Math.floor(
+      Math.random() * (
+        max - min
+      ) + min
+    );
+    return res;
+  };
 
   generarPuntuaciones = (equipo,atributo) => {
     let response;
       switch (atributo){
-        case 'ATQ' : response = ((this.RATIOS.RATIO_ATQ * this['equipo'+equipo].medias.ataque) /  100);break;
-        case 'DEF' : response = ((this.RATIOS.RATIO_DEF * this['equipo'+equipo].medias.defensa) /  100);break;
-        case 'REB' : response = ((this.RATIOS.RATIO_REB * this['equipo'+equipo].medias.rebotes) /  100);break;
-        case 'PAS' : response = ((this.RATIOS.RATIO_PAS * this['equipo'+equipo].medias.pase) /  100);break;
-        case 'AGR' : response = ((this.RATIOS.RATIO_AGR * this['equipo'+equipo].medias.agresividad) /  100);break;
-        case 'SEX' : response = ((this.RATIOS.RATIO_SEX * this['equipo'+equipo].medias.sexualidad) /  100);break;
+        case 'ATQ' : response = Math.floor((this.RATIOS.RATIO_ATQ * this['equipo'+equipo].medias.ataque) /  100);break;
+        case 'DEF' : response = Math.floor((this.RATIOS.RATIO_DEF * this['equipo'+equipo].medias.defensa) /  100);break;
+        case 'REB' : response = Math.floor((this.RATIOS.RATIO_REB * this['equipo'+equipo].medias.rebotes) /  100);break;
+        case 'PAS' : response = Math.floor((this.RATIOS.RATIO_PAS * this['equipo'+equipo].medias.pase) /  100);break;
+        case 'AGR' : response = Math.floor((this.RATIOS.RATIO_AGR * this['equipo'+equipo].medias.agresividad) /  100);break;
+        case 'SEX' : response = Math.floor((this.RATIOS.RATIO_SEX * this['equipo'+equipo].medias.sexualidad) /  100);break;
       }
-
-      if(atributo === 'DEF'){
-        console.log(' -----> puntos defensa ---> ' , response);
-      }
-
     return response;
   };
 
