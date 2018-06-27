@@ -56,6 +56,25 @@ export class AmistososComponent implements OnInit {
 
   chartLocal = [];
 
+  cuarto = 'primero';
+
+  marcador = {
+    local : {
+      primerCuarto : 0,
+      segundoCuarto : 0,
+      terceroCuarto : 0,
+      cuartoCuarto : 0,
+      final : 0,
+    },
+    visitante : {
+      primerCuarto : 0,
+      segundoCuarto : 0,
+      terceroCuarto : 0,
+      cuartoCuarto : 0,
+      final : 0,
+    }
+  };
+
   medias = {
     local : {
       ataque : 0,
@@ -74,6 +93,7 @@ export class AmistososComponent implements OnInit {
       sexualidad : 0
     },
   };
+
 
   jugarPartido = () => {
 
@@ -107,9 +127,37 @@ export class AmistososComponent implements OnInit {
       }
     });
 
+    switch (this.cuarto){
+      case 'primero':
+        this.marcador.local.primerCuarto = Math.floor(this.generarMarcadores('local') / 4);
+        this.marcador.visitante.primerCuarto = Math.floor(this.generarMarcadores('visitante') / 4);
+        this.marcador.local.final += this.marcador.local.primerCuarto;
+        this.marcador.visitante.final += this.marcador.visitante.primerCuarto;
+        break;
+      case 'segundo':
+        this.marcador.local.segundoCuarto = Math.floor(this.generarMarcadores('local') / 4);
+        this.marcador.visitante.segundoCuarto = Math.floor(this.generarMarcadores('visitante') / 4);
+        this.marcador.local.final += this.marcador.local.segundoCuarto;
+        this.marcador.visitante.final += this.marcador.visitante.segundoCuarto;
+        break;
+      case 'tercero':
+        this.marcador.local.terceroCuarto = Math.floor(this.generarMarcadores('local') / 4);
+        this.marcador.visitante.terceroCuarto = Math.floor(this.generarMarcadores('visitante') / 4);
+        this.marcador.local.final += this.marcador.local.terceroCuarto;
+        this.marcador.visitante.final += this.marcador.visitante.terceroCuarto;
+        break;
+      case 'cuarto':
+        this.marcador.local.cuartoCuarto = Math.floor(this.generarMarcadores('local') / 4);
+        this.marcador.visitante.cuartoCuarto = Math.floor(this.generarMarcadores('visitante') / 4);
+        this.marcador.local.final += this.marcador.local.cuartoCuarto;
+        this.marcador.visitante.final += this.marcador.visitante.cuartoCuarto;
+        break;
+    }
 
-    console.log('puntos local --->' , this.generarMarcadores('local'));
-    console.log('puntos visitante --->' ,this.generarMarcadores('visitante'));
+
+
+    console.log('puntos local --->' , Math.floor(this.generarMarcadores('local') / 4));
+    console.log('puntos visitante --->' ,Math.floor(this.generarMarcadores('visitante') / 4));
 
   };
 

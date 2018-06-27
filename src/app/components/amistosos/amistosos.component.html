@@ -63,10 +63,26 @@
     </tbody>
   </table>
 
-  <button style="margin-right: 6px" [disabled]=" !equipoLocal || !equipoVisitante" (click)="jugarPartido()">Jugar</button>
-
+  <section class="botones">
+    <button style="margin-right: 6px" [disabled]=" !equipoLocal || !equipoVisitante || cuarto !== 'primero'" (click)="jugarPartido();cuarto = 'segundo'">
+      1º Cuarto <br> {{marcador.local.primerCuarto}} - {{marcador.visitante.primerCuarto}}
+    </button>
+    <button style="margin-right: 6px" [disabled]="cuarto !== 'segundo'" (click)="jugarPartido();cuarto = 'tercero'">
+      2º Cuarto <br> {{marcador.local.segundoCuarto}} - {{marcador.visitante.segundoCuarto}}
+    </button>
+    <button style="margin-right: 6px" [disabled]="cuarto !== 'tercero'" (click)="jugarPartido();cuarto = 'cuarto'">
+      3º Cuarto <br> {{marcador.local.terceroCuarto}} - {{marcador.visitante.terceroCuarto}}
+    </button>
+    <button style="margin-right: 6px" [disabled]="cuarto !== 'cuarto'" (click)="jugarPartido();cuarto = 'final'">
+      4º Cuarto <br> {{marcador.local.cuartoCuarto}} - {{marcador.visitante.cuartoCuarto}}
+    </button>
+  </section>
 </section>
 
-<section class="canvas">
+<section class="totales">
+  {{marcador.local.final}} - {{marcador.visitante.final}}
+</section>
+
+<section class="canvas" style="display: none">
   <canvas id="canvas">{{ chartLocal }}</canvas>
 </section>
