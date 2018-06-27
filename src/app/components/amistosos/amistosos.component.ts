@@ -16,8 +16,20 @@ export class AmistososComponent implements OnInit {
   equipoLocal;
   equipoVisitante;
 
+
+  RATIOS = {
+    RATIO_ATQ : 200,
+    RATIO_DEF : 50,
+    RATIO_REB : 25,
+    RATIO_PAS : 25,
+    RATIO_AGR : 25,
+    RATIO_SEX : 25,
+  };
+
+  DIFERENCIAL = 30;
+
+
   chartLocal = [];
-  chartchartVisitante = [];
 
   medias = {
     local : {
@@ -36,6 +48,59 @@ export class AmistososComponent implements OnInit {
       agresividad : 0,
       sexualidad : 0
     },
+  };
+
+  jugarPartido = () => {
+
+    this.equipoLocal.medias = this.medias.local;
+    this.equipoVisitante.medias = this.medias.visitante;
+
+    let RATIO_ATQ = 200;
+    let RATIO_DEF = 50;
+
+    let DIFERENCIAL = 30;
+
+
+    // let puntosLocal = (RATIO_ATQ * this.equipoLocal.medias.ataque) /  100;
+    let puntosLocal = this.generarPuntuaciones('local','ATQ');
+    let defensa_local = this.generarPuntuaciones('local','DEF');
+
+
+
+    let puntosVisitante = this.generarPuntuaciones('visitante','ATQ');
+    let defensa_visitante = this.generarPuntuaciones('visitante','DEF');
+
+    console.log('puntos local --->' , Math.floor((Math.random() * (puntosLocal - (puntosLocal-DIFERENCIAL))+puntosLocal-DIFERENCIAL))  -  Math.floor((Math.random() * (defensa_visitante - (defensa_visitante-DIFERENCIAL))+defensa_visitante-DIFERENCIAL)) );
+    console.log('puntos visit --->' , Math.floor((Math.random() * (puntosVisitante - (puntosVisitante-DIFERENCIAL))+puntosVisitante-DIFERENCIAL))  -  Math.floor((Math.random() * (defensa_local - (defensa_local-DIFERENCIAL))+defensa_local-DIFERENCIAL)) );
+
+  };
+
+
+
+  generarPuntuaciones = (equipo,atributo) => {
+
+    let response;
+
+    if(equipo === 'local'){
+      switch (atributo){
+        case 'ATQ' : response = ((this.RATIOS.RATIO_ATQ * this.equipoLocal.medias.ataque) /  100);break;
+        case 'DEF' : response = ((this.RATIOS.RATIO_DEF * this.equipoLocal.medias.defensa) /  100);break;
+        case 'REB' : response = ((this.RATIOS.RATIO_REB * this.equipoLocal.medias.rebotes) /  100);break;
+        case 'PAS' : response = ((this.RATIOS.RATIO_PAS * this.equipoLocal.medias.pase) /  100);break;
+        case 'AGR' : response = ((this.RATIOS.RATIO_AGR * this.equipoLocal.medias.agresividad) /  100);break;
+        case 'SEX' : response = ((this.RATIOS.RATIO_SEX * this.equipoLocal.medias.sexualidad) /  100);break;
+      }
+    }else{
+      switch (atributo){
+        case 'ATQ' : response = ((this.RATIOS.RATIO_ATQ * this.equipoVisitante.medias.ataque) /  100);break;
+        case 'DEF' : response = ((this.RATIOS.RATIO_DEF * this.equipoVisitante.medias.defensa) /  100);break;
+        case 'REB' : response = ((this.RATIOS.RATIO_REB * this.equipoVisitante.medias.rebotes) /  100);break;
+        case 'PAS' : response = ((this.RATIOS.RATIO_PAS * this.equipoVisitante.medias.pase) /  100);break;
+        case 'AGR' : response = ((this.RATIOS.RATIO_AGR * this.equipoVisitante.medias.agresividad) /  100);break;
+        case 'SEX' : response = ((this.RATIOS.RATIO_SEX * this.equipoVisitante.medias.sexualidad) /  100);break;
+      }
+    }
+    return response;
   };
 
   getEquiposList = () => {
@@ -92,25 +157,42 @@ export class AmistososComponent implements OnInit {
             {
               data: [this.medias.local.ataque,this.medias.local.defensa,this.medias.local.rebotes,this.medias.local.pase,this.medias.local.agresividad,this.medias.local.sexualidad],
               borderColor: "#3cba9f",
+              backgroundColor:"#3cba9f",
               fill: false
             },
             {
               data: [this.medias.visitante.ataque,this.medias.visitante.defensa,this.medias.visitante.rebotes,this.medias.visitante.pase,this.medias.visitante.agresividad,this.medias.visitante.sexualidad],
-              borderColor: "#3cba9f",
+              borderColor: "#ecca1e",
+              backgroundColor:"#ecca1e",
               fill: false
             }
           ]
         },
         options: {
           legend: {
-            display: false
+            display: true
           },
+          barPercentage: 1.0,
+          categoryPercentage:1.0,
           scales: {
             xAxes: [{
-              display: false
+              barPercentage: 1,
+              categoryPercentage: 0.7,
+              gridLines : {
+                offsetGridLines : false
+              },
+              display: true,
+              stacked: false
             }],
             yAxes: [{
-              display: false
+              ticks: {
+                beginAtZero: true,
+                fixedStepSize: 5,
+                max: 100,
+                min: 0
+              },
+              display: true,
+              stacked: false
             }],
           }
         }

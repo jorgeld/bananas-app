@@ -96,18 +96,13 @@ button:nth-of-type(1){
   justify-self: center;
 }
 
+.canvas{
+  grid-area: grafico;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+#example{
+  grid-area: example
+}
 
 
 
