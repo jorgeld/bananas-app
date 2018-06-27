@@ -76,6 +76,8 @@
     <button style="margin-right: 6px" [disabled]="cuarto !== 'cuarto'" (click)="jugarPartido();cuarto = 'final'">
       4º Cuarto <br> {{marcador.local.cuartoCuarto}} - {{marcador.visitante.cuartoCuarto}}
     </button>
+    <button style="margin-right: 6px"(click)="reiniciarPartido()">Reiniciar partido</button>
+
   </section>
 </section>
 

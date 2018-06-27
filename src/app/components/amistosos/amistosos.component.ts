@@ -153,12 +153,7 @@ export class AmistososComponent implements OnInit {
         this.marcador.visitante.final += this.marcador.visitante.cuartoCuarto;
         break;
     }
-
-
-
-    console.log('puntos local --->' , Math.floor(this.generarMarcadores('local') / 4));
-    console.log('puntos visitante --->' ,Math.floor(this.generarMarcadores('visitante') / 4));
-
+    
   };
 
   generarMarcadores = (equipo) => {
@@ -194,6 +189,26 @@ export class AmistososComponent implements OnInit {
         case 'SEX' : response = Math.floor((this.RATIOS.RATIO_SEX * this['equipo'+equipo].medias.sexualidad) /  100);break;
       }
     return response;
+  };
+
+  reiniciarPartido = () => {
+    this.cuarto = 'primero';
+    this.marcador = {
+      local : {
+        primerCuarto : 0,
+        segundoCuarto : 0,
+        terceroCuarto : 0,
+        cuartoCuarto : 0,
+        final : 0,
+      },
+      visitante : {
+        primerCuarto : 0,
+        segundoCuarto : 0,
+        terceroCuarto : 0,
+        cuartoCuarto : 0,
+        final : 0,
+      }
+    };
   };
 
   getEquiposList = () => {
