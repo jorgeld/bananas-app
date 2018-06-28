@@ -18,12 +18,12 @@ export class AmistososComponent implements OnInit {
   equipoVisitante;
 
   RATIOS = {
-    RATIO_ATQ : 240,
-    RATIO_DEF : 70,
-    RATIO_REB : 25,
-    RATIO_PAS : 25,
-    RATIO_AGR : 25,
-    RATIO_SEX : 25,
+    RATIO_ATQ : 250,
+    RATIO_DEF : 80,
+    RATIO_REB : 20,
+    RATIO_PAS : 20,
+    RATIO_AGR : 20,
+    RATIO_SEX : 20,
   };
 
   DIFERENCIALES = {

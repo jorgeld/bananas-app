@@ -15,81 +15,81 @@
   </section>
 
   <!--DETALLES EQUIPO-->
-  <section *ngIf="equipoSelected">
+  <section *ngIf="equipoSelected" class="detallesEquipo">
 
-    <h2 class="nombre">{{equipoSelected.name}}</h2>
-    <img class="escudo" src="{{equipoSelected.escudo}}" width="70px" height="70px">
+    <!--NOMBRE Y ESCUDO EQUIPO-->
+    <article class="nombreEquipo">
+      <h2 class="nombre">{{equipoSelected.name}}</h2>
+      <img class="escudo" src="{{equipoSelected.escudo}}" width="70px" height="70px">
+      <hr>
+    </article>
 
-    <h5>Medias</h5>
-    <table>
-      <thead>
+    <!--MEDIAS-->
+    <article class="medias">
+      <h5>Medias</h5>
+
+      <th>Ataque</th>
+      <th>Defensa</th>
+      <th>Rebote</th>
+      <th>Pase</th>
+      <th>Agresividad</th>
+      <th>Sexualidad</th>
+
+      <td>{{medias.ataque}}</td>
+      <td>{{medias.rebotes}}</td>
+      <td>{{medias.pase}}</td>
+      <td>{{medias.defensa}}</td>
+      <td>{{medias.agresividad}}</td>
+      <td>{{medias.sexualidad}}</td>
+
+      <!--<table>-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!---->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+          <!---->
+        <!--</tr>-->
+        <!--</tbody>-->
+      <!--</table>-->
+      <hr style="margin-top: 16px">
+    </article>
+
+    <article class="listadoJugadores">
+      <h5>Jugadores</h5>
+      <table *ngIf="equipoSelected.jugadores.length > 0">
+        <thead>
         <tr>
-          <th>Ataque</th>
-          <th>Defensa</th>
-          <th>Rebote</th>
-          <th>Pase</th>
-          <th>Agresividad</th>
-          <th>Sexualidad</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Posición</th>
+          <th scope="col">Procedencia</th>
+          <th scope="col">AT</th>
+          <th scope="col">DF</th>
+          <th scope="col">REB</th>
+          <th scope="col">PAS</th>
+          <th scope="col">AGV</th>
+          <th scope="col">SEX</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{medias.ataque}}</td>
-          <td>{{medias.rebotes}}</td>
-          <td>{{medias.pase}}</td>
-          <td>{{medias.defensa}}</td>
-          <td>{{medias.agresividad}}</td>
-          <td>{{medias.sexualidad}}</td>
+        </thead>
+        <tbody>
+        <tr *ngFor="let jugador of equipoSelected.jugadores; let i=index">
+          <td>{{jugador.name}}</td>
+          <td>{{jugador.edad}}</td>
+          <td>{{jugador.posicion}}</td>
+          <td>{{jugador.lugar}}</td>
+          <td>{{jugador.atributos.ataque}}</td>
+          <td>{{jugador.atributos.defensa}}</td>
+          <td>{{jugador.atributos.rebotes}}</td>
+          <td>{{jugador.atributos.pase}}</td>
+          <td>{{jugador.atributos.agresividad}}</td>
+          <td>{{jugador.atributos.sexualidad}}</td>
         </tr>
-      </tbody>
-    </table>
-
-    <hr>
-
-
-    <h5>Jugadores</h5>
-    <table *ngIf="equipoSelected.jugadores.length > 0">
-      <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Edad</th>
-        <th scope="col">Posición</th>
-        <th scope="col">Procedencia</th>
-        <th scope="col">AT</th>
-        <th scope="col">DF</th>
-        <th scope="col">REB</th>
-        <th scope="col">PAS</th>
-        <th scope="col">AGV</th>
-        <th scope="col">SEX</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let jugador of equipoSelected.jugadores; let i=index">
-        <td>{{jugador.name}}</td>
-        <td>{{jugador.edad}}</td>
-        <td>{{jugador.posicion}}</td>
-        <td>{{jugador.lugar}}</td>
-        <td>{{jugador.atributos.ataque}}</td>
-        <td>{{jugador.atributos.defensa}}</td>
-        <td>{{jugador.atributos.rebotes}}</td>
-        <td>{{jugador.atributos.pase}}</td>
-        <td>{{jugador.atributos.agresividad}}</td>
-        <td>{{jugador.atributos.sexualidad}}</td>
-      </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </article>
   </section>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </section>

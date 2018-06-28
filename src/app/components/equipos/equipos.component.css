@@ -57,13 +57,13 @@ section.contenedor section:nth-of-type(2) > article {
 }
 
 /*TERCERA SECCIÓN ----> DETALLES EQUIPO*/
-section.contenedor section:nth-of-type(3){
+section.contenedor .detallesEquipo{
   grid-row: 3/4;
   grid-column: 1 / 3;
 
   display: grid;
-  grid-template-rows: auto auto auto auto auto;
-  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto;
 
   background-color: #1d2124;
   border : solid #333333 thin;
@@ -73,48 +73,125 @@ section.contenedor section:nth-of-type(3){
   padding: 8px 16px 8px 16px;
 }
 
-section.contenedor section:nth-of-type(3) > h2 {
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
-  color: white;
-  font-weight: 300;
-  margin-bottom: 16px;
-  align-self: center;
-}
-
-section.contenedor section:nth-of-type(3) > img {
+section.contenedor .detallesEquipo .nombreEquipo{
+  display: grid;
   grid-row: 1 / 2;
   grid-column: 1 / 2;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "escudoEquipo         nombreEquipo"
+    "separador            separador"
+}
 
-  padding: 8px;
+section.contenedor .detallesEquipo .nombreEquipo > h2{
+  color: white;
+  font-weight: 300;
+  align-self: center;
+  font-size: 65px;
+  padding-left: 16px;
+  grid-area: nombreEquipo;
+}
+
+section.contenedor .detallesEquipo .nombreEquipo > img{
   background: linear-gradient(to bottom right, white, #909090);
-  /* background-color: #cecece; */
   border-radius: 50%;
   border-style: solid;
   border-width: 8px;
-  margin-bottom: 16px;
-
+  grid-area: escudoEquipo;
 }
 
-section.contenedor section:nth-of-type(3) > h5:nth-of-type(1){
+section.contenedor .detallesEquipo .nombreEquipo > hr {
+  grid-area: separador;
+}
+
+section.contenedor .detallesEquipo .medias{
+  display: grid;
   grid-row: 2 / 3;
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
+
+  grid-template-rows:auto auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "titulo     titulo     titulo     titulo     titulo     titulo"
+    "categoria1 categoria2 categoria3 categoria4 categoria5 categoria6"
+    "media1     media2     media3     media4     media5     media6  "
+    "separador  separador  separador  separador  separador  separador";
 }
 
-section.contenedor section:nth-of-type(3) > table:nth-of-type(1){
+section.contenedor .detallesEquipo .medias > hr{
+  grid-area: separador;
+}
+
+section.contenedor .detallesEquipo .medias > h5{
+  grid-area: titulo;
+}
+
+section.contenedor .detallesEquipo .medias th:nth-of-type(1){
+  grid-area: categoria1;
+}
+section.contenedor .detallesEquipo .medias th:nth-of-type(2){
+  grid-area: categoria2;
+}
+section.contenedor .detallesEquipo .medias th:nth-of-type(3){
+  grid-area: categoria3;
+}
+section.contenedor .detallesEquipo .medias th:nth-of-type(4){
+  grid-area: categoria4;
+}
+section.contenedor .detallesEquipo .medias th:nth-of-type(5){
+  grid-area: categoria5;
+}
+section.contenedor .detallesEquipo .medias th:nth-of-type(6){
+  grid-area: categoria6;
+}
+
+section.contenedor .detallesEquipo .medias td:nth-of-type(1){
+  grid-area: media1;
+}
+section.contenedor .detallesEquipo .medias td:nth-of-type(2){
+  grid-area: media2;
+}
+section.contenedor .detallesEquipo .medias td:nth-of-type(3){
+  grid-area: media3;
+}
+section.contenedor .detallesEquipo .medias td:nth-of-type(4){
+  grid-area: media4;
+}
+section.contenedor .detallesEquipo .medias td:nth-of-type(5){
+  grid-area: media5;
+}
+section.contenedor .detallesEquipo .medias td:nth-of-type(6){
+  grid-area: media6;
+}
+
+section.contenedor .detallesEquipo .listadoJugadores{
+  display: grid;
   grid-row: 3 / 4;
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
 }
 
-section.contenedor section:nth-of-type(3) > h5:nth-of-type(2){
-  grid-row: 4 / 5;
-  grid-column: 1 / 3;
-
-  margin-top: 18px;
+hr{
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  width: 100%;
+  margin: 0px 0 16px 0;
+  height: 2px;
 }
 
-section.contenedor section:nth-of-type(3) > table:nth-of-type(2){
-  grid-row: 5 / 6;
-  grid-column: 1 / 3;
-}
+/*section.contenedor section:nth-of-type(3) > table:nth-of-type(1){*/
+  /*grid-row: 3 / 4;*/
+  /*grid-column: 1 / 3;*/
+/*}*/
+
+/*section.contenedor section:nth-of-type(3) > h5:nth-of-type(2){*/
+  /*grid-row: 4 / 5;*/
+  /*grid-column: 1 / 3;*/
+
+  /*margin-top: 18px;*/
+/*}*/
+
+/*section.contenedor section:nth-of-type(3) > table:nth-of-type(2){*/
+  /*grid-row: 5 / 6;*/
+  /*grid-column: 1 / 3;*/
+/*}*/
 
