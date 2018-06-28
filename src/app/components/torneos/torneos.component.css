@@ -2,3 +2,79 @@ h1,h2,h3,h4,h5,h6{
   font-weight: lighter;
   color: white;
 }
+
+.contenedor{
+  padding-top: 65px;
+  display: grid;
+  grid-template-areas:
+    "titulo"
+    "torneo"
+;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  align-items: center;
+  grid-gap: 16px;
+}
+
+.contenedor h1{
+  grid-area: titulo;
+}
+
+.contenedor .torneo {
+  display: grid;
+  grid-area: torneo;
+
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: auto;
+
+  grid-gap: 16px;
+
+  grid-template-areas:
+    "octavos"
+    "cuartos"
+    "semifinales"
+    "final"
+;
+}
+
+.contenedor .torneo .octavos{
+  display: grid;
+  grid-area: octavos;
+
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  grid-gap: 16px;
+
+  grid-template-areas:
+    "titulo"
+    "cuadro"
+;
+}
+
+.contenedor .torneo .octavos h4{
+  grid-area: titulo;
+  text-align: center;
+}
+
+.contenedor .torneo .octavos .cuadro{
+  grid-area: cuadro;
+
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 16px;
+}
+
+.contenedor .torneo .octavos .cuadro span{
+  color : white;
+  background-color: #1d2124;
+  padding: 16px;
+  border-radius: 5px;
+  border:solid 1px rgba(255, 255, 255, 0.33);
+  text-align: center;
+}
+
+
+
+
+
