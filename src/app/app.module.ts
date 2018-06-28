@@ -17,6 +17,7 @@ import { JugadoresComponent } from './components/jugadores/jugadores.component';
 import { FiltroPosicionPipe } from './pipes/filtro-posicion.pipe';
 import { EquiposComponent } from './components/equipos/equipos.component';
 import { AmistososComponent } from './components/amistosos/amistosos.component';
+import { TorneosComponent } from './components/torneos/torneos.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'jugadores', component: JugadoresComponent },
   { path: 'equipos', component: EquiposComponent },
   { path: 'amistosos', component: AmistososComponent },
+  { path: 'torneos', component: TorneosComponent },
 ];
 
 @NgModule({
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     FiltroPosicionPipe,
     EquiposComponent,
     AmistososComponent,
+    TorneosComponent,
   ],
   imports: [
     BrowserModule,
