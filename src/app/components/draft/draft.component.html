@@ -10,6 +10,7 @@
       <button (click)="generateEquipos()"[disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
       <button (click)="vaciarEquipos()" [disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</button>
       <button (click)="guardarDraft()" [disabled]="listadoequipos[listadoequipos.length-1].jugadores.length != 10 || generadoDraft" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>
+      <!--<button (click)="guardarDraft()" [disabled]="false" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>-->
     </section>
   </section>
 
@@ -28,9 +29,9 @@
   <!--EQUIPO-->
   <section>
     <section>
-        <span><img src="{{draft.equipoSelector.equipo.escudo}}" width="20px" height="35px"></span>
+        <span><img src="{{draft.equipoSelector.equipo.escudo}}" width="70px" height="70px" style="padding: 6px;"></span>
         <span><h1>{{draft.equipoSelector.equipo.name}}</h1></span>
-        <span><img src="{{draft.equipoSelector.equipo.bandera}}" width="35px" height="25px"></span>
+        <span><img src="{{draft.equipoSelector.equipo.bandera}}" width="100px" height="70px" style="padding: 16px;"></span>
     </section>
     <section>
       <table class="table table-striped table-hover table-bordered table-dark table-sm" *ngIf="draft.equipoSelector.equipo.jugadores.length > 0">

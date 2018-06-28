@@ -14,8 +14,8 @@
     <option *ngFor="let equipo of equipoList" [ngValue]="equipo">{{equipo.name}}</option>
   </select>
 
-  <img src="{{equipoLocal.escudo}}" *ngIf="equipoLocal">
-  <img src="{{equipoVisitante.escudo}}" *ngIf="equipoVisitante">
+  <img src="{{equipoLocal.escudo}}" *ngIf="equipoLocal" width="200" height="200">
+  <img src="{{equipoVisitante.escudo}}" *ngIf="equipoVisitante" width="200" height="200">
 
   <table *ngIf="equipoLocal">
     <thead>
@@ -82,7 +82,9 @@
 </section>
 
 <section class="totales">
-  {{marcador.local.final}} - {{marcador.visitante.final}}
+  {{marcador.local.final}} - {{marcador.visitante.final}} <br>
+  <!--<span *ngIf="marcador.local.final !== 0" class="ganador">GANADOR</span><br>-->
+
 </section>
 
 <section class="canvas" style="display: none">

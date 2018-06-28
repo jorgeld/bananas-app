@@ -66,12 +66,24 @@ select:nth-of-type(2){
 img:nth-of-type(1){
   grid-area: imgLocal;
   justify-self: center;
+  padding: 16px;
+  background: linear-gradient(to bottom right, white, #909090);
+  /* background-color: #cecece; */
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 8px;
 }
 
 /*IMAGEN VISITANTE*/
 img:nth-of-type(2){
   grid-area: imgVisitante;
   justify-self: center;
+  padding: 16px;
+  background: linear-gradient(to bottom right, white, #909090);
+  /* background-color: #cecece; */
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 8px;
 }
 
 /*TEXTO MEDIAS LOCAL*/
@@ -103,8 +115,12 @@ table:nth-of-type(2){
   text-align: center;
 
   color: white;
-  font-size: 50px;
+  font-size: 75px;
   font-weight: bolder;
+}
+
+.ganador{
+  font-size: 40px;
 }
 
 .canvas{
