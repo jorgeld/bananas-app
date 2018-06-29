@@ -65,15 +65,46 @@ h1,h2,h3,h4,h5,h6{
   grid-gap: 16px;
 }
 
-.contenedor .torneo .octavos .cuadro span{
+.contenedor .torneo .octavos .cuadro div{
   color : white;
   background-color: #1d2124;
-  padding: 16px;
   border-radius: 5px;
   border:solid 1px rgba(255, 255, 255, 0.33);
   text-align: center;
+  padding: 6px;
+
+
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns : 1fr 1fr 1fr;
+
+  grid-template-areas:
+    "ronda marcador boton"
+    "nombres nombres nombres"
+;
+
 }
 
+.contenedor .torneo .octavos .cuadro div .ronda{
+  color: rgba(255, 255, 255, 0.33);
+  grid-area: ronda;
+  justify-self: start;
+}
+
+.contenedor .torneo .octavos .cuadro div .marcador{
+  grid-area: marcador;
+  justify-self: center;
+}
+
+.contenedor .torneo .octavos .cuadro div .boton{
+  grid-area: boton;
+  justify-self: end;
+}
+
+.contenedor .torneo .octavos .cuadro div .nombres{
+  grid-area: nombres;
+  padding: 12px;
+}
 
 
 
