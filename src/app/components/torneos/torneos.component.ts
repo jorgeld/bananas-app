@@ -14,6 +14,9 @@ export class TorneosComponent implements OnInit {
 
   equipoList = [];
   numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+  equiposCuartos = [];
+
   RONDAS = 7;
   RATIOS = {
     RATIO_ATQ : 250,
@@ -31,7 +34,6 @@ export class TorneosComponent implements OnInit {
     AGR : 5,
     SEX : 5,
   };
-
 
   torneo = {
     octavos : {
@@ -96,14 +98,6 @@ export class TorneosComponent implements OnInit {
       eliminatoria.equipo1.medias = this.generarMedias(eliminatoria.equipo1.jugadores);
       eliminatoria.equipo2.medias = this.generarMedias(eliminatoria.equipo2.jugadores);
 
-      // //Creamos partido
-      // let partido ={
-      //   marcador_equipo1 : 0,
-      //   marcador_equipo2 : 0,
-      //   ganador:'',
-      // };
-      // eliminatoria.partidos.push(partido);
-
 
       //Generamos las puntuaciones para cada atributo y equipo
       let equipos = ['equipo1','equipo2'];
@@ -116,7 +110,6 @@ export class TorneosComponent implements OnInit {
         //generamos marcador
         eliminatoria.partidos[eliminatoria.ronda-1]['marcador_'+equipo]= Math.floor(this.generarMarcadores(equipo,puntos));
       });
-
 
 
       //SI GANAN LOCALES
@@ -141,7 +134,12 @@ export class TorneosComponent implements OnInit {
           eliminatoria.partidos.push(partido);
         // Si el equipo local llega a 4 victorias lo marcamos como ganador de la eliminatoria
         }else{
-          eliminatoria.ganador = eliminatoria.equipo1
+          eliminatoria.ganador = eliminatoria.equipo1;
+          //Añadimos el ganador al array de equipos de la siguiente ronda;
+          this.equiposCuartos.push(eliminatoria.equipo1);
+          console.log('Equipos de cuartos ---> ' , this.equiposCuartos);
+          eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
+          eliminatoria.ultimoPartido2 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2'];
         }
 
       //SI GANA VISITANTE
@@ -167,6 +165,11 @@ export class TorneosComponent implements OnInit {
         // Si el equipo visitante llega a 4 victorias lo marcamos como ganador de la eliminatoria
         }else{
           eliminatoria.ganador = eliminatoria.equipo2;
+          //Añadimos el ganador al array de equipos de la siguiente ronda;
+          this.equiposCuartos.push(eliminatoria.equipo2);
+          // console.log('Ganador eliminatoria ---> ' , eliminatoria);
+          console.log('Equipos de cuartos ---> ' , this.equiposCuartos);
+
           //Guardamos marcador del partido para que se refleje en el frontal
           eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
           eliminatoria.ultimoPartido2 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2'];
@@ -178,9 +181,6 @@ export class TorneosComponent implements OnInit {
         eliminatoria.partidos.slice(eliminatoria.partidos.length -1 ,1)
       }
 
-      console.log('Eliminatoria ---> ' , eliminatoria.partidos);
-
-      // eliminatoria.ronda++
     }
 
   };
