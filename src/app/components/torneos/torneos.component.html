@@ -12,14 +12,15 @@
 
         <div *ngFor="let e of torneo.octavos.eliminatorias">
 
-          <span class="ronda">Ronda {{e.ronda}}</span>
+          <span class="ronda" *ngIf="e.ronda <= 7 && e.estadoEliminatoria.victorias_equipo1 !== 4 && e.estadoEliminatoria.victorias_equipo2 !== 4">Ronda {{e.ronda}}</span>
+          <span class="ronda" *ngIf="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Finalizada</span>
           <span class="global">{{e.estadoEliminatoria.victorias_equipo1}} - {{e.estadoEliminatoria.victorias_equipo2}}</span>
 
           <span class="nombres1">{{e.equipo1.name}}</span>
           <span class="nombres2">{{e.equipo2.name}}</span>
           <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
           <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
-          <button class="boton" (click)="playGame(e)" [disabled]="e.ronda > 7">Jugar <i class="fas fa-basketball-ball"></i></button>
+          <button class="boton" (click)="playGame(e)" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
           <span class="marcador1">{{e.ultimoPartido1}}</span>
           <span class="marcador2">{{e.ultimoPartido2}}</span>
 
