@@ -3,7 +3,7 @@
   <section class="torneo">
 
     <span class="spinner" *ngIf="torneo.octavos.eliminatorias.length == 0">
-    <i class="fas fa-spinner fa-7x fa-spin"></i>
+    <i class="fas fa-circle-notch fa-7x fa-spin"></i>
     </span>
 
     <section class="octavos" *ngIf="torneo.octavos.eliminatorias.length > 0">
@@ -11,25 +11,37 @@
       <article class="cuadro">
 
         <div *ngFor="let e of torneo.octavos.eliminatorias">
+
           <span class="ronda">Ronda {{e.ronda}}</span>
-          <span class="marcador">98 - 47</span>
-          <span class="boton"><i class="fas fa-basketball-ball"></i></span>
-          <span class="nombres"><img src="{{e.equipo1.bandera}}" width="25px" height="25px" style="padding: 16px;">{{e.equipo1.name}} - {{e.equipo2.name}}</span>
+          <span class="global">{{e.estadoEliminatoria.victorias_equipo1}} - {{e.estadoEliminatoria.victorias_equipo2}}</span>
+
+          <span class="nombres1">{{e.equipo1.name}}</span>
+          <span class="nombres2">{{e.equipo2.name}}</span>
+          <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
+          <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
+          <button class="boton" (click)="playGame(e)" [disabled]="e.ronda > 7">Jugar <i class="fas fa-basketball-ball"></i></button>
+          <span class="marcador1">{{e.ultimoPartido1}}</span>
+          <span class="marcador2">{{e.ultimoPartido2}}</span>
+
+
+
+
+
         </div>
       </article>
     </section>
 
-    <section class="cuartos">
-      <h4>Cuartos</h4>
-    </section>
+    <!--<section class="cuartos">-->
+      <!--<h4>Cuartos</h4>-->
+    <!--</section>-->
 
-    <section class="semifinales">
-      <h4>Semifinales</h4>
-    </section>
+    <!--<section class="semifinales">-->
+      <!--<h4>Semifinales</h4>-->
+    <!--</section>-->
 
-    <section class="final">
-      <h2>Final</h2>
-    </section>
+    <!--<section class="final">-->
+      <!--<h2>Final</h2>-->
+    <!--</section>-->
 
   </section>
 </section>
