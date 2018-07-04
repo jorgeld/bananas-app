@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { EquiposService} from "../equipos/equipos.service";
 import {forEach} from "@angular/router/src/utils/collection";
 
@@ -10,10 +10,17 @@ import {forEach} from "@angular/router/src/utils/collection";
 })
 export class TorneosComponent implements OnInit {
 
-  constructor(private _equiposService: EquiposService) { }
+  constructor(private _equiposService: EquiposService) {
+
+  }
 
   equipoList = [];
-  numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  // numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  numbers = {
+    octavos : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+    cuartos : [0,1,2,3,4,5,6,7],
+    semifinales : [0,1,2,3],
+  }
 
   equiposCuartos = [];
 
@@ -39,7 +46,9 @@ export class TorneosComponent implements OnInit {
     octavos : {
       eliminatorias : []
     },
-    cuartos : {},
+    cuartos : {
+      eliminatorias : []
+    },
     semifinales : {},
     final : {},
   };
@@ -49,17 +58,17 @@ export class TorneosComponent implements OnInit {
       .subscribe(
         res =>{
           this.equipoList = res.equipos;
-          this.rellenarTorneo();
+          this.rellenarTorneo('octavos');
         },
         error =>{}
       )
   };
 
-  rellenarTorneo = () => {
+  rellenarTorneo = (ronda) => {
 
-   while(this.numbers.length > 0){
-        let equipoAleatorio1 = this.equipoList[this.seleccionAleatoria()];
-        let equipoAleatorio2 = this.equipoList[this.seleccionAleatoria()];
+   while(this.numbers[ronda].length > 0){
+        let equipoAleatorio1 = this.equipoList[this.seleccionAleatoria(ronda)];
+        let equipoAleatorio2 = this.equipoList[this.seleccionAleatoria(ronda)];
         let eliminatoria = {
           equipo1 : equipoAleatorio1,
           equipo2 :equipoAleatorio2,
@@ -78,7 +87,7 @@ export class TorneosComponent implements OnInit {
           ganador : null
         };
 
-        this.torneo.octavos.eliminatorias.push(eliminatoria)
+        this.torneo[ronda].eliminatorias.push(eliminatoria)
       }
 
     console.log(' ----> torneo ---> ' , this.torneo)
@@ -112,6 +121,15 @@ export class TorneosComponent implements OnInit {
       });
 
 
+
+
+
+
+
+      let marcadores = ['marcador_equipo1','marcador_equipo2'];
+
+
+
       //SI GANAN LOCALES
       if(eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'] > eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2']){
         //Marcamos ganador
@@ -137,7 +155,9 @@ export class TorneosComponent implements OnInit {
           eliminatoria.ganador = eliminatoria.equipo1;
           //Añadimos el ganador al array de equipos de la siguiente ronda;
           this.equiposCuartos.push(eliminatoria.equipo1);
-          console.log('Equipos de cuartos ---> ' , this.equiposCuartos);
+          if(this.equiposCuartos.length === 8) {
+            this.startCuartos()
+          }
           eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
           eliminatoria.ultimoPartido2 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2'];
         }
@@ -167,7 +187,9 @@ export class TorneosComponent implements OnInit {
           eliminatoria.ganador = eliminatoria.equipo2;
           //Añadimos el ganador al array de equipos de la siguiente ronda;
           this.equiposCuartos.push(eliminatoria.equipo2);
-          // console.log('Ganador eliminatoria ---> ' , eliminatoria);
+          if(this.equiposCuartos.length === 8) {
+            this.startCuartos()
+          }
           console.log('Equipos de cuartos ---> ' , this.equiposCuartos);
 
           //Guardamos marcador del partido para que se refleje en el frontal
@@ -235,11 +257,10 @@ export class TorneosComponent implements OnInit {
     return res;
   };
 
-  seleccionAleatoria = () => {
-
-     let num = Math.floor((Math.random() * (this.numbers.length)));
-     let res = this.numbers[num];
-     this.numbers.splice(num,1);
+  seleccionAleatoria = (ronda) => {
+     let num = Math.floor((Math.random() * (this.numbers[ronda].length)));
+     let res = this.numbers[ronda][num];
+     this.numbers[ronda].splice(num,1);
      return res;
   };
 
@@ -268,8 +289,16 @@ export class TorneosComponent implements OnInit {
       - this.generarRandom(puntos[teamOposite].agr , puntos[teamOposite].agr - this.DIFERENCIALES.AGR);
   };
 
+  startCuartos = () => {
+    alert('Arrancando cuartos!');
+    this.rellenarTorneo('cuartos');
+    console.log(' ----> torneo ---> ' , this.torneo)
+  };
+
   ngOnInit() {
-    this.getEquiposList()
+    this.getEquiposList();
+    // console.log(' REF --> ' , this.ref)
+
   }
 
 }
