@@ -74,6 +74,24 @@ h1,h2,h3,h4,h5,h6{
   text-align: center;
 }
 
+.contenedor .torneo .semifinales{
+  display: grid;
+  grid-area: semifinales;
+
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  grid-gap: 16px;
+
+  grid-template-areas:
+    "titulo"
+    "cuadro";
+}
+
+.contenedor .torneo .semifinales h4{
+  grid-area: titulo;
+  text-align: center;
+}
+
 .contenedor .torneo .cuadro{
   grid-area: cuadro;
 

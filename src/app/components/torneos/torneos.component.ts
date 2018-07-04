@@ -15,15 +15,13 @@ export class TorneosComponent implements OnInit {
   }
 
   equipoList = [];
-  // numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   numbers = {
     octavos : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
     cuartos : [0,1,2,3,4,5,6,7],
     semifinales : [0,1,2,3],
-  }
-
+  };
   equiposCuartos = [];
-
+  equiposSemifinales = [];
   RONDAS = 7;
   RATIOS = {
     RATIO_ATQ : 250,
@@ -41,7 +39,6 @@ export class TorneosComponent implements OnInit {
     AGR : 5,
     SEX : 5,
   };
-
   torneo = {
     octavos : {
       eliminatorias : []
@@ -94,7 +91,7 @@ export class TorneosComponent implements OnInit {
 
   };
 
-  playGame = (eliminatoria) => {
+  playGame = (eliminatoria,fase) => {
 
     let puntos = {
       equipo1 : {},
@@ -119,10 +116,6 @@ export class TorneosComponent implements OnInit {
         //generamos marcador
         eliminatoria.partidos[eliminatoria.ronda-1]['marcador_'+equipo]= Math.floor(this.generarMarcadores(equipo,puntos));
       });
-
-
-
-
 
 
 
@@ -154,10 +147,22 @@ export class TorneosComponent implements OnInit {
         }else{
           eliminatoria.ganador = eliminatoria.equipo1;
           //Añadimos el ganador al array de equipos de la siguiente ronda;
-          this.equiposCuartos.push(eliminatoria.equipo1);
-          if(this.equiposCuartos.length === 8) {
-            this.startCuartos()
+
+
+          switch (fase){
+            case 'octavos' :
+              this.equiposCuartos.push(eliminatoria.equipo1);
+              if(this.equiposCuartos.length === 8) {
+                this.startCuartos()
+              }break;
+
+            case 'cuartos' :
+              this.equiposSemifinales.push(eliminatoria.equipo1);
+              if(this.equiposSemifinales.length === 4) {
+                this.startSemifinales()
+              }break;
           }
+
           eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
           eliminatoria.ultimoPartido2 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2'];
         }
@@ -186,11 +191,19 @@ export class TorneosComponent implements OnInit {
         }else{
           eliminatoria.ganador = eliminatoria.equipo2;
           //Añadimos el ganador al array de equipos de la siguiente ronda;
-          this.equiposCuartos.push(eliminatoria.equipo2);
-          if(this.equiposCuartos.length === 8) {
-            this.startCuartos()
+          switch (fase){
+            case 'octavos' :
+              this.equiposCuartos.push(eliminatoria.equipo1);
+              if(this.equiposCuartos.length === 8) {
+                this.startCuartos()
+              }break;
+
+            case 'cuartos' :
+              this.equiposSemifinales.push(eliminatoria.equipo1);
+              if(this.equiposSemifinales.length === 4) {
+                this.startSemifinales()
+              }break;
           }
-          console.log('Equipos de cuartos ---> ' , this.equiposCuartos);
 
           //Guardamos marcador del partido para que se refleje en el frontal
           eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
@@ -292,6 +305,12 @@ export class TorneosComponent implements OnInit {
   startCuartos = () => {
     alert('Arrancando cuartos!');
     this.rellenarTorneo('cuartos');
+    console.log(' ----> torneo ---> ' , this.torneo)
+  };
+
+  startSemifinales = () => {
+    alert('Arrancando semifinales!');
+    this.rellenarTorneo('semifinales');
     console.log(' ----> torneo ---> ' , this.torneo)
   };
 
