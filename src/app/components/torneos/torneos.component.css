@@ -56,7 +56,25 @@ h1,h2,h3,h4,h5,h6{
   text-align: center;
 }
 
-.contenedor .torneo .octavos .cuadro{
+.contenedor .torneo .cuartos{
+  display: grid;
+  grid-area: cuartos;
+
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  grid-gap: 16px;
+
+  grid-template-areas:
+    "titulo"
+    "cuadro";
+}
+
+.contenedor .torneo .cuartos h4{
+  grid-area: titulo;
+  text-align: center;
+}
+
+.contenedor .torneo .cuadro{
   grid-area: cuadro;
 
   display: grid;
@@ -65,7 +83,7 @@ h1,h2,h3,h4,h5,h6{
   grid-gap: 16px;
 }
 
-.contenedor .torneo .octavos .cuadro div{
+.contenedor .torneo .cuadro div{
   color : white;
   background-color: #1d2124;
   border-radius: 5px;
@@ -85,7 +103,7 @@ h1,h2,h3,h4,h5,h6{
 ;
 }
 
-.contenedor .torneo .octavos .cuadro div .ronda{
+.contenedor .torneo .cuadro div .ronda{
   color: rgba(255, 255, 255, 0.62);
   grid-area: ronda;
   border: solid 1px #ffffff3b;
@@ -95,18 +113,18 @@ h1,h2,h3,h4,h5,h6{
   justify-self: center;
 }
 
-.contenedor .torneo .octavos .cuadro div .marcador1{
+.contenedor .torneo .cuadro div .marcador1{
   grid-area: marcador1;
   justify-self: center;
   font-size: 40px;
 }
-.contenedor .torneo .octavos .cuadro div .marcador2{
+.contenedor .torneo .cuadro div .marcador2{
   grid-area: marcador2;
   justify-self: center;
   font-size: 40px;
 }
 
-.contenedor .torneo .octavos .cuadro div .escudoEquipo1{
+.contenedor .torneo .cuadro div .escudoEquipo1{
   grid-area: equipo1escudo;
   justify-self: center;
   align-self: center;
@@ -116,7 +134,7 @@ h1,h2,h3,h4,h5,h6{
   padding: 10px;
 }
 
-.contenedor .torneo .octavos .cuadro div .escudoEquipo2 {
+.contenedor .torneo .cuadro div .escudoEquipo2 {
   grid-area: equipo2escudo;
   justify-self: center;
   align-self: center;
@@ -126,13 +144,13 @@ h1,h2,h3,h4,h5,h6{
   padding: 10px;
 }
 
-.contenedor .torneo .octavos .cuadro div .global{
+.contenedor .torneo .cuadro div .global{
   grid-area: global;
   justify-self: center;
 
 }
 
-.contenedor .torneo .octavos .cuadro div .boton{
+.contenedor .torneo .cuadro div .boton{
   grid-area: boton;
   justify-self: center;
   cursor: pointer;
@@ -144,26 +162,26 @@ h1,h2,h3,h4,h5,h6{
   transition: all 0.2s ease-in-out
 }
 
-.contenedor .torneo .octavos .cuadro div .boton > i{
+.contenedor .torneo .cuadro div .boton > i{
   margin-left: 6px;
 }
 
-.contenedor .torneo .octavos .cuadro div .boton:hover{
+.contenedor .torneo .cuadro div .boton:hover{
   color: rgba(255, 255, 255, 0.70);
 }
 
-.contenedor .torneo .octavos .cuadro div .boton:focus{
+.contenedor .torneo .cuadro div .boton:focus{
   border: none;
 }
 
-.contenedor .torneo .octavos .cuadro div .nombres1{
+.contenedor .torneo .cuadro div .nombres1{
   grid-area: equipo1nombre;
   padding: 12px;
   justify-self: center;
   align-self: center;
   font-size: 12px;
 }
-.contenedor .torneo .octavos .cuadro div .nombres2{
+.contenedor .torneo .cuadro div .nombres2{
   grid-area: equipo2nombre;
   padding: 12px;
   justify-self: center;
