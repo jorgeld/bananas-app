@@ -46,7 +46,9 @@ export class TorneosComponent implements OnInit {
     cuartos : {
       eliminatorias : []
     },
-    semifinales : {},
+    semifinales : {
+      eliminatorias : []
+    },
     final : {},
   };
 
