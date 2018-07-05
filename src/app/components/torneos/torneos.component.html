@@ -18,13 +18,13 @@
           <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
           <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
           <button class="boton" (click)="playGame(e,'octavos')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
-          <span class="marcador1">{{e.ultimoPartido1}}</span>
-          <span class="marcador2">{{e.ultimoPartido2}}</span>
+          <span class="marcador1" *ngIf="e.ultimoPartido1">{{e.ultimoPartido1}}</span><span class="marcador1" *ngIf="!e.ultimoPartido1">0</span>
+          <span class="marcador2" *ngIf="e.ultimoPartido2">{{e.ultimoPartido2}}</span><span class="marcador2" *ngIf="!e.ultimoPartido2">0</span>
         </div>
       </article>
     </section>
 
-    <section class="cuartos" *ngIf="equiposCuartos.length === 8">
+    <section class="cuartos" *ngIf="equipos_cuartos.length === 8">
       <h4>Cuartos</h4>
       <article class="cuadro">
         <div *ngFor="let e of torneo.cuartos.eliminatorias">
@@ -36,13 +36,13 @@
           <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
           <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
           <button class="boton" (click)="playGame(e,'cuartos')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
-          <span class="marcador1">{{e.ultimoPartido1}}</span>
-          <span class="marcador2">{{e.ultimoPartido2}}</span>
+          <span class="marcador1" *ngIf="e.ultimoPartido1">{{e.ultimoPartido1}}</span><span class="marcador1" *ngIf="!e.ultimoPartido1">0</span>
+          <span class="marcador2" *ngIf="e.ultimoPartido2">{{e.ultimoPartido2}}</span><span class="marcador2" *ngIf="!e.ultimoPartido2">0</span>
         </div>
       </article>
     </section>
 
-    <section class="semifinales" *ngIf="equiposSemifinales.length === 4">
+    <section class="semifinales" *ngIf="equipos_semifinales.length === 4">
       <h4>Semifinales</h4>
       <article class="cuadro">
         <div *ngFor="let e of torneo.semifinales.eliminatorias">
@@ -53,16 +53,32 @@
           <span class="nombres2">{{e.equipo2.name}}</span>
           <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
           <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
-          <button class="boton" (click)="playGame(e,'semifinales')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
-          <span class="marcador1">{{e.ultimoPartido1}}</span>
-          <span class="marcador2">{{e.ultimoPartido2}}</span>
+          <button class="boton" (keypress)="playGame(e,'semifinales')" (click)="playGame(e,'semifinales')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
+          <span class="marcador1" *ngIf="e.ultimoPartido1">{{e.ultimoPartido1}}</span><span class="marcador1" *ngIf="!e.ultimoPartido1">0</span>
+          <span class="marcador2" *ngIf="e.ultimoPartido2">{{e.ultimoPartido2}}</span><span class="marcador2" *ngIf="!e.ultimoPartido2">0</span>
         </div>
       </article>
     </section>
 
-    <!--<section class="final">-->
-      <!--<h2>Final</h2>-->
-    <!--</section>-->
+    <section class="final" *ngIf="equipos_final.length === 2">
+      <h2>Final</h2>
+      <article class="cuadro">
+        <div *ngFor="let e of torneo.final.eliminatorias">
+          <span class="ronda" *ngIf="e.ronda <= 7 && e.estadoEliminatoria.victorias_equipo1 !== 4 && e.estadoEliminatoria.victorias_equipo2 !== 4">Ronda {{e.ronda}}</span>
+          <span class="ronda" *ngIf="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Finalizada</span>
+          <span class="global">{{e.estadoEliminatoria.victorias_equipo1}} - {{e.estadoEliminatoria.victorias_equipo2}}</span>
+          <span class="nombres1">{{e.equipo1.name}}</span>
+          <span class="nombres2">{{e.equipo2.name}}</span>
+          <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="50px"></span>
+          <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="50px"></span>
+          <button class="boton" (click)="playGame(e,'final')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
+          <span class="marcador1" *ngIf="e.ultimoPartido1">{{e.ultimoPartido1}}</span><span class="marcador1" *ngIf="!e.ultimoPartido1">0</span>
+          <span class="marcador2" *ngIf="e.ultimoPartido2">{{e.ultimoPartido2}}</span><span class="marcador2" *ngIf="!e.ultimoPartido2">0</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="campeon" *ngIf="campeon"><h1>{{campeon.name}}</h1></section>
 
   </section>
 </section>

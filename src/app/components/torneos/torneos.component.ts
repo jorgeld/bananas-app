@@ -14,14 +14,17 @@ export class TorneosComponent implements OnInit {
 
   }
 
-  equipoList = [];
   numbers = {
     octavos : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
     cuartos : [0,1,2,3,4,5,6,7],
     semifinales : [0,1,2,3],
+    final : [0,1]
   };
-  equiposCuartos = [];
-  equiposSemifinales = [];
+  equipos_octavos = [];
+  equipos_cuartos = [];
+  equipos_semifinales = [];
+  equipos_final = [];
+  campeon;
   RONDAS = 7;
   RATIOS = {
     RATIO_ATQ : 250,
@@ -49,14 +52,16 @@ export class TorneosComponent implements OnInit {
     semifinales : {
       eliminatorias : []
     },
-    final : {},
+    final : {
+      eliminatorias : []
+    },
   };
 
   getEquiposList = () => {
     this._equiposService.getEquiposRest()
       .subscribe(
         res =>{
-          this.equipoList = res.equipos;
+          this.equipos_octavos = res.equipos;
           this.rellenarTorneo('octavos');
         },
         error =>{}
@@ -65,9 +70,11 @@ export class TorneosComponent implements OnInit {
 
   rellenarTorneo = (ronda) => {
 
+    debugger;
+
    while(this.numbers[ronda].length > 0){
-        let equipoAleatorio1 = this.equipoList[this.seleccionAleatoria(ronda)];
-        let equipoAleatorio2 = this.equipoList[this.seleccionAleatoria(ronda)];
+        let equipoAleatorio1 = this['equipos_'+ronda][this.seleccionAleatoria(ronda)];
+        let equipoAleatorio2 = this['equipos_'+ronda][this.seleccionAleatoria(ronda)];
         let eliminatoria = {
           equipo1 : equipoAleatorio1,
           equipo2 :equipoAleatorio2,
@@ -149,20 +156,28 @@ export class TorneosComponent implements OnInit {
         }else{
           eliminatoria.ganador = eliminatoria.equipo1;
           //Añadimos el ganador al array de equipos de la siguiente ronda;
-
-
           switch (fase){
             case 'octavos' :
-              this.equiposCuartos.push(eliminatoria.equipo1);
-              if(this.equiposCuartos.length === 8) {
+              this.equipos_cuartos.push(eliminatoria.equipo1);
+              if(this.equipos_cuartos.length === 8) {
                 this.startCuartos()
               }break;
 
             case 'cuartos' :
-              this.equiposSemifinales.push(eliminatoria.equipo1);
-              if(this.equiposSemifinales.length === 4) {
+              this.equipos_semifinales.push(eliminatoria.equipo1);
+              if(this.equipos_semifinales.length === 4) {
                 this.startSemifinales()
               }break;
+
+            case 'semifinales' :
+              this.equipos_final.push(eliminatoria.equipo1);
+              if(this.equipos_final.length === 2) {
+                this.startFinal()
+              }break;
+
+            case 'final' :
+              this.campeon = eliminatoria.equipo1;break;
+
           }
 
           eliminatoria.ultimoPartido1 = ''+eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'];
@@ -195,16 +210,25 @@ export class TorneosComponent implements OnInit {
           //Añadimos el ganador al array de equipos de la siguiente ronda;
           switch (fase){
             case 'octavos' :
-              this.equiposCuartos.push(eliminatoria.equipo1);
-              if(this.equiposCuartos.length === 8) {
+              this.equipos_cuartos.push(eliminatoria.equipo2);
+              if(this.equipos_cuartos.length === 8) {
                 this.startCuartos()
               }break;
 
             case 'cuartos' :
-              this.equiposSemifinales.push(eliminatoria.equipo1);
-              if(this.equiposSemifinales.length === 4) {
+              this.equipos_semifinales.push(eliminatoria.equipo2);
+              if(this.equipos_semifinales.length === 4) {
                 this.startSemifinales()
               }break;
+
+            case 'semifinales' :
+              this.equipos_final.push(eliminatoria.equipo2);
+              if(this.equipos_final.length === 2) {
+                this.startFinal()
+              }break;
+
+            case 'final' :
+              this.campeon = eliminatoria.equipo2;break;
           }
 
           //Guardamos marcador del partido para que se refleje en el frontal
@@ -315,6 +339,11 @@ export class TorneosComponent implements OnInit {
     this.rellenarTorneo('semifinales');
     console.log(' ----> torneo ---> ' , this.torneo)
   };
+
+  startFinal = () => {
+    alert('Arrancando finales!');
+    this.rellenarTorneo('final');
+  }
 
   ngOnInit() {
     this.getEquiposList();
