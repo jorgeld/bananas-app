@@ -62,6 +62,9 @@ export class TorneosComponent implements OnInit {
       .subscribe(
         res =>{
           this.equipos_octavos = res.equipos;
+
+          console.log(this.equipos_octavos);
+
           this.rellenarTorneo('octavos');
         },
         error =>{}
@@ -172,7 +175,9 @@ export class TorneosComponent implements OnInit {
               }break;
 
             case 'final' :
-              this.campeon = eliminatoria.equipo1;break;
+              this.campeon = eliminatoria.equipo1;
+              this.aumentarPalmares(this.campeon);
+              break;
 
           }
 
@@ -224,7 +229,19 @@ export class TorneosComponent implements OnInit {
               }break;
 
             case 'final' :
-              this.campeon = eliminatoria.equipo2;break;
+              this.campeon = eliminatoria.equipo2;
+              this.aumentarPalmares(this.campeon);
+                // .subscribe(
+                //   res =>{
+                //     this.equipos_octavos = res.equipos;
+                //
+                //     console.log(this.equipos_octavos);
+                //
+                //     this.rellenarTorneo('octavos');
+                //   },
+                //   error =>{}
+                // )
+              break;
           }
 
           //Guardamos marcador del partido para que se refleje en el frontal
@@ -334,6 +351,22 @@ export class TorneosComponent implements OnInit {
 
   startFinal = () => {
     this.rellenarTorneo('final');
+  };
+
+  aumentarPalmares = (ganador) => {
+    if(ganador.hasOwnProperty('palmares')){
+      ganador.palmares = ganador.palmares + 1;
+    }else{
+      ganador.palmares = 1;
+    }
+
+    this._equiposService.updateEquipo(ganador._id, ganador)
+      .subscribe(
+        res =>{
+          alert('Aumentando palmares')
+        },
+        error =>{}
+      )
   };
 
   ngOnInit() {

@@ -19,4 +19,10 @@ export class EquiposService {
     return this._http.get('http://localhost:3000/api/equipo/'+idEquipo)
       .map(res => res.json())
   }
+
+  updateEquipo(idEquipo,body){
+    return this._http.put('http://localhost:3000/api/equipo/update/'+idEquipo, body)
+      .map(res => res.json())
+  }
+
 }
