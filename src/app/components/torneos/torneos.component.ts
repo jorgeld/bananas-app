@@ -35,7 +35,7 @@ export class TorneosComponent implements OnInit {
     RATIO_SEX : 20,
   };
   DIFERENCIALES = {
-    ATQ : 30,
+    ATQ : 40,
     DEF : 10,
     REB : 5,
     PAS : 5,
@@ -70,8 +70,6 @@ export class TorneosComponent implements OnInit {
 
   rellenarTorneo = (ronda) => {
 
-    debugger;
-
    while(this.numbers[ronda].length > 0){
         let equipoAleatorio1 = this['equipos_'+ronda][this.seleccionAleatoria(ronda)];
         let equipoAleatorio2 = this['equipos_'+ronda][this.seleccionAleatoria(ronda)];
@@ -95,8 +93,6 @@ export class TorneosComponent implements OnInit {
 
         this.torneo[ronda].eliminatorias.push(eliminatoria)
       }
-
-    console.log(' ----> torneo ---> ' , this.torneo)
 
   };
 
@@ -329,26 +325,19 @@ export class TorneosComponent implements OnInit {
   };
 
   startCuartos = () => {
-    alert('Arrancando cuartos!');
     this.rellenarTorneo('cuartos');
-    console.log(' ----> torneo ---> ' , this.torneo)
   };
 
   startSemifinales = () => {
-    alert('Arrancando semifinales!');
     this.rellenarTorneo('semifinales');
-    console.log(' ----> torneo ---> ' , this.torneo)
   };
 
   startFinal = () => {
-    alert('Arrancando finales!');
     this.rellenarTorneo('final');
-  }
+  };
 
   ngOnInit() {
     this.getEquiposList();
-    // console.log(' REF --> ' , this.ref)
-
   }
 
 }

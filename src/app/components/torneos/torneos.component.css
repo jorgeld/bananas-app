@@ -111,6 +111,10 @@ h1,h2,h3,h4,h5,h6{
   grid-area: campeon;
 }
 
+.contenedor .torneo .campeon > h1{
+  font-size: 70px;
+}
+
 .contenedor .torneo .final h4{
   grid-area: titulo;
   text-align: center;
@@ -124,6 +128,87 @@ h1,h2,h3,h4,h5,h6{
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 16px;
 }
+
+
+
+
+/*SEMIFINALES*/
+.contenedor .torneo .semis{
+  grid-area: cuadro;
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+
+.contenedor .torneo .semis div .marcador1{
+  grid-area: marcador1;
+  justify-self: center;
+  font-size: 72px !important;
+}
+.contenedor .torneo .semis div .marcador2{
+  grid-area: marcador2;
+  justify-self: center;
+  font-size: 72px !important;
+}
+
+.contenedor .torneo .semis div .nombres1{
+  grid-area: equipo1nombre;
+  padding: 12px;
+  justify-self: center;
+  align-self: center;
+  font-size: 24px !important;
+}
+.contenedor .torneo .semis div .nombres2{
+  grid-area: equipo2nombre;
+  padding: 12px;
+  justify-self: center;
+  align-self: center;
+  font-size: 24px !important;
+}
+
+
+
+
+/*FIN SEMIFINALES*/
+
+/*FINAL*/
+.contenedor .torneo .finales{
+  grid-area: cuadro;
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+}
+
+.contenedor .torneo .finales div .marcador1{
+  grid-area: marcador1;
+  justify-self: center;
+  font-size: 100px !important;
+}
+.contenedor .torneo .finales div .marcador2{
+  grid-area: marcador2;
+  justify-self: center;
+  font-size: 100px !important;
+}
+
+.contenedor .torneo .finales div .nombres1{
+  grid-area: equipo1nombre;
+  padding: 12px;
+  justify-self: center;
+  align-self: center;
+  font-size: 48px !important;
+}
+.contenedor .torneo .finales div .nombres2{
+  grid-area: equipo2nombre;
+  padding: 12px;
+  justify-self: center;
+  align-self: center;
+  font-size: 48px !important;
+}
+/*FIN SEMIFINALES*/
 
 .contenedor .torneo .cuadro div{
   color : white;
