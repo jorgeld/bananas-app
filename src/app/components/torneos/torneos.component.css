@@ -109,10 +109,22 @@ h1,h2,h3,h4,h5,h6{
 .contenedor .torneo .campeon{
   display: grid;
   grid-area: campeon;
+  grid-template-columns: auto;
+  grid-template-row: auto auto;
+
+  justify-self: center;
 }
 
 .contenedor .torneo .campeon > h1{
   font-size: 70px;
+}
+
+.contenedor .torneo .trofeos{
+  justify-self: center;
+}
+
+.contenedor .torneo .trofeos > *{
+  color: #ffac41;
 }
 
 .contenedor .torneo .final h4{

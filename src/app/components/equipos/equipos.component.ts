@@ -40,6 +40,11 @@ export class EquiposComponent implements OnInit {
       .subscribe(
         res=>{
           this.equipoSelected = res.equipo;
+          let trofeos = [];
+          for(let t = 0; t < this.equipoSelected.palmares; t++){
+            trofeos.push(1);
+          }
+          this.equipoSelected.palmares = trofeos;
           this.calculoMedias();
         },
         error =>{

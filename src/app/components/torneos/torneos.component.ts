@@ -363,7 +363,9 @@ export class TorneosComponent implements OnInit {
     this._equiposService.updateEquipo(ganador._id, ganador)
       .subscribe(
         res =>{
-          alert('Aumentando palmares')
+
+
+
         },
         error =>{}
       )

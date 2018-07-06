@@ -24,6 +24,13 @@
       <hr>
     </article>
 
+    <article class="estrellas" *ngIf="equipoSelected.palmares.length > 0">
+      <span class="trofeos" *ngFor="let trofeo of equipoSelected.palmares ">
+        <i class="fas fa-trophy"></i>
+      </span>
+      {{equipoSelected.palmares.length}}
+    </article>
+
     <!--MEDIAS-->
     <article class="medias">
       <h5>Medias</h5>
@@ -42,18 +49,6 @@
       <td>{{medias.agresividad}}</td>
       <td>{{medias.sexualidad}}</td>
 
-      <!--<table>-->
-        <!--<thead>-->
-        <!--<tr>-->
-          <!---->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr>-->
-          <!---->
-        <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
       <hr style="margin-top: 16px">
     </article>
 
