@@ -9,7 +9,11 @@ import { EquiposService } from '../equipos/equipos.service';
 })
 export class EquiposComponent implements OnInit {
 
-  constructor(private _equiposService: EquiposService) { }
+  constructor(private _equiposService: EquiposService) {
+
+
+
+  }
 
   equiposL = [];
   equipoSelected;

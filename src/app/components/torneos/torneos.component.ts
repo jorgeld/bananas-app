@@ -1,18 +1,22 @@
 import {Component, OnInit} from '@angular/core';
+import {Torneo} from "../../clases/torneo"
 import { EquiposService} from "../equipos/equipos.service";
 import {forEach} from "@angular/router/src/utils/collection";
+import {TorneosService} from "./torneos.service";
 
 @Component({
   selector: 'app-torneos',
   templateUrl: './torneos.component.html',
   styleUrls: ['./torneos.component.css'],
-  providers:[ EquiposService ]
+  providers:[ EquiposService,TorneosService]
 })
 export class TorneosComponent implements OnInit {
 
-  constructor(private _equiposService: EquiposService) {
+  constructor(
+    private _equiposService: EquiposService,
+    private _torneosService: TorneosService,
 
-  }
+    ) {}
 
   numbers = {
     octavos : [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
@@ -130,7 +134,6 @@ export class TorneosComponent implements OnInit {
       let marcadores = ['marcador_equipo1','marcador_equipo2'];
 
 
-
       //SI GANAN LOCALES
       if(eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo1'] > eliminatoria.partidos[eliminatoria.ronda-1]['marcador_equipo2']){
         //Marcamos ganador
@@ -175,6 +178,7 @@ export class TorneosComponent implements OnInit {
               }break;
 
             case 'final' :
+              this.finalizarTorneo(eliminatoria);
               this.campeon = eliminatoria.equipo1;
               this.aumentarPalmares(this.campeon);
               break;
@@ -229,6 +233,7 @@ export class TorneosComponent implements OnInit {
               }break;
 
             case 'final' :
+              this.finalizarTorneo(eliminatoria);
               this.campeon = eliminatoria.equipo2;
               this.aumentarPalmares(this.campeon);
                 // .subscribe(
@@ -353,6 +358,30 @@ export class TorneosComponent implements OnInit {
     this.rellenarTorneo('final');
   };
 
+  finalizarTorneo = (eliminatoria) => {
+
+    console.log('FIN TORNEO ------> ' ,eliminatoria);
+    let t;
+
+    if(eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2){
+      let resultado = eliminatoria.estadoEliminatoria.victorias_equipo1 + ' - ' + eliminatoria.estadoEliminatoria.victorias_equipo2;
+      t = new Torneo(eliminatoria.equipo1._id ,eliminatoria.equipo2._id ,resultado);
+    }else{
+      let resultado = eliminatoria.estadoEliminatoria.victorias_equipo2 + ' - ' + eliminatoria.estadoEliminatoria.victorias_equipo1;
+      t = new Torneo(eliminatoria.equipo2._id ,eliminatoria.equipo1._id,resultado);
+    }
+
+    this._torneosService.newTorneo(t)
+      .subscribe(
+        res =>{ console.log('devolución servicio -----> ' , res)
+        },
+        error =>{}
+      )
+
+
+
+  };
+
   aumentarPalmares = (ganador) => {
     if(ganador.hasOwnProperty('palmares')){
       ganador.palmares = ganador.palmares + 1;
@@ -363,9 +392,6 @@ export class TorneosComponent implements OnInit {
     this._equiposService.updateEquipo(ganador._id, ganador)
       .subscribe(
         res =>{
-
-
-
         },
         error =>{}
       )
