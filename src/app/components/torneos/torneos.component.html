@@ -53,7 +53,7 @@
           <span class="nombres2">{{e.equipo2.name}}</span>
           <span class="escudoEquipo1"><img src="{{e.equipo1.escudo}}" width="100px"></span>
           <span class="escudoEquipo2"><img src="{{e.equipo2.escudo}}" width="100px"></span>
-          <button class="boton" (keypress)="playGame(e,'semifinales')" (click)="playGame(e,'semifinales')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
+          <button class="boton" (click)="playGame(e,'semifinales')" [disabled]="e.ronda > 7 || e.estadoEliminatoria.victorias_equipo1 === 4 || e.estadoEliminatoria.victorias_equipo2 === 4">Jugar <i class="fas fa-basketball-ball"></i></button>
           <span class="marcador1" *ngIf="e.ultimoPartido1">{{e.ultimoPartido1}}</span><span class="marcador1" *ngIf="!e.ultimoPartido1">0</span>
           <span class="marcador2" *ngIf="e.ultimoPartido2">{{e.ultimoPartido2}}</span><span class="marcador2" *ngIf="!e.ultimoPartido2">0</span>
         </div>

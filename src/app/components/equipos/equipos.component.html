@@ -67,6 +67,7 @@
           <th scope="col">PAS</th>
           <th scope="col">AGV</th>
           <th scope="col">SEX</th>
+          <th scope="col"> - </th>
         </tr>
         </thead>
         <tbody>
@@ -81,10 +82,16 @@
           <td>{{jugador.atributos.pase}}</td>
           <td>{{jugador.atributos.agresividad}}</td>
           <td>{{jugador.atributos.sexualidad}}</td>
+          <td><button class="btn btn-secondary btn-sm" [disabled]="equipoSelected.jugadores.length < 10" (click)="despedirJugador(jugador)"><i class="fas fa-trash"></i></button></td>
         </tr>
         </tbody>
       </table>
     </article>
+  </section>
+
+  <section>
+    <h1>Añadimos jugador</h1>
+
   </section>
 
 </section>

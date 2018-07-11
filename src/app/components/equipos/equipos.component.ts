@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { EquiposService } from '../equipos/equipos.service';
+import { JugadoresService } from '../jugadores/jugadores.service';
 
 @Component({
   selector: 'app-equipos',
   templateUrl: './equipos.component.html',
   styleUrls: ['./equipos.component.css'],
-  providers : [EquiposService]
+  providers : [EquiposService,JugadoresService]
 })
 export class EquiposComponent implements OnInit {
 
-  constructor(private _equiposService: EquiposService) {
-
-
-
-  }
+  constructor(
+    private _equiposService: EquiposService,
+    private _jugadoresService: JugadoresService
+  ) {}
 
   equiposL = [];
   equipoSelected;
@@ -88,6 +88,40 @@ export class EquiposComponent implements OnInit {
     }else{
       console.log(`No hay equipo seleccionado o equipo no tiene jugadores`)
     }
+  };
+
+  despedirJugador = (jugador) => {
+    console.log('equipo seleccionado -----> ' , this.equipoSelected);
+    console.log('jugaodor seleccionado -----> ' , jugador);
+
+    // Despedimos jugador
+    let bodyParse = {
+      'puesto' : jugador.posicion,
+    };
+    this.equipoSelected.jugadores.splice(this.equipoSelected.jugadores.indexOf(jugador),1);
+
+    this._jugadoresService.newJugador(bodyParse)
+      .subscribe(
+        result =>{
+          this.equipoSelected.jugadores.push(result.jugador);
+          this._equiposService.updateEquipo(this.equipoSelected._id,this.equipoSelected)
+            .subscribe(
+              result => {
+                this.calculoMedias();
+              },
+              error => {
+                console.log(`Error al actualizar plantilla ----> ${error}`);
+                alert(error);
+              }
+            );
+        },
+        error => {
+          console.log(`Error al crear jugador ----> ${error}`);
+          alert(error);
+        }
+      );
+
+
   };
 
   ngOnInit() {

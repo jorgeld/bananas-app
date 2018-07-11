@@ -15,7 +15,6 @@ export class TorneosComponent implements OnInit {
   constructor(
     private _equiposService: EquiposService,
     private _torneosService: TorneosService,
-
     ) {}
 
   numbers = {
@@ -377,8 +376,6 @@ export class TorneosComponent implements OnInit {
         },
         error =>{}
       )
-
-
 
   };
 

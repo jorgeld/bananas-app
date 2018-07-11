@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover table-bordered table-dark table-sm" style="margin-top: 64px">
+  <thead>
+    <tr>
+      <td>Campeón</td>
+      <td>Subcampeón</td>
+      <td>Resultado</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of torneos">
+      <td><img width="22px" src="{{t.campeon.bandera}}"><span style="padding-left: 16px;"></span>{{t.campeon.name}}</td>
+      <td><img width="22px" src="{{t.subcampeon.bandera}}"><span style="padding-left: 16px;"></span>{{t.subcampeon.name}}</td>
+      <td>{{t.resultado}}</td>
+    </tr>
+  </tbody>
+</table>
