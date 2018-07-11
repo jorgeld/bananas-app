@@ -380,6 +380,9 @@ export class TorneosComponent implements OnInit {
   };
 
   aumentarPalmares = (ganador) => {
+
+    console.log('Actualizando equipo ---->', ganador);
+
     if(ganador.hasOwnProperty('palmares')){
       ganador.palmares = ganador.palmares + 1;
     }else{

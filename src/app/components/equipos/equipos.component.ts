@@ -90,6 +90,20 @@ export class EquiposComponent implements OnInit {
     }
   };
 
+  guardar = () => {
+    let id = this.equipoSelected._id;
+    this._equiposService.updateEquipo(id, {jugadores : this.equipoSelected.jugadores})
+      .subscribe(
+        result => {
+          this.calculoMedias();
+        },
+        error => {
+          console.log(`Error al actualizar plantilla ----> ${error}`);
+          alert(error);
+        }
+      );
+  };
+
   despedirJugador = (jugador) => {
     console.log('equipo seleccionado -----> ' , this.equipoSelected);
     console.log('jugaodor seleccionado -----> ' , jugador);
@@ -103,8 +117,10 @@ export class EquiposComponent implements OnInit {
     this._jugadoresService.newJugador(bodyParse)
       .subscribe(
         result =>{
+          console.log('Actualizando equipo ---->', this.equipoSelected);
           this.equipoSelected.jugadores.push(result.jugador);
-          this._equiposService.updateEquipo(this.equipoSelected._id,this.equipoSelected)
+          let id = this.equipoSelected._id;
+          this._equiposService.updateEquipo(id, {jugadores : this.equipoSelected.jugadores})
             .subscribe(
               result => {
                 this.calculoMedias();
