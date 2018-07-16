@@ -105,8 +105,6 @@ export class EquiposComponent implements OnInit {
   };
 
   despedirJugador = (jugador) => {
-    console.log('equipo seleccionado -----> ' , this.equipoSelected);
-    console.log('jugaodor seleccionado -----> ' , jugador);
 
     // Despedimos jugador
     let bodyParse = {
