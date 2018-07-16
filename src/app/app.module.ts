@@ -20,6 +20,8 @@ import { AmistososComponent } from './components/amistosos/amistosos.component';
 import { TorneosComponent } from './components/torneos/torneos.component';
 import { HistoricoComponent } from './components/historico/historico.component';
 import { LigaComponent } from './components/liga/liga.component';
+import { JornadaComponent } from './components/liga/jornada/jornada.component';
+import { PartidoComponent } from './components/liga/jornada/partido/partido.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
@@ -50,6 +52,8 @@ const appRoutes: Routes = [
     TorneosComponent,
     HistoricoComponent,
     LigaComponent,
+    JornadaComponent,
+    PartidoComponent,
   ],
   imports: [
     BrowserModule,
