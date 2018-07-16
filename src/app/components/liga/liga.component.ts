@@ -127,25 +127,18 @@ export class LigaComponent implements OnInit {
 
   generandoPartidosJornada = (equipos) => {
 
-    let jornada = [];
-
-    let partido = {
-      local:'',
-      visitante:'',
-      marcador:''
-    };
-
-
-    while(equipos.length > 0){
-      debugger;
-      partido.local = equipos[0];
-      partido.visitante = equipos[1];
-      jornada.push(partido);
-      equipos.splice(0,2);
-    }
-
-    return jornada;
-
+    return [
+      {local:equipos[0],visitante:equipos[1],marcador:''},
+      {local:equipos[2],visitante:equipos[3],marcador:''},
+      {local:equipos[4],visitante:equipos[5],marcador:''},
+      {local:equipos[6],visitante:equipos[7],marcador:''},
+      {local:equipos[8],visitante:equipos[9],marcador:''},
+      {local:equipos[10],visitante:equipos[11],marcador:''},
+      {local:equipos[12],visitante:equipos[13],marcador:''},
+      {local:equipos[14],visitante:equipos[15],marcador:''},
+      {local:equipos[16],visitante:equipos[17],marcador:''},
+      {local:equipos[18],visitante:equipos[19],marcador:''},
+    ];
   };
 
   ngOnInit() {
