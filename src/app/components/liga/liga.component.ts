@@ -1,17 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {EquiposService} from "../equipos/equipos.service";
 import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-liga',
   templateUrl: './liga.component.html',
-  styleUrls: ['./liga.component.css']
+  styleUrls: ['./liga.component.css'],
+  providers:[EquiposService]
 })
 export class LigaComponent implements OnInit {
 
-  constructor() { }
+  constructor( private _equiposService: EquiposService ) { }
 
   auxLiga = [] ;
   jornadas = [];
+  equipos = [];
 
   generandoLiga = () => {
   //funcion que desordena el array para generar la jornada base inicial
@@ -45,16 +48,21 @@ export class LigaComponent implements OnInit {
     return arrAux;
   }
 
-  //Asignar equipos
-  var equipos = ["Osasuna", "Eibar", "Alaves", "Athletic", "Barcelona", "Real Madrid",
-    "Sevilla", "Atletico de Madrid", "Real Sociedad", "Villareal",
-    "Leganes", "Granada", "Deportivo", "Celta", "Sporting", "Espanyol",
-    "Malaga", "Betis", "Valencia", "Las Palmas"];
-  //Jornadas Total de la ida
-  var jornadasTotal = [];
-  //Variable donde se almacenan los arrays de la ida y de la vuelta
-  var calendarioFinal = [];
-  var jornadaBase = shuffle(equipos);
+    // //Asignar equipos
+    // var equipos = ["Osasuna", "Eibar", "Alaves", "Athletic", "Barcelona", "Real Madrid",
+    //   "Sevilla", "Atletico de Madrid", "Real Sociedad", "Villareal",
+    //   "Leganes", "Granada", "Deportivo", "Celta", "Sporting", "Espanyol",
+    //   "Malaga", "Betis", "Valencia", "Las Palmas"];
+
+    let equipos = this.equipos;
+
+    //Jornadas Total de la ida
+    let jornadasTotal = [];
+    //Variable donde se almacenan los arrays de la ida y de la vuelta
+    let calendarioFinal = [];
+    let jornadaBase = shuffle(equipos);
+
+
 
   //funcionamiento si es una jornada impar
   function crearJornadaImpar(arrayBase){
@@ -113,8 +121,6 @@ export class LigaComponent implements OnInit {
   calendarioFinal.push(arrayCalendarioVuelta);
   this.auxLiga = calendarioFinal;
   this.organizandoCalendario();
-
-  console.log(calendarioFinal)
   };
 
   organizandoCalendario = () => {
@@ -142,7 +148,14 @@ export class LigaComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.generandoLiga();
+
+    this._equiposService.getEquiposRest()
+      .subscribe(
+        res => {
+          this.equipos = res.equipos;
+          this.generandoLiga();
+        }
+      );
   }
 
 }

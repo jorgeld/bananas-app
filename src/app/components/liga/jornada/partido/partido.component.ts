@@ -10,8 +10,8 @@ export class PartidoComponent implements OnInit {
 
   constructor() { }
 
-  @Input() equipoLocal: string;
-  @Input() equipoVisitante: string;
+  @Input() equipoLocal: object;
+  @Input() equipoVisitante: object;
 
   ngOnInit() {
   }

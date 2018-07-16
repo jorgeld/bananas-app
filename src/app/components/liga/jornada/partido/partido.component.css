@@ -40,6 +40,10 @@ section.partido span.marcador{
   grid-area: marcador;
 }
 
+img{
+  margin-right: 6px;
+}
+
 
 
 
