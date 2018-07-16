@@ -19,6 +19,7 @@ import { EquiposComponent } from './components/equipos/equipos.component';
 import { AmistososComponent } from './components/amistosos/amistosos.component';
 import { TorneosComponent } from './components/torneos/torneos.component';
 import { HistoricoComponent } from './components/historico/historico.component';
+import { LigaComponent } from './components/liga/liga.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   { path: 'amistosos', component: AmistososComponent },
   { path: 'torneos', component: TorneosComponent },
   { path: 'historico', component: HistoricoComponent },
+  { path: 'liga', component: LigaComponent },
 ];
 
 @NgModule({
@@ -47,6 +49,7 @@ const appRoutes: Routes = [
     AmistososComponent,
     TorneosComponent,
     HistoricoComponent,
+    LigaComponent,
   ],
   imports: [
     BrowserModule,

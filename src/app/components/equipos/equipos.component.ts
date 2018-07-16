@@ -136,8 +136,6 @@ export class EquiposComponent implements OnInit {
           alert(error);
         }
       );
-
-
   };
 
   ngOnInit() {

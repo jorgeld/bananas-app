@@ -397,6 +397,7 @@ export class TorneosComponent implements OnInit {
       )
   };
 
+
   ngOnInit() {
     this.getEquiposList();
   }
