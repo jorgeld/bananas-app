@@ -7,7 +7,7 @@ section.partido{
   grid-template-columns: auto 1fr auto 1fr auto;
   grid-template-areas:
     "boton equipoLocal separador equipoVisitante marcador";
-  padding: 12px;
+  padding: 6px;
   margin: 3px 0 3px 0;
   color : white;
   background-color: #1d2124;

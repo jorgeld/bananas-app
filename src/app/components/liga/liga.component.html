@@ -1,1 +1,4 @@
-<app-jornada></app-jornada>
+
+<section *ngFor="let jornada of jornadas; let i=index">
+  <app-jornada [numJornada]="i" [jornada]="jornada"></app-jornada>
+</section>

@@ -1,122 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-liga',
   templateUrl: './liga.component.html',
-  styleUrls: ['./liga.component.css'],
+  styleUrls: ['./liga.component.css']
 })
 export class LigaComponent implements OnInit {
 
   constructor() { }
 
-//   //Asignar equipos
-//   equipos = ["Osasuna", "Eibar", "Alaves", "Athletic", "Barcelona", "Real Madrid",
-//     "Sevilla", "Atletico de Madrid", "Real Sociedad", "Villareal",
-//     "Leganes", "Granada", "Deportivo", "Celta", "Sporting", "Espanyol",
-//     "Malaga", "Betis", "Valencia", "Las Palmas"];
-//   //Jornadas Total de la ida
-//   jornadasTotal = [];
-//   //Variable donde se almacenan los arrays de la ida y de la vuelta
-//   calendarioFinal = [];
-//
-//
-//
-//   //funcion que desordena el array para generar la jornada base inicial
-//   shuffle = (array) => {
-//     let counter = array.length;
-//     while (counter > 0) {
-//       let index = Math.floor(Math.random() * counter);
-//       counter--;
-//       let temp = array[counter];
-//       array[counter] = array[index];
-//       array[index] = temp;
-//     }
-//     return array;
-//   };
-//
-//   jornadaBase = this.shuffle(this.equipos);
-//
-// //funcionamiento de calculo si es jornada par
-//   crearJornadaPar = (arrayBase) => {
-//     var arrAux = [];
-//     var longitudArrayBase = arrayBase.length;
-//     for (var i=0; i<longitudArrayBase; i++){
-//       if (i % 2 == 0){
-//         arrAux[i+1] = arrayBase[i];
-//       } else {
-//         if (i == 1){
-//           arrAux[longitudArrayBase - 2] = arrayBase[i];
-//         } else {
-//           arrAux[i-3] = arrayBase[i];
-//         }
-//       }
-//     }
-//     return arrAux;
-//   };
-//
-//   //funcionamiento si es una jornada impar
-//   crearJornadaImpar = (arrayBase) => {
-//     var arrAux = [];
-//     var longitudArrayBase = arrayBase.length;
-//     for (var i=0; i<longitudArrayBase; i++){
-//       if (i == 0 || i == longitudArrayBase - 1 || i == longitudArrayBase){
-//         if (i == 0 || i == longitudArrayBase){
-//           arrAux[i] = arrayBase[i];
-//         } else if (i == longitudArrayBase - 1){
-//           arrAux[1] = arrayBase[longitudArrayBase - 1];
-//         }
-//       } else {
-//         arrAux[i+1] = arrayBase[i];
-//       }
-//     }
-//     return arrAux;
-//   };
-//
-//   // generar el calendario de ida a partir de una jornada tomada como base
-//   generarCalendario = (jornadasTotal, jornadaBase) => {
-//     jornadasTotal.push(jornadaBase);
-//     for(var i=2;i<jornadaBase.length;i++){
-//       if (i % 2 == 0){
-//         var jornadaAuxPar = this.crearJornadaPar(jornadaBase);
-//         jornadasTotal.push(jornadaAuxPar);
-//         jornadaBase = jornadaAuxPar;
-//       } else {
-//         var jornadaAuxImpar = this.crearJornadaImpar(jornadaBase);
-//         jornadasTotal.push(jornadaAuxImpar);
-//         jornadaBase = jornadaAuxImpar;
-//       }
-//     }
-//     return jornadasTotal;
-//   };
-//
-//   generarCalendarioVuelta = (calendarioIda) => {
-//     var calArr = [];
-//     for (var i=0; i<calendarioIda.length;i++){
-//       var aux = calendarioIda[i].reverse();
-//       calArr[i] = aux;
-//     }
-//     return calArr;
-//   };
-//
-//
-//
-//   //Genero el calendario de la ida
-//   arrayCalendarioIda = this.generarCalendario(this.jornadasTotal, this.jornadaBase);
-//   //document.getElementById("ida").innerHTML = pintarJornadasHTML(arrayCalendarioIda, 1);
-//   //Agregamos ida
-//   calendarioFinal.push(arrayCalendarioIda);
-//
-//   //Genero calendario de vuelta
-//
-//   //document.getElementById("vuelta").innerHTML = pintarJornadasHTML(arrayCalendarioVuelta, 2);
-//   //Agregamos vuelta
-//   calendarioFinal.push(arrayCalendarioVuelta);
-//
-//
-//   // console.log(calendarioFinal)
+  auxLiga = [] ;
+  jornadas = [];
 
   generandoLiga = () => {
-
   //funcion que desordena el array para generar la jornada base inicial
   function shuffle(array) {
     let counter = array.length;
@@ -197,7 +94,7 @@ export class LigaComponent implements OnInit {
   function generarCalendarioVuelta(calendarioIda){
     var calArr = [];
     for (var i=0; i<calendarioIda.length;i++){
-      var aux = calendarioIda[i].reverse()
+      var aux = calendarioIda[i].reverse();
       calArr[i] = aux;
     }
     return calArr;
@@ -214,8 +111,41 @@ export class LigaComponent implements OnInit {
   //document.getElementById("vuelta").innerHTML = pintarJornadasHTML(arrayCalendarioVuelta, 2);
   //Agregamos vuelta
   calendarioFinal.push(arrayCalendarioVuelta);
+  this.auxLiga = calendarioFinal;
+  this.organizandoCalendario();
 
   console.log(calendarioFinal)
+  };
+
+  organizandoCalendario = () => {
+    this.auxLiga.forEach((vuelta) => {
+      vuelta.forEach((jornadas) => {
+        this.jornadas.push(this.generandoPartidosJornada(jornadas));
+      })
+    })
+  };
+
+  generandoPartidosJornada = (equipos) => {
+
+    let jornada = [];
+
+    let partido = {
+      local:'',
+      visitante:'',
+      marcador:''
+    };
+
+
+    while(equipos.length > 0){
+      debugger;
+      partido.local = equipos[0];
+      partido.visitante = equipos[1];
+      jornada.push(partido);
+      equipos.splice(0,2);
+    }
+
+    return jornada;
+
   };
 
   ngOnInit() {
