@@ -1,4 +1,24 @@
+<section class="container">
 
-<section *ngFor="let jornada of jornadas; let i=index">
-  <app-jornada [numJornada]="i" [jornada]="jornada"></app-jornada>
+  <section style="display: flex;padding: 6px;">
+    <button class="btn btn-secondary" (click)="showClasificacion = false" [disabled]="!showClasificacion" style="margin-right: 6px">Liga</button>
+    <button class="btn btn-secondary" (click)="showClasificacion = true" [disabled]="showClasificacion">Clasificación</button>
+  </section>
+
+  <div *ngIf="!showClasificacion">
+    <section class="liga" *ngFor="let jornada of jornadas; let i=index">
+      <app-jornada
+        [numJornada]="i"
+        [jornada]="jornada"
+        (datosClasificacion)="enviandoResultadoPartido($event)"></app-jornada>
+    </section>
+  </div>
+
+
+  <section class="clasificacion" *ngIf="showClasificacion">
+    <app-clasificacion
+      (datosClasificacion)="enviandoResultadoPartido($event)"
+      ></app-clasificacion>
+  </section>
+
 </section>

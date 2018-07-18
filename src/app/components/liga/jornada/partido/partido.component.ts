@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-partido',
@@ -13,6 +13,14 @@ export class PartidoComponent implements OnInit {
   @Input() equipoLocal: object;
   @Input() equipoVisitante: object;
   @Input() marcador: any;
+
+  @Output() public resultadoPartido = new EventEmitter();
+
+  public enviandoResultadoPartido = (marcador) => {
+    this.resultadoPartido.emit(marcador);
+    console.log('Enviando marcador desde partido ---> ' , marcador)
+  };
+
   RATIOS = {
     RATIO_ATQ : 250,
     RATIO_DEF : 80,
@@ -49,12 +57,10 @@ export class PartidoComponent implements OnInit {
       atributos.forEach((atributo) => {
         puntos[equipo][atributo] = this.generarPuntuaciones(partido[equipo], atributo.toUpperCase());
       });
-
       //generamos marcador
       this.marcador = ''+Math.floor(this.generarMarcadores('equipo1',puntos)) +' - '+Math.floor(this.generarMarcadores('equipo2',puntos));
     });
-
-    console.log(puntos)
+    this.enviandoResultadoPartido(this.marcador);
   };
 
   generarMedias = (jugadores) => {

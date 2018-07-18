@@ -22,6 +22,7 @@ import { HistoricoComponent } from './components/historico/historico.component';
 import { LigaComponent } from './components/liga/liga.component';
 import { JornadaComponent } from './components/liga/jornada/jornada.component';
 import { PartidoComponent } from './components/liga/jornada/partido/partido.component';
+import { ClasificacionComponent } from './components/liga/clasificacion/clasificacion.component';
 
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     LigaComponent,
     JornadaComponent,
     PartidoComponent,
+    ClasificacionComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,16 @@
-section{
+section.container{
   margin-top: 100px;
+  /*display: grid;*/
+  /*grid-template-rows: auto;*/
+  /*grid-template-columns: 1fr 1fr;*/
+  /*grid-template-areas: "liga clasificacion";*/
+  /*grid-grow:16px*/
+}
+
+section.container section.liga{
+  grid-area: liga;
+}
+
+section.container section.clasificacion{
+  grid-area: clasificacion;
 }

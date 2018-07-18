@@ -1,0 +1,15 @@
+section{
+  padding:6px;
+  border: solid 1px rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  background-color: rgba(42, 44, 45, 1);
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.33);
+}
+
+
+h3{
+  color: white;
+  font-weight: lighter;
+  margin: 0;
+  padding: 6px;
+}

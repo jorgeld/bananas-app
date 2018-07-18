@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EquiposService} from "../equipos/equipos.service";
 import {forEach} from "@angular/router/src/utils/collection";
 
@@ -15,6 +15,13 @@ export class LigaComponent implements OnInit {
   auxLiga = [] ;
   jornadas = [];
   equipos = [];
+
+  puntos = '';
+
+
+  enviandoResultadoPartido = (param) => {
+    console.log('Recibiendo datos en Liga ---> ' , param);
+  };
 
   generandoLiga = () => {
   //funcion que desordena el array para generar la jornada base inicial

@@ -1,7 +1,7 @@
 <section class="partido">
-  <h6 class="equipoLocal"><img src="{{equipoLocal.bandera}}" width="25">{{equipoLocal.name}}</h6>
+  <h6 class="equipoLocal"><img src="{{equipoLocal.escudo}}" width="25">{{equipoLocal.name}}</h6>
   <span> VS </span>
-  <h6 class="equipoVisitante"><img src="{{equipoVisitante.bandera}}" width="25">{{equipoVisitante.name}}</h6>
+  <h6 class="equipoVisitante"><img src="{{equipoVisitante.escudo}}" width="25">{{equipoVisitante.name}}</h6>
   <button class="btn btn-sm btn-secondary" [disabled]="marcador !== ''" (click)="playGame({equipo1:equipoLocal,equipo2:equipoVisitante})">Play</button>
   <span class="marcador">
     {{marcador}}

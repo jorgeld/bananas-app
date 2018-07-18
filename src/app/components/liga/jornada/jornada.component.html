@@ -6,6 +6,7 @@
     <app-partido [equipoLocal] = "partido.local"
                  [equipoVisitante] = "partido.visitante"
                  [(marcador)] = "partido.marcador"
+                 (resultadoPartido)="enviandoResultadoPartido($event)"
     >
     </app-partido>
   </article>
