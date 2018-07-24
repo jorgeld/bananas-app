@@ -61,6 +61,7 @@ export class PartidoComponent implements OnInit {
       //generamos marcador
       this.marcador = ''+Math.floor(this.generarMarcadores('equipo1',puntos)) +' - '+Math.floor(this.generarMarcadores('equipo2',puntos));
     });
+    this.newM(this.marcador);
     this.newMessage(this.marcador);
     this.enviandoResultadoPartido(this.marcador);
   };
@@ -140,6 +141,10 @@ export class PartidoComponent implements OnInit {
   };
 
   newMessage(param) {}
+
+  newM(param){
+    this.data.cambiandoMensaje(param);
+  }
 
   ngOnInit() {}
 

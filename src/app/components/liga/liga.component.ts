@@ -158,6 +158,13 @@ export class LigaComponent implements OnInit {
 
   ngOnInit() {
 
+    this.data._cm
+      .subscribe(
+        res => this.message = res,
+        err => console.log(err),
+        () => console.log('completo')
+      );
+
     this._equiposService.getEquiposRest()
       .subscribe(
         res => {

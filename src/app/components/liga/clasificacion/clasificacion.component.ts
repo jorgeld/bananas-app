@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { DataService } from "../data.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-clasificacion',
@@ -13,8 +14,14 @@ export class ClasificacionComponent implements OnInit {
 
   message:any;
 
-  ngOnInit() {
+  private m = '';
 
+  ngOnInit() {
+    this.data._cm
+      .subscribe(
+        msg => { this.m = msg },
+        error =>{ console.log('Error ---->', error)},
+        () => { console.log('completo')})
   }
 
 }

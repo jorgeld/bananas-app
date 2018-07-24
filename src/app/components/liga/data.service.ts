@@ -1,25 +1,20 @@
 import {Injectable} from '@angular/core';
-import { BehaviorSubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class DataService{
 
-  private messageSource = new BehaviorSubject('default message');
-
-  currentMessage = this.messageSource.asObservable();
-
-  private cm =  new Subject<string>();
+  private cm =  new BehaviorSubject<string>('Example');
   public _cm = this.cm.asObservable();
 
   constructor() {}
 
-  changeMessage(message: string) {
-    this.messageSource.next(message);
-    console.log('Recibiendo llamada en fichero servicios 2 ---> ' , message);
-    console.log('Nuevo valor 2 ---> ' , this.currentMessage);
-    this.cm.next(message)
+  cambiandoMensaje(param){
+    console.log('Valor parametro' , param);
+    this.cm.next(param);
+    console.log('Nuevo valor cm ---> ' , this.cm);
   }
 
 }
