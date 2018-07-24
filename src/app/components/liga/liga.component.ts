@@ -1,27 +1,29 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, OnDestroy} from '@angular/core';
 import {EquiposService} from "../equipos/equipos.service";
-import {forEach} from "@angular/router/src/utils/collection";
+import { DataService } from "./data.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-liga',
   templateUrl: './liga.component.html',
   styleUrls: ['./liga.component.css'],
-  providers:[EquiposService]
+  providers:[EquiposService,DataService]
 })
 export class LigaComponent implements OnInit {
 
-  constructor( private _equiposService: EquiposService ) { }
+  constructor(
+    private _equiposService: EquiposService,
+    private data: DataService
+  ) { }
 
   auxLiga = [] ;
   jornadas = [];
   equipos = [];
 
-  puntos = '';
+  message:string;
+  private message2: Subscription = null;
 
-
-  enviandoResultadoPartido = (param) => {
-    console.log('Recibiendo datos en Liga ---> ' , param);
-  };
+  // mss = this.data.messageSource;
 
   generandoLiga = () => {
   //funcion que desordena el array para generar la jornada base inicial
@@ -163,6 +165,9 @@ export class LigaComponent implements OnInit {
           this.generandoLiga();
         }
       );
+  }
+
+  ngOnDestroy(){
   }
 
 }

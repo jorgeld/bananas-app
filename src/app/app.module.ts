@@ -67,6 +67,7 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
+
   ],
   bootstrap: [AppComponent]
 })

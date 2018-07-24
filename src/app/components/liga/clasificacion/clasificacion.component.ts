@@ -1,26 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { DataService } from "../data.service";
 
 @Component({
   selector: 'app-clasificacion',
   templateUrl: './clasificacion.component.html',
-  styleUrls: ['./clasificacion.component.css']
+  styleUrls: ['./clasificacion.component.css'],
+  providers:[DataService]
 })
 export class ClasificacionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private data: DataService) {}
 
-  enviandoResultadoPartido = (param) => {
-    console.log('Recibiendo datos en Clasificacion---> ' , param);
-  };
-
-  PRUEBA = 0;
-
-  // recibiendoDatosPartido = (param) => {
-  //   console.log('Recibiendo en liga --> ' , param);
-  //   this.PRUEBA = param
-  // };
+  message:any;
 
   ngOnInit() {
+
   }
 
 }

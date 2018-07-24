@@ -1,24 +1,28 @@
 <section class="container">
 
-  <section style="display: flex;padding: 6px;">
-    <button class="btn btn-secondary" (click)="showClasificacion = false" [disabled]="!showClasificacion" style="margin-right: 6px">Liga</button>
-    <button class="btn btn-secondary" (click)="showClasificacion = true" [disabled]="showClasificacion">Clasificación</button>
-  </section>
+  <!--<section style="display: flex;padding: 6px;">-->
+    <!--<button class="btn btn-secondary" (click)="showClasificacion = false" [disabled]="!showClasificacion" style="margin-right: 6px">Liga</button>-->
+    <!--<button class="btn btn-secondary" (click)="showClasificacion = true" [disabled]="showClasificacion">Clasificación</button>-->
+  <!--</section>-->
 
-  <div *ngIf="!showClasificacion">
+  <!--<div *ngIf="!showClasificacion">-->
+
+
+  <pre>{{message}}</pre>
+  <!--<pre>{{mss}}</pre>-->
+
+
+  <div>
     <section class="liga" *ngFor="let jornada of jornadas; let i=index">
       <app-jornada
         [numJornada]="i"
         [jornada]="jornada"
-        (datosClasificacion)="enviandoResultadoPartido($event)"></app-jornada>
+        ></app-jornada>
     </section>
   </div>
 
-
-  <section class="clasificacion" *ngIf="showClasificacion">
-    <app-clasificacion
-      (datosClasificacion)="enviandoResultadoPartido($event)"
-      ></app-clasificacion>
+  <section class="clasificacion">
+    <app-clasificacion></app-clasificacion>
   </section>
 
 </section>

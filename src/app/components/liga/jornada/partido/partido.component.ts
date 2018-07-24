@@ -1,14 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { DataService } from "../../data.service";
 
 @Component({
   selector: 'app-partido',
   templateUrl: './partido.component.html',
   styleUrls: ['./partido.component.css'],
   inputs:['equipoLocal','equipoVisitante','marcador'],
+  providers : [DataService]
 })
 export class PartidoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   @Input() equipoLocal: object;
   @Input() equipoVisitante: object;
@@ -18,7 +20,6 @@ export class PartidoComponent implements OnInit {
 
   public enviandoResultadoPartido = (marcador) => {
     this.resultadoPartido.emit(marcador);
-    console.log('Enviando marcador desde partido ---> ' , marcador)
   };
 
   RATIOS = {
@@ -60,6 +61,7 @@ export class PartidoComponent implements OnInit {
       //generamos marcador
       this.marcador = ''+Math.floor(this.generarMarcadores('equipo1',puntos)) +' - '+Math.floor(this.generarMarcadores('equipo2',puntos));
     });
+    this.newMessage(this.marcador);
     this.enviandoResultadoPartido(this.marcador);
   };
 
@@ -102,8 +104,8 @@ export class PartidoComponent implements OnInit {
     return medias;
 
   };
-  generarRandom = (max , min) => {
 
+  generarRandom = (max , min) => {
     let res = Math.floor(
       Math.random() * (
         max - min
@@ -111,6 +113,7 @@ export class PartidoComponent implements OnInit {
     );
     return res;
   };
+
   generarPuntuaciones = (equipo,atributo) => {
     let response;
     switch (atributo){
@@ -123,6 +126,7 @@ export class PartidoComponent implements OnInit {
     }
     return response;
   };
+
   generarMarcadores = (equipo,puntos) => {
     let teamOposite;
     (equipo === 'equipo1')? teamOposite = 'equipo1': teamOposite = 'equipo2';
@@ -135,7 +139,8 @@ export class PartidoComponent implements OnInit {
       - this.generarRandom(puntos[teamOposite].agr , puntos[teamOposite].agr - this.DIFERENCIALES.AGR);
   };
 
-  ngOnInit() {
-  }
+  newMessage(param) {}
+
+  ngOnInit() {}
 
 }

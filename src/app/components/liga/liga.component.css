@@ -1,10 +1,10 @@
 section.container{
   margin-top: 100px;
-  /*display: grid;*/
+  display: grid;
   /*grid-template-rows: auto;*/
-  /*grid-template-columns: 1fr 1fr;*/
-  /*grid-template-areas: "liga clasificacion";*/
-  /*grid-grow:16px*/
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "liga clasificacion";
+  grid-gap: 16px;
 }
 
 section.container section.liga{
