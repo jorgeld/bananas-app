@@ -7,7 +7,7 @@ import { Subscription } from "rxjs/Subscription";
   selector: 'app-liga',
   templateUrl: './liga.component.html',
   styleUrls: ['./liga.component.css'],
-  providers:[EquiposService,DataService]
+  providers:[EquiposService]
 })
 export class LigaComponent implements OnInit {
 

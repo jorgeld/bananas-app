@@ -5,8 +5,7 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
   selector: 'app-clasificacion',
   templateUrl: './clasificacion.component.html',
-  styleUrls: ['./clasificacion.component.css'],
-  providers:[DataService]
+  styleUrls: ['./clasificacion.component.css']
 })
 export class ClasificacionComponent implements OnInit {
 
@@ -14,14 +13,13 @@ export class ClasificacionComponent implements OnInit {
 
   message:any;
 
-  private m = '';
-
   ngOnInit() {
     this.data._cm
       .subscribe(
-        msg => { this.m = msg },
-        error =>{ console.log('Error ---->', error)},
-        () => { console.log('completo')})
+        res => this.message = res,
+        err => console.log(err),
+        () => console.log('completo')
+      );
   }
 
 }

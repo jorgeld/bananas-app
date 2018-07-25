@@ -24,6 +24,8 @@ import { JornadaComponent } from './components/liga/jornada/jornada.component';
 import { PartidoComponent } from './components/liga/jornada/partido/partido.component';
 import { ClasificacionComponent } from './components/liga/clasificacion/clasificacion.component';
 
+import {DataService} from "./components/liga/data.service";
+
 const appRoutes: Routes = [
   { path: 'usuarios', component: UsersComponent },
   { path: 'monkeys', component: MonkeysComponent },
@@ -63,11 +65,11 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     )
   ],
   providers: [
-
+    DataService
   ],
   bootstrap: [AppComponent]
 })

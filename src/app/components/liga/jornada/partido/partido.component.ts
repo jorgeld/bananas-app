@@ -5,8 +5,7 @@ import { DataService } from "../../data.service";
   selector: 'app-partido',
   templateUrl: './partido.component.html',
   styleUrls: ['./partido.component.css'],
-  inputs:['equipoLocal','equipoVisitante','marcador'],
-  providers : [DataService]
+  inputs:['equipoLocal','equipoVisitante','marcador']
 })
 export class PartidoComponent implements OnInit {
 
@@ -146,6 +145,8 @@ export class PartidoComponent implements OnInit {
     this.data.cambiandoMensaje(param);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
 }

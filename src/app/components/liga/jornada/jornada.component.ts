@@ -6,7 +6,6 @@ import { DataService } from "../data.service";
   templateUrl: './jornada.component.html',
   styleUrls: ['./jornada.component.css'],
   inputs:['numJornada','jornada'],
-  providers : [DataService]
 })
 
 export class JornadaComponent implements OnInit {

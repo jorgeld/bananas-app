@@ -11,10 +11,8 @@ export class DataService{
 
   constructor() {}
 
-  cambiandoMensaje(param){
-    console.log('Valor parametro' , param);
+  cambiandoMensaje(param:any){
     this.cm.next(param);
-    console.log('Nuevo valor cm ---> ' , this.cm);
   }
 
 }
