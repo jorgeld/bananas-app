@@ -14,12 +14,13 @@ export class PartidoComponent implements OnInit {
   @Input() equipoLocal: object;
   @Input() equipoVisitante: object;
   @Input() marcador: any;
-
   @Output() public resultadoPartido = new EventEmitter();
 
   public enviandoResultadoPartido = (marcador) => {
     this.resultadoPartido.emit(marcador);
   };
+  private marcadorEquipo1;
+  private marcadorEquipo2;
 
   RATIOS = {
     RATIO_ATQ : 250,
@@ -58,11 +59,47 @@ export class PartidoComponent implements OnInit {
         puntos[equipo][atributo] = this.generarPuntuaciones(partido[equipo], atributo.toUpperCase());
       });
       //generamos marcador
-      this.marcador = ''+Math.floor(this.generarMarcadores('equipo1',puntos)) +' - '+Math.floor(this.generarMarcadores('equipo2',puntos));
+      this.marcadorEquipo1 = Math.floor(this.generarMarcadores('equipo1',puntos))
+      this.marcadorEquipo2 = Math.floor(this.generarMarcadores('equipo2',puntos))
+      this.marcador = ''+this.marcadorEquipo1 +' - '+this.marcadorEquipo2;
     });
-    this.newM(this.marcador);
-    this.newMessage(this.marcador);
-    this.enviandoResultadoPartido(this.marcador);
+
+    let resultado = {
+      ganador : {
+        equipo : {},
+        puntosFavor : 0,
+        puntosContra:0
+      },
+      perdedor : {
+        equipo : {},
+        puntosFavor : 0,
+        puntosContra:0
+      }
+    };
+
+    //Chequeamos que no hay empate
+    if(this.marcadorEquipo1 !== this.marcadorEquipo2){
+
+      if(this.marcadorEquipo1 > this.marcadorEquipo2){
+        resultado.ganador.equipo = partido.equipo1;
+        resultado.ganador.puntosContra = this.marcadorEquipo2;
+        resultado.ganador.puntosFavor = this.marcadorEquipo1;
+        resultado.perdedor.equipo = partido.equipo2;
+        resultado.perdedor.puntosContra = this.marcadorEquipo1;
+        resultado.perdedor.puntosFavor = this.marcadorEquipo2;
+      }else{
+        resultado.ganador.equipo = partido.equipo2;
+        resultado.ganador.puntosContra = this.marcadorEquipo1;
+        resultado.ganador.puntosFavor = this.marcadorEquipo2;
+        resultado.perdedor.equipo = partido.equipo1;
+        resultado.perdedor.puntosContra = this.marcadorEquipo2;
+        resultado.perdedor.puntosFavor = this.marcadorEquipo1;
+      }
+
+    }
+
+    this.nuevoResultado(resultado);
+
   };
 
   generarMedias = (jugadores) => {
@@ -139,9 +176,7 @@ export class PartidoComponent implements OnInit {
       - this.generarRandom(puntos[teamOposite].agr , puntos[teamOposite].agr - this.DIFERENCIALES.AGR);
   };
 
-  newMessage(param) {}
-
-  newM(param){
+  nuevoResultado(param){
     this.data.cambiandoMensaje(param);
   }
 

@@ -1,3 +1,27 @@
 <section>
   <h3>Clasificación {{message}}</h3>
+  <table class="table-dark">
+    <thead>
+      <tr>
+        <td>Nombre</td>
+        <td>J</td>
+        <td>G</td>
+        <td>P</td>
+        <td>PF</td>
+        <td>PC</td>
+        <td>DIF</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipos of clasificacion">
+        <td class="nombreEquipo">{{equipos.name}}</td>
+        <td>{{equipos.est.jugados}}</td>
+        <td>{{equipos.est.ganados}}</td>
+        <td>{{equipos.est.perdidos}}</td>
+        <td>{{equipos.est.pf}}</td>
+        <td>{{equipos.est.pc}}</td>
+        <td>{{equipos.est.pf - equipos.est.pc}}</td>
+      </tr>
+    </tbody>
+  </table>
 </section>

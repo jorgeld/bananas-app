@@ -20,7 +20,7 @@ export class LigaComponent implements OnInit {
   jornadas = [];
   equipos = [];
 
-  message:string;
+  resultado:object;
   private message2: Subscription = null;
 
   // mss = this.data.messageSource;
@@ -56,12 +56,6 @@ export class LigaComponent implements OnInit {
     }
     return arrAux;
   }
-
-    // //Asignar equipos
-    // var equipos = ["Osasuna", "Eibar", "Alaves", "Athletic", "Barcelona", "Real Madrid",
-    //   "Sevilla", "Atletico de Madrid", "Real Sociedad", "Villareal",
-    //   "Leganes", "Granada", "Deportivo", "Celta", "Sporting", "Espanyol",
-    //   "Malaga", "Betis", "Valencia", "Las Palmas"];
 
     let equipos = this.equipos;
 
@@ -160,7 +154,7 @@ export class LigaComponent implements OnInit {
 
     this.data._cm
       .subscribe(
-        res => this.message = res,
+        res => this.resultado = res,
         err => console.log(err),
         () => console.log('completo')
       );

@@ -5,6 +5,20 @@ section{
   background-color: rgba(42, 44, 45, 1);
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.33);
   margin-top: 25px;
+  position: fixed;
+}
+
+section table.table-dark{
+  background-color: transparent;
+}
+
+section table.table-dark tbody tr td {
+  min-width: 75px;
+  font-size: 12px;
+}
+
+section table.table-dark tbody tr td.nombreEquipo{
+  min-width: 200px;
 }
 
 
