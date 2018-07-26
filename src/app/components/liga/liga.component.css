@@ -2,7 +2,7 @@ section.container{
   margin-top: 100px;
   display: grid;
   /*grid-template-rows: auto;*/
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 60% 40%;
   grid-template-areas: "liga clasificacion";
   grid-gap: 16px;
 }

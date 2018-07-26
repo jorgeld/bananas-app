@@ -13,8 +13,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let equipos of clasificacion">
-        <td class="nombreEquipo">{{equipos.name}}</td>
+      <tr *ngFor="let equipos of clasificacion;let i=index"
+          [ngClass]="
+          {'bg-danger' : this.i >16 , 'bg-primary' : this.i === 0, 'bg-secondary' : this.i > 0 && this.i < 8}
+          "
+      >
+        <td class="nombreEquipo"><img src="{{equipos.bandera}}">{{equipos.name}}</td>
         <td>{{equipos.est.jugados}}</td>
         <td>{{equipos.est.ganados}}</td>
         <td>{{equipos.est.perdidos}}</td>

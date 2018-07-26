@@ -21,6 +21,10 @@ section table.table-dark tbody tr td.nombreEquipo{
   min-width: 200px;
 }
 
+img{
+  margin: 12px;
+  width: 16px;
+}
 
 h3{
   color: white;
