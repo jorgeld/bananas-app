@@ -8,9 +8,8 @@ export class Torneo {
   resultado:string;
 
   constructor(campeon:object,subcampeon:object,resultado:string){
-    // debugger;
     this.campeon = campeon;
     this.subcampeon = subcampeon;
-    this.resultado = resultado
+    this.resultado = resultado;
   }
 }

@@ -24,12 +24,16 @@
       <hr>
     </article>
 
-    <article class="estrellas" *ngIf="equipoSelected.palmares.length > 0">
-      <span class="trofeos" *ngFor="let trofeo of equipoSelected.palmares ">
-        <i class="fas fa-trophy"></i>
-      </span>
-      {{equipoSelected.palmares.length}}
+    <article class="palmares">
+      <article class="estrellas" *ngIf="equipoSelected.copas">
+        <i class="fas fa-trophy"></i>{{equipoSelected.copas}}
+      </article>
+
+      <article class="estrellasSub" *ngIf="equipoSelected.subcampeonatosCopa">
+        <i class="fas fa-trophy"></i>{{equipoSelected.subcampeonatosCopa}}
+      </article>
     </article>
+
 
     <!--MEDIAS-->
     <article class="medias">

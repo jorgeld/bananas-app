@@ -3,6 +3,7 @@ import {Torneo} from "../../clases/torneo"
 import { EquiposService} from "../equipos/equipos.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {TorneosService} from "./torneos.service";
+import {forkJoin} from "rxjs/observable/forkJoin";
 
 @Component({
   selector: 'app-torneos',
@@ -28,6 +29,7 @@ export class TorneosComponent implements OnInit {
   equipos_semifinales = [];
   equipos_final = [];
   campeon;
+  subcampeon;
   RONDAS = 7;
   RATIOS = {
     RATIO_ATQ : 250,
@@ -179,7 +181,8 @@ export class TorneosComponent implements OnInit {
             case 'final' :
               this.finalizarTorneo(eliminatoria);
               this.campeon = eliminatoria.equipo1;
-              this.aumentarPalmares(this.campeon);
+              this.subcampeon = eliminatoria.equipo2;
+              this.aumentarPalmares(this.campeon, this.subcampeon, 'copa');
               break;
 
           }
@@ -234,7 +237,8 @@ export class TorneosComponent implements OnInit {
             case 'final' :
               this.finalizarTorneo(eliminatoria);
               this.campeon = eliminatoria.equipo2;
-              this.aumentarPalmares(this.campeon);
+              this.subcampeon = eliminatoria.equipo1;
+              this.aumentarPalmares(this.campeon, this.subcampeon, 'copa');
                 // .subscribe(
                 //   res =>{
                 //     this.equipos_octavos = res.equipos;
@@ -360,17 +364,33 @@ export class TorneosComponent implements OnInit {
   finalizarTorneo = (eliminatoria) => {
 
     console.log('FIN TORNEO ------> ' ,eliminatoria);
-    let t;
 
-    if(eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2){
-      let resultado = eliminatoria.estadoEliminatoria.victorias_equipo1 + ' - ' + eliminatoria.estadoEliminatoria.victorias_equipo2;
-      t = new Torneo(eliminatoria.equipo1._id ,eliminatoria.equipo2._id ,resultado);
-    }else{
-      let resultado = eliminatoria.estadoEliminatoria.victorias_equipo2 + ' - ' + eliminatoria.estadoEliminatoria.victorias_equipo1;
-      t = new Torneo(eliminatoria.equipo2._id ,eliminatoria.equipo1._id,resultado);
-    }
+    let torneo;
 
-    this._torneosService.newTorneo(t)
+    let campeon = {
+      equipo :
+        (eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2)? eliminatoria.equipo1 : eliminatoria.equipo2,
+      resultado :
+        (eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2)?eliminatoria.estadoEliminatoria.victorias_equipo1:eliminatoria.estadoEliminatoria.victorias_equipo2
+    };
+
+    let subcampeon = {
+      equipo:
+        (eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2)? eliminatoria.equipo2 : eliminatoria.equipo1,
+      resultado:
+        (eliminatoria.estadoEliminatoria.victorias_equipo1 > eliminatoria.estadoEliminatoria.victorias_equipo2)?eliminatoria.estadoEliminatoria.victorias_equipo2:eliminatoria.estadoEliminatoria.victorias_equipo1
+    };
+
+
+    torneo = new Torneo(
+      campeon.equipo._id,
+      subcampeon.equipo._id,
+      campeon.resultado +' - ' + subcampeon.resultado
+    );
+
+    console.log('TORNEO --> ' , torneo);
+
+    this._torneosService.newTorneo(torneo)
       .subscribe(
         res =>{ console.log('devolución servicio -----> ' , res)
         },
@@ -379,22 +399,62 @@ export class TorneosComponent implements OnInit {
 
   };
 
-  aumentarPalmares = (ganador) => {
+  aumentarPalmares = (campeon, subcampeon, tipoTorneo) => {
 
-    console.log('Actualizando equipo ---->', ganador);
+    // Si el tipo de torneo es COPA
+    if(tipoTorneo && tipoTorneo === 'copa'){
+      if(campeon.hasOwnProperty('copas')){
+        campeon.copas = campeon.copas + 1;
+      }else{
+        campeon.copas = 1
+      }
 
-    if(ganador.hasOwnProperty('palmares')){
-      ganador.palmares = ganador.palmares + 1;
+      if(subcampeon.hasOwnProperty('subcampeonatosCopa')){
+        subcampeon.subcampeonatosCopa = subcampeon.subcampeonatosCopa + 1
+      }else{
+        subcampeon.subcampeonatosCopa = 1
+      }
+
+
+
+      //Si el tipo de torno es LIGA
+    }else if(tipoTorneo && tipoTorneo === 'liga'){
+
+      if(campeon.hasOwnProperty('ligas')){
+        campeon.ligas = campeon.ligas + 1;
+      }else{
+        campeon.ligas = 1
+      }
+
+      if(subcampeon.hasOwnProperty('subcampeonatosLiga')){
+        subcampeon.subcampeonatosLiga = subcampeon.subcampeonatosLiga + 1
+      }else{
+        subcampeon.subcampeonatosLiga = 1
+      }
+
     }else{
-      ganador.palmares = 1;
+      alert('Tipo torneo fail');
     }
 
-    this._equiposService.updateEquipo(ganador._id, ganador)
-      .subscribe(
-        res =>{
-        },
-        error =>{}
-      )
+     forkJoin([
+       this._equiposService.updateEquipo(campeon._id, campeon),
+       this._equiposService.updateEquipo(subcampeon._id, subcampeon),
+     ]).subscribe(
+     res => {console.log('actualizado equipos --> ' , res)}
+     )
+
+    // this._equiposService.updateEquipo(campeon._id, campeon)
+    //   .subscribe(
+    //     res =>{
+    //       this._equiposService.updateEquipo(subcampeon._id, subcampeon)
+    //         .subscribe(
+    //           res => {
+    //             console.log('Actualizado palmares equipo')
+    //           }
+    //         )
+    //     },
+    //     error =>{}
+    //   )
   };
 
   ngOnInit() {
