@@ -23,7 +23,7 @@ export class PartidoComponent implements OnInit {
   private marcadorEquipo2;
 
   RATIOS = {
-    RATIO_ATQ : 250,
+    RATIO_ATQ : 225,
     RATIO_DEF : 80,
     RATIO_REB : 20,
     RATIO_PAS : 20,
@@ -31,7 +31,7 @@ export class PartidoComponent implements OnInit {
     RATIO_SEX : 20,
   };
   DIFERENCIALES = {
-    ATQ : 40,
+    ATQ : 50,
     DEF : 10,
     REB : 5,
     PAS : 5,

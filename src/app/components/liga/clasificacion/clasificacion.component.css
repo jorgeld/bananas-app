@@ -18,11 +18,11 @@ section table.table-dark tbody tr td {
 }
 
 section table.table-dark tbody tr td.nombreEquipo{
-  min-width: 200px;
+  min-width: 125px;
 }
 
 img{
-  margin: 12px;
+  margin: 2px 6px 2px 6px;
   width: 16px;
 }
 

@@ -6,9 +6,9 @@
   <section>
     <h1>Draft</h1>
     <section class="botones">
-      <button (click)="eliminarEquipos()"[disabled]="true" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
-      <button (click)="generateEquipos()"[disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
-      <button (click)="vaciarEquipos()" [disabled]="true" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</button>
+      <button (click)="eliminarEquipos()"[disabled]="false" style="margin-right: 6px" ><span *ngIf="eliminandoEquipos"><i class="fas fa-circle-notch fa-spin" ></i></span> Eliminar Equipos</button>
+      <button (click)="generateEquipos()"[disabled]="false" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="generandoEquipos"><i class="fas fa-circle-notch fa-spin"></i></span>Generar Equipos</button>
+      <button (click)="vaciarEquipos()" [disabled]="false" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="vaciarJugadoresEquipo"><i class="fas fa-circle-notch fa-spin"></i></span>Vaciar Equipo</button>
       <button (click)="guardarDraft()" [disabled]="listadoequipos[listadoequipos.length-1].jugadores.length != 10 || generadoDraft" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>
       <!--<button (click)="guardarDraft()" [disabled]="false" style="margin-right: 6px"><span style="margin-right: 6px" *ngIf="draft.guardandoDraft"><i class="fas fa-circle-notch fa-spin"></i></span>Guardar Draft</button>-->
     </section>
